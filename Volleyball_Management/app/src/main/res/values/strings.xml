@@ -1,11 +1,5 @@
 <resources>
     <string name="app_name">Volleyball_Management</string>
 
-    <string-array name="Usertype">
-    <item>League Manager</item>
-    <item>Team Manager</item>
-    <item>Admin</item>
 
-
-    </string-array>
 </resources>
