@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volleyball.EF", "Volleyball
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volleyball.Common", "Volleyball.Common\Volleyball.Common.csproj", "{FD476CC5-91A6-482D-A656-6403667F8BC8}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VolleyballAPI", "VolleyballAPI\VolleyballAPI.vbproj", "{00D23079-1CFB-47FB-B55C-D238B3833EB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolleyballAPI", "VolleyballAPI\VolleyballAPI.csproj", "{0A51BE52-5B6E-452F-A10C-41F6DB8D8DD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{FD476CC5-91A6-482D-A656-6403667F8BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD476CC5-91A6-482D-A656-6403667F8BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD476CC5-91A6-482D-A656-6403667F8BC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00D23079-1CFB-47FB-B55C-D238B3833EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00D23079-1CFB-47FB-B55C-D238B3833EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00D23079-1CFB-47FB-B55C-D238B3833EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00D23079-1CFB-47FB-B55C-D238B3833EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A51BE52-5B6E-452F-A10C-41F6DB8D8DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A51BE52-5B6E-452F-A10C-41F6DB8D8DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A51BE52-5B6E-452F-A10C-41F6DB8D8DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A51BE52-5B6E-452F-A10C-41F6DB8D8DD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

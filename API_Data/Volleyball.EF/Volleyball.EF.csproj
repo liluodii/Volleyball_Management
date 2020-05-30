@@ -59,16 +59,59 @@
   <ItemGroup>
     <Compile Include="CustomClasses\CRequest.cs" />
     <Compile Include="CustomClasses\CResponse.cs" />
+    <Compile Include="PlayerMaster.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleMaster.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMaster.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Volleyball.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Volleyball.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Volleyball.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Volleyball.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Volleyball.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <EntityDeploy Include="Volleyball.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Volleyball.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Volleyball.edmx.diagram">
+      <DependentUpon>Volleyball.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Volleyball.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Volleyball.edmx</DependentUpon>
+      <LastGenOutput>Volleyball.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Volleyball.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Volleyball.edmx</DependentUpon>
+      <LastGenOutput>Volleyball.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

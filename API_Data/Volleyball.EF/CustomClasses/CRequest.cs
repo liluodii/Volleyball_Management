@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Volleyball.EF.CustomClasses
 {
-   public class CRequest
+    public class CRequest
     {
+        public class CReqUserLogin
+        {
+            public string APIKey { get; set; }
+            public string EmailID { get; set; }
+            public string Password { get; set; }
+
+        }
+
     }
 }

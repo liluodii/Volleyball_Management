@@ -11,7 +11,7 @@ namespace VolleyballService.Services
 
         string TOKEN = "123";
 
-        public bool ValidateAPIToken(string APIKey, string JData, string MethodName)
+        public bool ValidateAPIToken(string APIKey)
         {
            
             bool _IsValid = false;
@@ -34,10 +34,6 @@ namespace VolleyballService.Services
         }
 
 
-        public string ConvertJsontoString(object Data)
-        {
-            string result = JsonConvert.SerializeObject(Data);
-            return result;
-        }
+       
     }
 }
