@@ -17,7 +17,9 @@ namespace Volleyball.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserMaster()
         {
+            this.LeagueManagers = new HashSet<LeagueManager>();
             this.PlayerMasters = new HashSet<PlayerMaster>();
+            this.TeamManagers = new HashSet<TeamManager>();
         }
     
         public int ID { get; set; }
@@ -28,7 +30,11 @@ namespace Volleyball.EF
         public Nullable<int> RoleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeagueManager> LeagueManagers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayerMaster> PlayerMasters { get; set; }
         public virtual RoleMaster RoleMaster { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TeamManager> TeamManagers { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Volleyball.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VolleyballEntities : DbContext
+    public partial class DB_A43E53_volleyballEntities : DbContext
     {
-        public VolleyballEntities()
-            : base("name=VolleyballEntities")
+        public DB_A43E53_volleyballEntities()
+            : base("name=DB_A43E53_volleyballEntities")
         {
         }
     
@@ -25,8 +25,12 @@ namespace Volleyball.EF
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<LeagueManager> LeagueManagers { get; set; }
         public virtual DbSet<PlayerMaster> PlayerMasters { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamManager> TeamManagers { get; set; }
+        public virtual DbSet<TeamMember> TeamMembers { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
     }
 }

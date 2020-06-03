@@ -4,10 +4,10 @@ namespace VolleyballService.Services
 {
     public class CConnect
     {
-       public VolleyballEntities DC;  
+       public DB_A43E53_volleyballEntities DC;  
         public CConnect()
         {
-            DC = new VolleyballEntities();
+            DC = new DB_A43E53_volleyballEntities();
         }
     }
 }

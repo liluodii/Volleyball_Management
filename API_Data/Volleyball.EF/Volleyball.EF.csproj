@@ -59,11 +59,23 @@
   <ItemGroup>
     <Compile Include="CustomClasses\CRequest.cs" />
     <Compile Include="CustomClasses\CResponse.cs" />
+    <Compile Include="LeagueManager.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
     <Compile Include="PlayerMaster.cs">
       <DependentUpon>Volleyball.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleMaster.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Team.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeamManager.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeamMember.cs">
       <DependentUpon>Volleyball.tt</DependentUpon>
     </Compile>
     <Compile Include="UserMaster.cs">

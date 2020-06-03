@@ -7,6 +7,7 @@ using static Volleyball.EF.CustomClasses.CRequest;
 using static Volleyball.EF.CustomClasses.CResponse;
 using Volleyball.EF;
 using Volleyball.Common;
+using System.Net;
 
 namespace VolleyballService.Services
 {
@@ -29,21 +30,48 @@ namespace VolleyballService.Services
                 {
                     if (user.Password == Data.Password)
                     {
-                        resData.EmailID = user.EmailID;
-                        resData.Contact = user.PlayerMasters.FirstOrDefault()?.Contact;
-                        resData.FirstName = user.PlayerMasters.FirstOrDefault()?.FirstName;
-                        resData.LastName = user.PlayerMasters.FirstOrDefault()?.LastName;
-                        resData.Gender = user.PlayerMasters.FirstOrDefault()?.Gender;
-                        resData.Contact = user.PlayerMasters.FirstOrDefault()?.Contact;
+                        if (user.RoleID == 2)
+                        {
+                            resData.EmailID = user.EmailID;
+                            resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
+                            resData.FirstName = user.LeagueManagers.FirstOrDefault()?.FirstName;
+                            resData.LastName = user.LeagueManagers.FirstOrDefault()?.LastName;
+                            resData.Gender = user.LeagueManagers.FirstOrDefault()?.Gender;
+                            resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
 
-                        resData.JoinDate = user.PlayerMasters.FirstOrDefault()?.JoinDate.ToString();
-                        resData.DOB = user.PlayerMasters.FirstOrDefault()?.DOB.ToString();
-                        resData.Experience = user.PlayerMasters.FirstOrDefault()?.Experience;
-                        string profilePic = user.PlayerMasters.FirstOrDefault()?.ProfilePic;
-                        resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : profilePic;
+                            resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.ToString();
+                            resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.ToString();
 
-                        resData.RoleID = user.RoleID;
-                        resData.RoleName = user.RoleMaster.Name;
+                            string profilePic = user.LeagueManagers.FirstOrDefault()?.ProfilePic;
+                            resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic; ;
+
+                            resData.RoleID = user.RoleID;
+                            resData.RoleName = user.RoleMaster.Name;
+                        }
+                        else if (user.RoleID == 3)
+                        {
+                            resData.EmailID = user.EmailID;
+                            resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
+                            resData.FirstName = user.TeamManagers.FirstOrDefault()?.FirstName;
+                            resData.LastName = user.TeamManagers.FirstOrDefault()?.LastName;
+                            resData.Gender = user.TeamManagers.FirstOrDefault()?.Gender;
+                            resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
+
+                            resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
+                            resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
+
+                            string profilePic = user.TeamManagers.FirstOrDefault()?.ProfilePic;
+                            resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "": BaseService.GetURL()+profilePic;
+
+                            resData.RoleID = user.RoleID;
+                            resData.RoleName = user.RoleMaster.Name;
+                        }
+                        else
+                        {
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = "User does not exist";
+                            return obj;
+                        }
                     }
                     else
                     {

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Configuration;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 
@@ -33,7 +33,10 @@ namespace VolleyballService.Services
             return _IsValid;
         }
 
-
+        public static String GetURL()
+        {
+           return ConfigurationManager.AppSettings["ImagePath"];
+        }
        
     }
 }
