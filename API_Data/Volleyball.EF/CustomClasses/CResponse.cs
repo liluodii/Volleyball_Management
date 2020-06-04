@@ -12,6 +12,8 @@ namespace Volleyball.EF.CustomClasses
     {
         public class CResUserLogin
         {
+            public int UserID { get; set; }
+            
             public string EmailID { get; set; }
             public string FirstName { get; set; }
 
@@ -27,8 +29,7 @@ namespace Volleyball.EF.CustomClasses
             public decimal? Experience { get; set; }
             public int? RoleID { get; set; }
             public string RoleName { get; set; }
-
-
+            public string Address { get; set; }
         }
 
     }
