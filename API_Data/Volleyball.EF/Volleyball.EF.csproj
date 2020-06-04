@@ -78,6 +78,12 @@
     <Compile Include="TeamMember.cs">
       <DependentUpon>Volleyball.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tournament.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TournamentTeam.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserMaster.cs">
       <DependentUpon>Volleyball.tt</DependentUpon>
     </Compile>

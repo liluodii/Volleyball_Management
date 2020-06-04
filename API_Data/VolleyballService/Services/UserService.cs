@@ -232,6 +232,9 @@ namespace VolleyballService.Services
                     return obj;
                 }
 
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = "Profile update successfully.";
+
             }
             catch (Exception EX)
             {
@@ -263,8 +266,8 @@ namespace VolleyballService.Services
                     {
                         Body = reader.ReadToEnd();
                     }
-                    string SenderEmail = "";
-                    string Password = "";
+                    string SenderEmail = "krishna962824@gmail.com";
+                    string Password = "2896krish";
                     Body = Body.Replace("#Pass#", user.Password);
 
                     if (user.RoleID == 2)
@@ -311,6 +314,9 @@ namespace VolleyballService.Services
 
             return obj;
         }
+
+
+
 
     }
 

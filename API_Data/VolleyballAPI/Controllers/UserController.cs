@@ -160,7 +160,7 @@ namespace VolleyballAPI.Controllers
                 bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
                 if (_IsValidToken == true)
                 {
-                    Obj = _Service.ForgotPassword(Data);
+                    Obj = _Service.ForgetPassword(Data);
                 }
                 else
                 {

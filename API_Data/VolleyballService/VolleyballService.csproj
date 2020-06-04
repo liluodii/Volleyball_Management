@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CConnect.cs" />
+    <Compile Include="Services\TeamManagerService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\BaseService.cs" />
   </ItemGroup>

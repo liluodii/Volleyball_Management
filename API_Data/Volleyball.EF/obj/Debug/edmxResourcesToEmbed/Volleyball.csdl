@@ -7,6 +7,8 @@
     <EntitySet Name="Teams" EntityType="DB_A43E53_volleyballModel.Team" />
     <EntitySet Name="TeamManagers" EntityType="DB_A43E53_volleyballModel.TeamManager" />
     <EntitySet Name="TeamMembers" EntityType="DB_A43E53_volleyballModel.TeamMember" />
+    <EntitySet Name="Tournaments" EntityType="DB_A43E53_volleyballModel.Tournament" />
+    <EntitySet Name="TournamentTeams" EntityType="DB_A43E53_volleyballModel.TournamentTeam" />
     <EntitySet Name="UserMasters" EntityType="DB_A43E53_volleyballModel.UserMaster" />
     <AssociationSet Name="FK_LeagueManager_LeagueManager" Association="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager">
       <End Role="UserMaster" EntitySet="UserMasters" />
@@ -126,6 +128,24 @@
     <Property Name="OrderID" Type="Int32" />
     <NavigationProperty Name="PlayerMaster" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster" FromRole="TeamMember" ToRole="PlayerMaster" />
     <NavigationProperty Name="Team" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_Team" FromRole="TeamMember" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="Tournament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TournamentTeam">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TournamentID" Type="Int32" />
   </EntityType>
   <EntityType Name="UserMaster">
     <Key>

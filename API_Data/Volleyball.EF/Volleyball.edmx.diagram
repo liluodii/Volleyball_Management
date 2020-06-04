@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Team" Width="1.5" PointX="7.5" PointY="2" />
         <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamManager" Width="1.5" PointX="5.25" PointY="1.5" />
         <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamMember" Width="1.5" PointX="9.75" PointY="6.875" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Tournament" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TournamentTeam" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="DB_A43E53_volleyballModel.UserMaster" Width="1.5" PointX="3" PointY="6.25" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster" />
