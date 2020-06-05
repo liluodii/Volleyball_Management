@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Volleyball_Management'
+rootProject.name='Volleyball Management'

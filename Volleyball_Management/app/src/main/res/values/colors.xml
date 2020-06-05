@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary">#fece2f</color>
+    <color name="colorPrimaryDark">#AC870C</color>
+    <color name="colorAccent">#fece2f</color>
+
+
+    <color name="white">#FFF</color>
+
+    <color name="line_color">#ffffff</color>
+    <!--<color name="line_color">#848587</color>-->
+    <color name="black">#000000</color>
+    <color name="bg">#232436</color>
+    <color name="blue">#0000FF</color>
+
 </resources>

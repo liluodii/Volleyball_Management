@@ -1,5 +1,35 @@
 <resources>
-    <string name="app_name">Volleyball_Management</string>
+    <string name="app_name">Volleyball Management</string>
+
+    <string name="title_logout">Confirm Logout!</string>
+    <string name="msg_logout">Are you sure you want to logout?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_no_internet">Internet connection error!</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="text_forgot_password">Forgot Password ?</string>
+    <string name="text_screen_forgot_password">Forgot Password</string>
+    <string name="text_go">GO</string>
+    <string name="text_guest">Guest? SKIP And GO</string>
+    <string name="text_welcome">Hello there,Welcome</string>
+    <string name="text_sign_in">Sign In to Continue</string>
+    <string name="text_done">Done</string>
+    <string name="text_screen_change_password">Change Password</string>
+    <string name="text_old_password">Old Password</string>
+    <string name="text_new_password">New Password</string>
+    <string name="text_confirm_password">Confirm Password</string>
+    <string name="text_volley_victions">Volley Victions</string>
+    <string name="text_volleyball_management">VolleyBall Management App</string>
+
+
+    <string name="err_empty_email">Please enter email</string>
+    <string name="err_valid_email">Please enter valid email</string>
+    <string name="err_empty_pass">Please enter password</string>
+
+
 
 
 </resources>
+
