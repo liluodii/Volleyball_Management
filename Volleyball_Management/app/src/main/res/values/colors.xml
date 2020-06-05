@@ -13,5 +13,6 @@
     <color name="black">#000000</color>
     <color name="bg">#232436</color>
     <color name="blue">#0000FF</color>
+    <color name="gray">#C9C9CA</color>
 
 </resources>

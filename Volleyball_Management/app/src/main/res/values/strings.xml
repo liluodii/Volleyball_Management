@@ -23,10 +23,22 @@
     <string name="text_volley_victions">Volley Victions</string>
     <string name="text_volleyball_management">VolleyBall Management App</string>
 
+    <string name="text_teams">Teams</string>
+    <string name="text_players">Players</string>
+    <string name="text_schedules">Schedules</string>
+    <string name="text_your_profile">Your profile</string>
+    <string name="text_sign_out">Sign out</string>
+    <string name="text_matches">Matches</string>
+    <string name="text_events">Events</string>
+
 
     <string name="err_empty_email">Please enter email</string>
     <string name="err_valid_email">Please enter valid email</string>
     <string name="err_empty_pass">Please enter password</string>
+
+
+
+
 
 
 

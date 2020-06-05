@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+
+        <item
+            android:id="@+id/navTeams"
+            android:title="@string/text_teams" />
+        <item
+            android:id="@+id/navPlayers"
+            android:title="@string/text_players" />
+
+        <item
+            android:id="@+id/navSchedules"
+            android:title="@string/text_schedules" />
+
+        <item
+            android:id="@+id/navProfile"
+            android:title="@string/text_your_profile" />
+
+        <item
+            android:id="@+id/navSignOut"
+            android:title="@string/text_sign_out" />
+
+    </group>
+
+</menu>

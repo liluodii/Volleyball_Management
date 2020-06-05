@@ -25,6 +25,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name="com.canada.volleyballmanagement.activity.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="com.canada.volleyballmanagement.activity.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"

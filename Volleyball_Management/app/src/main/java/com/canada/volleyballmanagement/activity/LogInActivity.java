@@ -64,24 +64,31 @@ public class LogInActivity extends BaseActivity {
     }
 
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
+
             case R.id.txtForgotPassword:
-                Intent intent = new Intent(getActivity(), ForgotPasswordActivity.class);
+                 intent = new Intent(getActivity(), ForgotPasswordActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.btnSignIn:
-                if (checkConnection()) {
-                    if (validate()) {
-                        hideKeyboard();
-                        callApi();
-                    }
-                } else {
-                    showNoInternetDialog();
-                }
-                break;
 
+                intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
+//                if (checkConnection()) {
+//                    if (validate()) {
+//                        hideKeyboard();
+//                        callApi();
+//                    }
+//                } else {
+//                    showNoInternetDialog();
+//                }
+
+                break;
         }
+
     }
 
     private boolean validate() {
