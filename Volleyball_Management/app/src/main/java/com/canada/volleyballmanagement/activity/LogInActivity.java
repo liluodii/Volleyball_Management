@@ -38,7 +38,9 @@ public class LogInActivity extends BaseActivity {
                 pref.putBoolean(Constants.ISLOGIN, true);
                 pref.putString(Constants.LOGIN_REPONSE, new Gson().toJson(loginResponse));
 
-                Toast.makeText(getActivity(), "" + loginResponse.getData().getFirstName() + " " + loginResponse.getData().getLastName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                finishAffinity();
 
             } else {
                 Toast.makeText(getActivity(), "" + loginResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
@@ -68,23 +70,20 @@ public class LogInActivity extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.txtForgotPassword:
-                 intent = new Intent(getActivity(), ForgotPasswordActivity.class);
+                intent = new Intent(getActivity(), ForgotPasswordActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.btnSignIn:
 
-                intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-
-//                if (checkConnection()) {
-//                    if (validate()) {
-//                        hideKeyboard();
-//                        callApi();
-//                    }
-//                } else {
-//                    showNoInternetDialog();
-//                }
+                if (checkConnection()) {
+                    if (validate()) {
+                        hideKeyboard();
+                        callApi();
+                    }
+                } else {
+                    showNoInternetDialog();
+                }
 
                 break;
         }

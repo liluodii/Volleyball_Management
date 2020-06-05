@@ -1,8 +1,11 @@
 package com.canada.volleyballmanagement.retrofit;
 
 
+import com.canada.volleyballmanagement.pojo.ForgotPasswordRequest;
+import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -11,6 +14,9 @@ public interface RequestAPI {
 
     @POST("/Login")
     Call<LoginResponse> Login(@Body LoginRequest request);
+
+    @POST("/ForgetPassword")
+    Call<ForgotPasswordResponse> ForgetPassword(@Body ForgotPasswordRequest request);
 
 
 //    @Multipart
