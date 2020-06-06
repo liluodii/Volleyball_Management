@@ -87,6 +87,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Tournaments">
+      <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.Tournament">
+        <MappingFragment StoreEntitySet="Tournament">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TournamentTeams">
+      <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.TournamentTeam">
+        <MappingFragment StoreEntitySet="TournamentTeam">
+          <ScalarProperty Name="TournamentID" ColumnName="TournamentID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="UserMasters">
       <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.UserMaster">
         <MappingFragment StoreEntitySet="UserMaster">

@@ -80,6 +80,24 @@
     <Property Name="RoleID" Type="int" />
     <Property Name="OrderID" Type="int" />
   </EntityType>
+  <EntityType Name="Tournament">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TournamentTeam">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TournamentID" Type="int" />
+  </EntityType>
   <EntityType Name="UserMaster">
     <Key>
       <PropertyRef Name="ID" />
@@ -194,6 +212,8 @@
     <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TeamManager" EntityType="Self.TeamManager" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TeamMember" EntityType="Self.TeamMember" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tournament" EntityType="Self.Tournament" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TournamentTeam" EntityType="Self.TournamentTeam" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_LeagueManager_LeagueManager" Association="Self.FK_LeagueManager_LeagueManager">
       <End Role="UserMaster" EntitySet="UserMaster" />
