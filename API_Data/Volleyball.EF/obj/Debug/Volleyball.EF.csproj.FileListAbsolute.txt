@@ -24,3 +24,16 @@ C:\Users\Parsh\source\repos\liluodii\Volleyball_Management\API_Data\Volleyball.E
 C:\Users\Parsh\source\repos\liluodii\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.csproj.CopyComplete
 C:\Users\Parsh\source\repos\liluodii\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.dll
 C:\Users\Parsh\source\repos\liluodii\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.pdb
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\Volleyball.EF.dll.config
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\Volleyball.EF.dll
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\Volleyball.EF.pdb
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\EntityFramework.dll
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\EntityFramework.xml
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.csprojAssemblyReference.cache
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.csproj.CoreCompileInputs.cache
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.csproj.CopyComplete
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.dll
+C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.EF\obj\Debug\Volleyball.EF.pdb

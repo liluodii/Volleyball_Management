@@ -32,10 +32,11 @@ namespace VolleyballService.Services
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
-                    PlayerMaster PM = user.PlayerMasters.FirstOrDefault();
+                  
 
-                    if (PM != null)
+                    if (user != null)
                     {
+                        PlayerMaster PM = user.PlayerMasters?.FirstOrDefault();
                         PM.Address = Data.Address;
                         PM.Contact = Data.Contact;
                         PM.DOB = Convert.ToDateTime(Data.DOB);
@@ -163,10 +164,11 @@ namespace VolleyballService.Services
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
-                    TeamManager TM = user.TeamManagers.FirstOrDefault();
+                   
 
-                    if (TM != null)
+                    if (user != null)
                     {
+                        TeamManager TM = user.TeamManagers?.FirstOrDefault();
                         TM.Address = Data.Address;
                         TM.Contact = Data.Contact;
                         TM.DOB = Convert.ToDateTime(Data.DOB);
