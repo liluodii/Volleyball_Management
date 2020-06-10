@@ -41,9 +41,10 @@ namespace VolleyballService.Services
                             resData.LastName = user.LeagueManagers.FirstOrDefault()?.LastName;
                             resData.Gender = user.LeagueManagers.FirstOrDefault()?.Gender;
                             resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
-
-                            resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.ToString();
-                            resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.ToString();
+                            if (user.LeagueManagers.FirstOrDefault()?.JoinDate.HasValue == true)
+                                resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.Value.ToString("MM-dd-yyyy");
+                            if (user.LeagueManagers.FirstOrDefault()?.DOB.HasValue == true)
+                                resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.Value.ToString("MM-dd-yyyy");
                             resData.UserID = user.ID;
                             resData.Address = user.LeagueManagers.FirstOrDefault()?.Address;
                             string profilePic = user.LeagueManagers.FirstOrDefault()?.ProfilePic;
@@ -61,8 +62,11 @@ namespace VolleyballService.Services
                             resData.Gender = user.TeamManagers.FirstOrDefault()?.Gender;
                             resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
                             resData.UserID = user.ID;
-                            resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
-                            resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
+                            if (user.TeamManagers.FirstOrDefault()?.JoinDate.HasValue == true)
+                                resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.Value.ToString("MM-dd-yyyy");
+
+                            if (user.TeamManagers.FirstOrDefault()?.DOB.HasValue == true)
+                                resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.Value.ToString("MM-dd-yyyy"); 
                             resData.Address = user.TeamManagers.FirstOrDefault()?.Address;
                             string profilePic = user.TeamManagers.FirstOrDefault()?.ProfilePic;
                             resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic;
@@ -199,8 +203,15 @@ namespace VolleyballService.Services
                             resData.Gender = user.LeagueManagers.FirstOrDefault()?.Gender;
                             resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
 
-                            resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.ToString();
-                            resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.ToString();
+
+                            if (user.LeagueManagers.FirstOrDefault()?.JoinDate.HasValue == true)
+                                resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.Value.ToString("MM-dd-yyyy");
+
+                            if (user.LeagueManagers.FirstOrDefault()?.DOB.HasValue == true)
+                                resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.Value.ToString("MM-dd-yyyy");
+
+
+
                             resData.UserID = user.ID;
                             resData.Address = user.LeagueManagers.FirstOrDefault()?.Address;
                             string profilePic = user.LeagueManagers.FirstOrDefault()?.ProfilePic;
@@ -241,8 +252,11 @@ namespace VolleyballService.Services
                             resData.Gender = user.TeamManagers.FirstOrDefault()?.Gender;
                             resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
                             resData.UserID = user.ID;
-                            resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
-                            resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
+                            if (user.TeamManagers.FirstOrDefault()?.JoinDate.HasValue == true)
+                                resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
+
+                            if (user.TeamManagers.FirstOrDefault()?.DOB.HasValue == true)
+                                resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
                             resData.Address = user.TeamManagers.FirstOrDefault()?.Address;
                             string profilePic = user.TeamManagers.FirstOrDefault()?.ProfilePic;
                             resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic;
