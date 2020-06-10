@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Web;
 using System.Web.Http;
 
 using Volleyball.Common;
@@ -180,6 +180,43 @@ namespace VolleyballAPI.Controllers
             }
             return Obj;
         }
+
+
+
+        [HttpPost]
+        [Route("AddUserProfilePic")]
+        public GenericClass AddUserProfilePic()
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                string APIKey = HttpContext.Current.Request.Form["APIKey"].ToString();
+                int UserID = Convert.ToInt32(HttpContext.Current.Request.Form["UserID"].ToString());
+
+                bool _IsValidToken = _BaseService.ValidateAPIToken(APIKey);
+                if (_IsValidToken == true)
+                {
+                    HttpPostedFile ImageData = HttpContext.Current.Request.Files["ImageData"];
+                    obj = _Service.AddUserProfilePic(UserID, ImageData);
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
+                    obj.ReturnMsg = ResponseMessages.AuthenticationFailedMsg;
+                    obj.ReturnValue = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                obj.ReturnCode = ResponseMessages.ErrorCode;
+                obj.ReturnMsg = ResponseMessages.ErrorMsg;
+                obj.ReturnValue = string.Empty;
+            }
+            return obj;
+
+        }
+
 
     }
 }

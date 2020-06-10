@@ -162,7 +162,7 @@ namespace VolleyballService.Services
         public GenericClass UpdateProfile(CReqUpdateProfile Data)
         {
             GenericClass obj = new GenericClass();
-
+            CResUserLogin resData = new CResUserLogin();
             try
             {
                 UserMaster user = (from u in DC.UserMasters
@@ -191,6 +191,23 @@ namespace VolleyballService.Services
                             reqData.JoinDate = Convert.ToDateTime(Data.JoinDate);
                             reqData.Gender = Data.Gender;
                             DC.SaveChanges();
+
+                            resData.EmailID = user.EmailID;
+                            resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
+                            resData.FirstName = user.LeagueManagers.FirstOrDefault()?.FirstName;
+                            resData.LastName = user.LeagueManagers.FirstOrDefault()?.LastName;
+                            resData.Gender = user.LeagueManagers.FirstOrDefault()?.Gender;
+                            resData.Contact = user.LeagueManagers.FirstOrDefault()?.Contact;
+
+                            resData.JoinDate = user.LeagueManagers.FirstOrDefault()?.JoinDate.ToString();
+                            resData.DOB = user.LeagueManagers.FirstOrDefault()?.DOB.ToString();
+                            resData.UserID = user.ID;
+                            resData.Address = user.LeagueManagers.FirstOrDefault()?.Address;
+                            string profilePic = user.LeagueManagers.FirstOrDefault()?.ProfilePic;
+                            resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic;
+
+                            resData.RoleID = user.RoleID;
+                            resData.RoleName = user.RoleMaster.Name;
                         }
 
                     }
@@ -215,6 +232,24 @@ namespace VolleyballService.Services
                             reqData.JoinDate = Convert.ToDateTime(Data.JoinDate);
                             reqData.Gender = Data.Gender;
                             DC.SaveChanges();
+
+
+                            resData.EmailID = user.EmailID;
+                            resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
+                            resData.FirstName = user.TeamManagers.FirstOrDefault()?.FirstName;
+                            resData.LastName = user.TeamManagers.FirstOrDefault()?.LastName;
+                            resData.Gender = user.TeamManagers.FirstOrDefault()?.Gender;
+                            resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
+                            resData.UserID = user.ID;
+                            resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
+                            resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
+                            resData.Address = user.TeamManagers.FirstOrDefault()?.Address;
+                            string profilePic = user.TeamManagers.FirstOrDefault()?.ProfilePic;
+                            resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic;
+
+                            resData.RoleID = user.RoleID;
+                            resData.RoleName = user.RoleMaster.Name;
+
                         }
                     }
                     else
@@ -234,6 +269,7 @@ namespace VolleyballService.Services
 
                 obj.ReturnCode = ResponseMessages.SuccessCode;
                 obj.ReturnMsg = "Profile update successfully.";
+                obj.Data = resData;
 
             }
             catch (Exception EX)
@@ -244,7 +280,6 @@ namespace VolleyballService.Services
 
             return obj;
         }
-
 
         public GenericClass ForgetPassword(CReqForgetPassword Data)
         {
@@ -316,6 +351,80 @@ namespace VolleyballService.Services
         }
 
 
+        public GenericClass AddUserProfilePic(int UserID, HttpPostedFile File1)
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                string file = "";
+                if (File1 != null)
+                {
+                    UserMaster UD = (from u in DC.UserMasters
+                                     where u.ID == UserID
+                                     select u).FirstOrDefault();
+
+                    if (UD != null)
+                    {
+                        if (UD.RoleID == 2)
+                        {
+                            if (!Directory.Exists("/Images/User"))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/User/"));
+
+                            if (!Directory.Exists("/Images/User/" + UserID.ToString()))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/User/" + UserID.ToString()));
+
+                            file = "Images/User/" + UserID.ToString() + "/" + Guid.NewGuid().ToString() + ".png";
+                            string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
+                            File1.SaveAs(fileLocation);
+
+                            UD.LeagueManagers.FirstOrDefault().ProfilePic = file;
+                        }
+                        else if (UD.RoleID == 3)
+                        {
+
+                            if (!Directory.Exists("/Images/Provider"))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/"));
+
+                            if (!Directory.Exists("/Images/Provider/" + UserID.ToString()))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/" + UserID.ToString()));
+
+                            file = "Images/Provider/" + UserID.ToString() + "/" + Guid.NewGuid().ToString() + ".png";
+                            string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
+                            File1.SaveAs(fileLocation);
+
+                            UD.TeamManagers.FirstOrDefault().ProfilePic = file;
+                        }
+                        else
+                        {
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = "User doesnot found.";
+
+                        }
+
+                        DC.SaveChanges();
+                        obj.ReturnCode = ResponseMessages.SuccessCode;
+                        obj.ReturnMsg = "photo updated.";
+                        obj.ReturnValue = BaseService.GetURL() + file;
+                    }
+                    else
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "User doesnot found.";
+                    }
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+        }
 
 
     }

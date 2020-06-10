@@ -63,7 +63,7 @@ namespace VolleyballAPI.Controllers
 
 
         [Route("DeletePlayer")]
-        [HttpPost]
+        [HttpDelete]
         public GenericClass DeletePlayer(CReqDeleteUser Data)
         {
             GenericClass Obj = new GenericClass();
@@ -145,7 +145,7 @@ namespace VolleyballAPI.Controllers
 
 
         [Route("DeleteTeamManager")]
-        [HttpPost]
+        [HttpDelete]
         public GenericClass DeleteTeamManager(CReqDeleteUser Data)
         {
             GenericClass Obj = new GenericClass();
