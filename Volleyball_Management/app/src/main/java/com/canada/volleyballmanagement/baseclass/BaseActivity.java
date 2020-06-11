@@ -277,12 +277,14 @@ public class BaseActivity extends AppCompatActivity {
                     String state = Environment.getExternalStorageState();
 
                     if (Environment.MEDIA_MOUNTED.equals(state)) {
+
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                             mImageCaptureUri = FileProvider.getUriForFile(this, Constants.PROVIDER,
                                     mFileTemp);
                         } else {
                             mImageCaptureUri = Uri.fromFile(mFileTemp);
                         }
+
                     } else {
                         mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
                     }
@@ -312,7 +314,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     public void logoutDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.title_logout))
@@ -328,6 +329,7 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        pref.putBoolean(Constants.ISLOGIN, false);
                         Intent intent = new Intent(getActivity(), LogInActivity.class);
                         startActivity(intent);
                         getActivity().finishAffinity();

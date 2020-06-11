@@ -1,14 +1,18 @@
 package com.canada.volleyballmanagement.retrofit;
 
 
+import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordRequest;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface RequestAPI {
 
@@ -17,6 +21,10 @@ public interface RequestAPI {
 
     @POST("/ForgetPassword")
     Call<ForgotPasswordResponse> ForgetPassword(@Body ForgotPasswordRequest request);
+
+    @Multipart
+    @POST("/AddUserProfilePic")
+    Call<CommonResponse> UpdateProfilePic(@Part("APIKey") RequestBody APIKey, @Part("UserID") RequestBody UserDetailID, @Part("ImageData\"; filename=\"ImageData.png\" ") RequestBody ProfilePic);
 
 
 //    @Multipart

@@ -5,7 +5,11 @@
     <string name="msg_logout">Are you sure you want to logout?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
     <string name="title_no_internet">Internet connection error!</string>
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

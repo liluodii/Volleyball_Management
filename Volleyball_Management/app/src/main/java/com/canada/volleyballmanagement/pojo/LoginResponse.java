@@ -85,6 +85,17 @@ public class LoginResponse {
         @SerializedName("RoleName")
         @Expose
         private String roleName;
+        @SerializedName("UserID")
+        @Expose
+        private int userID;
+
+        public int getUserID() {
+            return userID;
+        }
+
+        public void setUserID(int userID) {
+            this.userID = userID;
+        }
 
         public String getEmailID() {
             return emailID;
