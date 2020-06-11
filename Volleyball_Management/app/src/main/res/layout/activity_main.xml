@@ -44,7 +44,7 @@
                         android:src="@drawable/ic_menu" />
 
                     <com.canada.volleyballmanagement.widget.DTextView
-                        android:id="@+id/txtTeam"
+                        android:id="@+id/txtName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -68,7 +68,6 @@
             android:layout_gravity="start"
             android:background="@color/white"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
             app:itemTextColor="@color/black"
             app:theme="@style/NavigationDrawerStyle" />
 

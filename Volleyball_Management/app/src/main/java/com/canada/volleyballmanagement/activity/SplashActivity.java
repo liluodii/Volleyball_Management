@@ -34,7 +34,6 @@ public class SplashActivity extends BaseActivity {
         topanim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomanim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
-
         binding.imgLogo.setAnimation(topanim);
         binding.txtLogo.setAnimation(bottomanim);
         binding.txtSlogan.setAnimation(bottomanim);
@@ -43,19 +42,26 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent(getActivity(), LogInActivity.class);
+                if (isLogin()) {
 
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(binding.imgLogo, "logo_image");
-                pairs[1] = new Pair<View, String>(binding.txtLogo, "logo_text");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    finishAffinity();
 
-//             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                } else {
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pairs);
-                startActivity(intent, options.toBundle());
-                finishAffinity();
+                    Intent intent = new Intent(getActivity(), LogInActivity.class);
 
-//             }
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View, String>(binding.imgLogo, "logo_image");
+                    pairs[1] = new Pair<View, String>(binding.txtLogo, "logo_text");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pairs);
+                    startActivity(intent, options.toBundle());
+                    finishAffinity();
+
+                }
+
 
             }
 

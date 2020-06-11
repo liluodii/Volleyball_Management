@@ -32,6 +32,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.canada.volleyballmanagement.R;
+import com.canada.volleyballmanagement.activity.LogInActivity;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
 import com.canada.volleyballmanagement.retrofit.ApiClient;
 import com.canada.volleyballmanagement.retrofit.RequestAPI;
@@ -66,6 +67,10 @@ public class BaseActivity extends AppCompatActivity {
 
     public LoginResponse getLoginResponse() {
         return new Gson().fromJson(pref.getString(Constants.LOGIN_REPONSE), LoginResponse.class);
+    }
+
+    public boolean isTeamManager() {
+        return new Gson().fromJson(pref.getString(Constants.LOGIN_REPONSE), LoginResponse.class).getData().getRoleID() == 3;
     }
 
     public boolean isLogin() {
@@ -323,9 +328,9 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            getActivity().finishAffinity();
-                        }
+                        Intent intent = new Intent(getActivity(), LogInActivity.class);
+                        startActivity(intent);
+                        getActivity().finishAffinity();
                     }
                 }).create();
         dialog.show();

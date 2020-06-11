@@ -36,6 +36,7 @@ public class LogInActivity extends BaseActivity {
             if (loginResponse.getReturnCode().equals("1")) {
 
                 pref.putBoolean(Constants.ISLOGIN, true);
+
                 pref.putString(Constants.LOGIN_REPONSE, new Gson().toJson(loginResponse));
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
