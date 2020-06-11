@@ -50,7 +50,9 @@
     <string name="err_empty_email">Please enter email</string>
     <string name="err_valid_email">Please enter valid email</string>
     <string name="err_empty_pass">Please enter password</string>
-
+    <string name="err_empty_old_password">Please enter old password</string>
+    <string name="err_empty_confirm_pass">Please enter confirm password</string>
+    <string name="err_pass_not_match">Password does not match with confirm password</string>
 
 </resources>
 

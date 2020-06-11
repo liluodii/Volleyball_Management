@@ -1,6 +1,7 @@
 package com.canada.volleyballmanagement.retrofit;
 
 
+import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordRequest;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
@@ -25,6 +26,9 @@ public interface RequestAPI {
     @Multipart
     @POST("/AddUserProfilePic")
     Call<CommonResponse> UpdateProfilePic(@Part("APIKey") RequestBody APIKey, @Part("UserID") RequestBody UserDetailID, @Part("ImageData\"; filename=\"ImageData.png\" ") RequestBody ProfilePic);
+
+    @POST("/ChangePassword")
+    Call<CommonResponse> ChangePasswordRequest(@Body ChangePasswordRequest request);
 
 
 //    @Multipart

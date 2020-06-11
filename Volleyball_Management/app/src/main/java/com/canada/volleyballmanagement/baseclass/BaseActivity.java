@@ -73,6 +73,10 @@ public class BaseActivity extends AppCompatActivity {
         return new Gson().fromJson(pref.getString(Constants.LOGIN_REPONSE), LoginResponse.class).getData().getRoleID() == 3;
     }
 
+    public int getUserID() {
+        return new Gson().fromJson(pref.getString(Constants.LOGIN_REPONSE), LoginResponse.class).getData().getUserID();
+    }
+
     public boolean isLogin() {
         return pref.getBoolean(Constants.ISLOGIN, false);
     }
