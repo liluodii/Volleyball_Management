@@ -63,11 +63,13 @@ namespace VolleyballService.Services
 
                 else
                 {
+                    Random rnd = new Random();
 
+                    string password = rnd.Next(111111, 999999).ToString();
                     UserMaster UM = new UserMaster();
                     UM.CreatedDate = System.DateTime.UtcNow;
                     UM.EmailID = Data.EmailID;
-                    UM.Password = Data.Password;
+                    UM.Password = password;
                     UM.RoleID = 4;
 
                     DC.UserMasters.Add(UM);
@@ -87,6 +89,9 @@ namespace VolleyballService.Services
                     PM.CreatedDate = System.DateTime.UtcNow;
                     DC.PlayerMasters.Add(PM);
                     DC.SaveChanges();
+
+                    SendRegistrationEmail(Data.EmailID, password, Data.FirstName + " " + Data.LastName);
+
                     obj.ReturnMsg = "Successfully add profile.";
                     obj.ReturnValue = PM.UserID.ToString();
 
@@ -197,11 +202,14 @@ namespace VolleyballService.Services
 
                 else
                 {
+                    Random rnd = new Random();
+
+                    string password = rnd.Next(111111, 999999).ToString();
 
                     UserMaster UM = new UserMaster();
                     UM.CreatedDate = System.DateTime.UtcNow;
                     UM.EmailID = Data.EmailID;
-                    UM.Password = Data.Password;
+                    UM.Password = password;
                     UM.RoleID = 3;
 
                     DC.UserMasters.Add(UM);
@@ -221,6 +229,9 @@ namespace VolleyballService.Services
                     TM.CreatedDate = System.DateTime.UtcNow;
                     DC.TeamManagers.Add(TM);
                     DC.SaveChanges();
+
+                    SendRegistrationEmail(Data.EmailID, password, Data.FirstName + " " + Data.LastName);
+
                     obj.ReturnMsg = "Successfully add profile.";
 
 
@@ -385,6 +396,48 @@ namespace VolleyballService.Services
             return obj;
 
         }
+
+
+        public async void SendRegistrationEmail(string Email, string pass, string Name)
+        {
+            try
+            {
+                string Body = string.Empty;
+                System.Net.Mail.MailMessage objMail = new System.Net.Mail.MailMessage();
+                string Subject = "Registration";
+                using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Registration.html")))
+
+                {
+                    Body = reader.ReadToEnd();
+                }
+                string SenderEmail = "krishna962824@gmail.com";
+                string Password = "2896krish";
+                Body = Body.Replace("#Pass#", pass);
+                Body = Body.Replace("#Name#", Name);
+                Body = Body.Replace("#Email#", Email);
+
+                objMail.IsBodyHtml = true;
+                objMail.Body = Body;
+                objMail.From = new MailAddress(SenderEmail, "Volleyball App");
+                objMail.To.Add(new MailAddress(Email));
+                objMail.Subject = Subject;
+                AlternateView htmlMail = null;
+                htmlMail = AlternateView.CreateAlternateViewFromString(Body, null, MediaTypeNames.Text.Html);
+                objMail.Priority = MailPriority.Normal;
+                objMail.AlternateViews.Add(htmlMail);
+                objMail.IsBodyHtml = true;
+                SmtpClient SMTPClientObj = new SmtpClient();
+                SMTPClientObj.Credentials = new System.Net.NetworkCredential(SenderEmail, Password);
+                SMTPClientObj.Host = "smtp.gmail.com";
+                SMTPClientObj.Port = 587;
+                SMTPClientObj.EnableSsl = true;
+                SMTPClientObj.Send(objMail);
+            }
+            catch { }
+
+        }
+
+
 
     }
 
