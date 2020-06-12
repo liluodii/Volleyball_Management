@@ -38,6 +38,7 @@
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
                     android:layout_gravity="center"
+                    android:onClick="@{(View)->activity.onClick(View)}"
                     android:src="@drawable/ic_person"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="@dimen/_1sdp" />
@@ -113,7 +114,7 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:onClick="@{(View)->activity.onClock(View)}" />
+                        android:onClick="@{(View)->activity.onClick(View)}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,7 +188,7 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:onClick="@{(View)->activity.onClock(View)}" />
+                        android:onClick="@{(View)->activity.onClick(View)}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,13 +233,14 @@
                     android:layout_height="@dimen/_10sdp" />
 
                 <com.canada.volleyballmanagement.widget.DButton
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:id="@+id/btnDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@drawable/bg_button_rounded_fill_primary"
-                    android:onClick="@{(View)->activity.onClock(View)}"
+                    android:onClick="@{(View)->activity.onClick(View)}"
                     android:text="@string/text_done"
                     app:textFontFace="BOLD" />
 

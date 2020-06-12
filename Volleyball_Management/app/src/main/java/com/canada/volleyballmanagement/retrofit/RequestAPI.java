@@ -1,6 +1,6 @@
 package com.canada.volleyballmanagement.retrofit;
 
-
+import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
 import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.EditProfileRequest;
@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface RequestAPI {
@@ -34,7 +35,8 @@ public interface RequestAPI {
     @POST("/UpdateProfile")
     Call<LoginResponse> UpdateProfile(@Body EditProfileRequest request);
 
-
+    @PUT("/AddEditPlayer")
+    Call<CommonResponse> AddEditPlayer(@Body AddPlayerRequest request);
 
 
 //    @Multipart
