@@ -125,8 +125,14 @@ namespace VolleyballService.Services
 
                 if (user != null)
                 {
+                    if (Data.NewPass == Data.OldPass)
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "Old and new password are same.";
+                        return obj;
 
-                    if (user.Password == Data.Password)
+                    }
+                    else if (user.Password == Data.NewPass)
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
                         obj.ReturnMsg = "Current password and updated password are same.";
@@ -135,7 +141,7 @@ namespace VolleyballService.Services
 
                     else
                     {
-                        user.Password = Data.Password;
+                        user.Password = Data.NewPass;
                         DC.SaveChanges();
 
                         obj.ReturnCode = ResponseMessages.SuccessCode;
@@ -463,7 +469,7 @@ namespace VolleyballService.Services
                         if (!Directory.Exists("/Images/" + UserID.ToString()))
                             Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/" + UserID.ToString()));
 
-                        file = "Images/" + UserID.ToString() + "/" + Guid.NewGuid().ToString() + ".png";
+                        file = "Images/"+Guid.NewGuid().ToString() + ".png";
                         string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
                         File1.SaveAs(fileLocation);
 
@@ -476,8 +482,8 @@ namespace VolleyballService.Services
                             team.TeamPic = file;
                             team.CreatedUserID = UserID;
                             DC.Teams.Add(team);
-                            DC.SaveChanges();
-                            obj.ReturnMsg = "Team created successfully.";
+                           DC.SaveChanges();
+                          obj.ReturnMsg = "Team created successfully.";
 
                         }
                         else
