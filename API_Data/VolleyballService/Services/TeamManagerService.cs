@@ -63,6 +63,19 @@ namespace VolleyballService.Services
 
                 else
                 {
+                    UserMaster user = (from u in DC.UserMasters.AsEnumerable()
+                                       where u.EmailID.ToLower() == Data.EmailID.ToLower()
+                                       select u).FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "Email id already exist.";
+                        return obj;
+                    }
+
+
+
                     Random rnd = new Random();
 
                     //string password = rnd.Next(111111, 999999).ToString();
@@ -112,7 +125,6 @@ namespace VolleyballService.Services
             return obj;
         }
 
-
         public GenericClass DeletePlayer(CReqDeleteUser Data)
         {
             GenericClass obj = new GenericClass();
@@ -160,7 +172,6 @@ namespace VolleyballService.Services
             return obj;
         }
 
-
         public GenericClass AddEditTeamManager(CReqAddEditTeamManager Data)
         {
             GenericClass obj = new GenericClass();
@@ -204,6 +215,17 @@ namespace VolleyballService.Services
 
                 else
                 {
+                    UserMaster user = (from u in DC.UserMasters.AsEnumerable()
+                                       where u.EmailID.ToLower() == Data.EmailID.ToLower()
+                                       select u).FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "Email id already exist.";
+                        return obj;
+                    }
+
                     Random rnd = new Random();
 
                     //string password = rnd.Next(111111, 999999).ToString();
@@ -251,6 +273,49 @@ namespace VolleyballService.Services
             return obj;
         }
 
+        public GenericClass GetTeamManagerDetails(int TeamManagerID)
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                var user = DC.TeamManagers.Where(x => x.ID == TeamManagerID).FirstOrDefault();
+                if (user != null)
+                {
+                    CResUserLogin ret = new CResUserLogin();
+                    ret.UserID = user.ID;
+                    ret.Address = user.Address;
+                    ret.Contact = user.Contact;
+                    ret.FirstName = user.FirstName;
+                    if (user.DOB != null)
+                        ret.DOB = user.DOB.Value.ToString("MM-dd-yyyy");
+                    if (user.JoinDate != null)
+                        ret.JoinDate = user.JoinDate.Value.ToString("MM-dd-yyyy");
+                    ret.LastName = user.LastName;
+                    if (!string.IsNullOrEmpty(user.ProfilePic))
+                        ret.ProfilePic = BaseService.GetURL() + user.ProfilePic;
+                    ret.Gender = user.Gender.ToLower();
+
+                    obj.ReturnCode = ResponseMessages.SuccessCode;
+                    obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                    obj.Data = ret;
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+
+                    return obj;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+
+        }
+
 
         public GenericClass DeleteTeamManager(CReqDeleteUser Data)
         {
@@ -293,7 +358,6 @@ namespace VolleyballService.Services
             }
             return obj;
         }
-
 
         public GenericClass GetPlayerList(int UserID, string Name)
         {
@@ -357,7 +421,6 @@ namespace VolleyballService.Services
             return obj;
         }
 
-
         public GenericClass GetPlayerDetails(int PlayerID)
         {
             GenericClass obj = new GenericClass();
@@ -367,6 +430,7 @@ namespace VolleyballService.Services
                 if (user != null)
                 {
                     CResUserLogin ret = new CResUserLogin();
+                    ret.UserID = user.ID;
                     ret.Address = user.Address;
                     ret.Contact = user.Contact;
                     if (user.DOB != null)
@@ -376,7 +440,7 @@ namespace VolleyballService.Services
                     ret.LastName = user.LastName;
                     if (!string.IsNullOrEmpty(user.ProfilePic))
                         ret.ProfilePic = BaseService.GetURL() + user.ProfilePic;
-                    ret.Gender = user.Gender;
+                    ret.Gender = user.Gender.ToLower();
                     ret.Experience = user.Experience == null ? 0 : user.Experience;
 
                     obj.ReturnCode = ResponseMessages.SuccessCode;
@@ -399,7 +463,6 @@ namespace VolleyballService.Services
             return obj;
 
         }
-
 
         public async void SendRegistrationEmail(string Email, string pass, string Name)
         {
@@ -439,8 +502,6 @@ namespace VolleyballService.Services
             catch { }
 
         }
-
-
 
         public GenericClass GetTeamManagerList(int UserID, string Search)
         {
@@ -484,9 +545,5 @@ namespace VolleyballService.Services
             return obj;
         }
 
-
-
     }
-
-
 }

@@ -21,7 +21,7 @@ namespace VolleyballAPI.Controllers
 
 
         [Route("AddEditPlayer")]
-        [HttpPost]
+        [HttpPut]
         public GenericClass AddEditPlayer(CReqUpdateProfile Data)
         {
             GenericClass Obj = new GenericClass();
@@ -103,7 +103,7 @@ namespace VolleyballAPI.Controllers
         }
 
         [Route("AddEditTeamManager")]
-        [HttpPost]
+        [HttpPut]
         public GenericClass AddEditTeamManager(CReqAddEditTeamManager Data)
         {
             GenericClass Obj = new GenericClass();
@@ -218,6 +218,39 @@ namespace VolleyballAPI.Controllers
             return Obj;
         }
 
+        [Route("GetTeamManagerDetails")]
+        [HttpGet]
+        public GenericClass GetTeamManagerDetails(int TeamManagerID = 0)
+        {
+            GenericClass Obj = new GenericClass();
+            try
+            {
+                if (TeamManagerID == 0)
+                {
+
+                    Obj.ReturnCode = ResponseMessages.NoDataCode;
+                    Obj.ReturnMsg = "Please enter valid data";
+                    Obj.ReturnValue = string.Empty;
+                    return Obj;
+                }
+
+                Obj = _Service.GetTeamManagerDetails(TeamManagerID);
+
+            }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
+            catch
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            {
+                Obj.ReturnCode = ResponseMessages.ErrorCode;
+                Obj.ReturnMsg = ResponseMessages.ErrorMsg;
+                Obj.ReturnValue = string.Empty;
+                Obj.Data = new List<int>();
+
+            }
+            return Obj;
+        }
+
+
 
         [Route("GetPlayerDetails")]
         [HttpGet]
@@ -282,9 +315,6 @@ namespace VolleyballAPI.Controllers
             }
             return Obj;
         }
-
-
-
 
     }
 }
