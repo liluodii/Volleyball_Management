@@ -32,7 +32,7 @@ namespace VolleyballService.Services
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
-                  
+
 
                     if (user != null)
                     {
@@ -55,7 +55,7 @@ namespace VolleyballService.Services
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
                         obj.ReturnMsg = "User does not exist";
-                    
+
                         return obj;
                     }
 
@@ -168,7 +168,7 @@ namespace VolleyballService.Services
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
-                   
+
 
                     if (user != null)
                     {
@@ -341,6 +341,49 @@ namespace VolleyballService.Services
             }
 
             return obj;
+        }
+
+
+        public GenericClass GetPlayerDetails(int PlayerID)
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                var user = DC.PlayerMasters.Where(x => x.ID == PlayerID).FirstOrDefault();
+                if (user != null)
+                {
+                    CResUserLogin ret = new CResUserLogin();
+                    ret.Address = user.Address;
+                    ret.Contact = user.Contact;
+                    if (user.DOB != null)
+                        ret.DOB = user.DOB.Value.ToString("MM-dd-yyyy");
+                    if (user.JoinDate != null)
+                        ret.JoinDate = user.JoinDate.Value.ToString("MM-dd-yyyy");
+                    ret.LastName = user.LastName;
+                    if (!string.IsNullOrEmpty(user.ProfilePic))
+                        ret.ProfilePic = BaseService.GetURL() + user.ProfilePic;
+                    ret.Gender = user.Gender;
+                    ret.Experience = user.Experience == null ? 0 : user.Experience;
+
+                    obj.ReturnCode = ResponseMessages.SuccessCode;
+                    obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                    obj.Data = ret;
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+
+                    return obj;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+
         }
 
     }

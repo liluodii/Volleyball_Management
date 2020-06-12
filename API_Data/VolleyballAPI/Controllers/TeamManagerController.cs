@@ -219,6 +219,39 @@ namespace VolleyballAPI.Controllers
         }
 
 
+        [Route("GetPlayerDetails")]
+        [HttpGet]
+        public GenericClass GetPlayerDetails(int PlayerID = 0)
+        {
+            GenericClass Obj = new GenericClass();
+            try
+            {
+                if (PlayerID == 0)
+                {
+
+                    Obj.ReturnCode = ResponseMessages.NoDataCode;
+                    Obj.ReturnMsg = "Please enter valid data";
+                    Obj.ReturnValue = string.Empty;
+                    return Obj;
+                }
+
+                Obj = _Service.GetPlayerDetails(PlayerID);
+
+            }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
+            catch
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            {
+                Obj.ReturnCode = ResponseMessages.ErrorCode;
+                Obj.ReturnMsg = ResponseMessages.ErrorMsg;
+                Obj.ReturnValue = string.Empty;
+                Obj.Data = new List<int>();
+
+            }
+            return Obj;
+        }
+
+
 
 
     }

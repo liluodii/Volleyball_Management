@@ -12,24 +12,24 @@ namespace Volleyball.EF.CustomClasses
     {
         public class CResUserLogin
         {
-            public int UserID { get; set; }
-            
-            public string EmailID { get; set; }
-            public string FirstName { get; set; }
+            public int UserID { get; set; } = 0;
 
-            public string LastName { get; set; }
+            public string EmailID { get; set; } = "";
+            public string FirstName { get; set; } = "";
+
+            public string LastName { get; set; } = "";
 
 
-            public string ProfilePic { get; set; }
-            public string Gender { get; set; }
-            public string Contact { get; set; }
-            public string DOB { get; set; }
+            public string ProfilePic { get; set; } = "";
+            public string Gender { get; set; } = "";
+            public string Contact { get; set; } = "";
+            public string DOB { get; set; } = "";
 
-            public string JoinDate { get; set; }
-            public decimal? Experience { get; set; }
-            public int? RoleID { get; set; }
-            public string RoleName { get; set; }
-            public string Address { get; set; }
+            public string JoinDate { get; set; } = "";
+            public decimal? Experience { get; set; } = 0;
+            public int? RoleID { get; set; } = 0;
+            public string RoleName { get; set; } = "";
+            public string Address { get; set; } = "";
         }
 
     }
