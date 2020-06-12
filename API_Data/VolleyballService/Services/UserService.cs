@@ -481,16 +481,25 @@ namespace VolleyballService.Services
 
                         if (TeamID == 0)
                         {
-                            Team team = new Team();
-                            team.CreatedDate = System.DateTime.UtcNow;
-                            team.TeamManagerID = TeamManagerID;
-                            team.TeamName = Name;
-                            team.TeamPic = file;
-                            team.CreatedUserID = UserID;
-                            DC.Teams.Add(team);
-                            DC.SaveChanges();
-                            obj.ReturnMsg = "Team created successfully.";
-
+                            var t = DC.Teams.Where(x => x.TeamManagerID == TeamManagerID).FirstOrDefault();
+                            if (t != null)
+                            {
+                                obj.ReturnCode = ResponseMessages.NoDataCode;
+                                obj.ReturnMsg = "Team manager already asign other team.";
+                                return obj;
+                            }
+                            else
+                            {
+                                Team team = new Team();
+                                team.CreatedDate = System.DateTime.UtcNow;
+                                team.TeamManagerID = TeamManagerID;
+                                team.TeamName = Name;
+                                team.TeamPic = file;
+                                team.CreatedUserID = UserID;
+                                DC.Teams.Add(team);
+                                DC.SaveChanges();
+                                obj.ReturnMsg = "Team created successfully.";
+                            }
                         }
                         else
                         {
@@ -636,7 +645,7 @@ namespace VolleyballService.Services
         }
 
 
- 
+
 
     }
 

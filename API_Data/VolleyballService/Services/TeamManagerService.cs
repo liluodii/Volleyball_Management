@@ -65,7 +65,9 @@ namespace VolleyballService.Services
                 {
                     Random rnd = new Random();
 
-                    string password = rnd.Next(111111, 999999).ToString();
+                    //string password = rnd.Next(111111, 999999).ToString();
+                    string password = "123456";
+
                     UserMaster UM = new UserMaster();
                     UM.CreatedDate = System.DateTime.UtcNow;
                     UM.EmailID = Data.EmailID;
@@ -204,7 +206,8 @@ namespace VolleyballService.Services
                 {
                     Random rnd = new Random();
 
-                    string password = rnd.Next(111111, 999999).ToString();
+                    //string password = rnd.Next(111111, 999999).ToString();
+                    string password = "123456";
 
                     UserMaster UM = new UserMaster();
                     UM.CreatedDate = System.DateTime.UtcNow;
@@ -435,6 +438,50 @@ namespace VolleyballService.Services
             }
             catch { }
 
+        }
+
+
+
+        public GenericClass GetTeamManagerList(int UserID, string Search)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+                    var ret = (from t in DC.TeamManagers.AsEnumerable()
+                               where (string.IsNullOrEmpty(Search) ? true : t.FirstName.Contains(Search) || t.LastName.Contains(Search)) && t.Teams.Count() == 0
+                               select new
+                               {
+                                   TeamManagerID = t.ID,
+                                   Name = t.FirstName + " " + t.LastName,
+                                   Photo = string.IsNullOrEmpty(t.ProfilePic) ? "" : BaseService.GetURL() + t.ProfilePic
+
+                               });
+                    obj.Data = ret;
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    obj.Data = new List<int>();
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+
+            return obj;
         }
 
 
