@@ -635,6 +635,67 @@ namespace VolleyballService.Services
             return obj;
         }
 
+        public GenericClass GetPlayerList(int UserID)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+
+
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+                    if (user.RoleID == 2)
+                    {
+                        var ret = (from t in DC.PlayerMasters.AsEnumerable()
+                                   select new
+                                   {
+                                       PlayerID = t.ID,
+                                       Name = t.FirstName + " " + t.LastName,
+                                       Photo = string.IsNullOrEmpty(t.ProfilePic) ? "" : BaseService.GetURL() + t.ProfilePic
+
+                                   });
+                        obj.Data = ret;
+                    }
+                    else if (user.RoleID == 2)
+                    {
+                        var ret = (from t in DC.TeamMembers.AsEnumerable()
+                                   where t.Team.TeamManagerID == user.TeamManagers.FirstOrDefault().ID
+                                   select new
+                                   {
+                                       PlayerID = t.PlayerID,
+                                       Name = t.PlayerMaster.FirstName + " " + t.PlayerMaster.LastName,
+                                       Photo = string.IsNullOrEmpty(t.PlayerMaster.ProfilePic) ? "" : BaseService.GetURL() + t.PlayerMaster.ProfilePic
+
+                                   });
+                        obj.Data = ret;
+
+                    }
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    obj.Data = new List<int>();
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+
+            return obj;
+        }
+
 
     }
 
