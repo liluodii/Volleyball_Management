@@ -48,12 +48,14 @@ namespace VolleyballService.Services
                         PM.ModifiedDate = System.DateTime.UtcNow;
                         DC.SaveChanges();
                         obj.ReturnMsg = "Successfully update profile.";
+                        obj.ReturnValue = PM.UserID.ToString();
 
                     }
                     else
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
                         obj.ReturnMsg = "User does not exist";
+                    
                         return obj;
                     }
 
@@ -86,6 +88,8 @@ namespace VolleyballService.Services
                     DC.PlayerMasters.Add(PM);
                     DC.SaveChanges();
                     obj.ReturnMsg = "Successfully add profile.";
+                    obj.ReturnValue = PM.UserID.ToString();
+
 
 
                 }
@@ -275,6 +279,70 @@ namespace VolleyballService.Services
             }
             return obj;
         }
+
+
+        public GenericClass GetPlayerList(int UserID, string Name)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+
+
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+                    if (user.RoleID == 2)
+                    {
+                        var ret = (from t in DC.PlayerMasters.AsEnumerable()
+                                   where string.IsNullOrEmpty(Name) ? true : (t.FirstName.Contains(Name) || t.LastName.Contains(Name))
+                                   select new
+                                   {
+                                       PlayerID = t.ID,
+                                       Name = t.FirstName + " " + t.LastName,
+                                       Photo = string.IsNullOrEmpty(t.ProfilePic) ? "" : BaseService.GetURL() + t.ProfilePic
+
+                                   });
+                        obj.Data = ret;
+                    }
+                    else if (user.RoleID == 2)
+                    {
+                        var ret = (from t in DC.TeamMembers.AsEnumerable()
+                                   where (t.Team.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Name) ? true : t.PlayerMaster.FirstName.Contains(Name) || t.PlayerMaster.LastName.Contains(Name))
+                                   select new
+                                   {
+                                       PlayerID = t.PlayerID,
+                                       Name = t.PlayerMaster.FirstName + " " + t.PlayerMaster.LastName,
+                                       Photo = string.IsNullOrEmpty(t.PlayerMaster.ProfilePic) ? "" : BaseService.GetURL() + t.PlayerMaster.ProfilePic
+
+                                   });
+                        obj.Data = ret;
+
+                    }
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    obj.Data = new List<int>();
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+
+            return obj;
+        }
+
     }
 
 
