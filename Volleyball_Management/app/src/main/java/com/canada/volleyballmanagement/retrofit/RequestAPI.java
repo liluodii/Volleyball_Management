@@ -3,6 +3,7 @@ package com.canada.volleyballmanagement.retrofit;
 
 import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.EditProfileRequest;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordRequest;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
@@ -29,6 +30,11 @@ public interface RequestAPI {
 
     @POST("/ChangePassword")
     Call<CommonResponse> ChangePasswordRequest(@Body ChangePasswordRequest request);
+
+    @POST("/UpdateProfile")
+    Call<LoginResponse> UpdateProfile(@Body EditProfileRequest request);
+
+
 
 
 //    @Multipart

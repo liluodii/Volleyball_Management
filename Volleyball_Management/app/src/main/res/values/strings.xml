@@ -25,6 +25,7 @@
     <string name="text_address">Address</string>
     <string name="text_male">Male</string>
     <string name="text_female">Female</string>
+    <string name="text_email">Email</string>
 
     <string name="text_go">GO</string>
     <string name="text_guest">Guest? SKIP And GO</string>
@@ -53,6 +54,15 @@
     <string name="err_empty_old_password">Please enter old password</string>
     <string name="err_empty_confirm_pass">Please enter confirm password</string>
     <string name="err_pass_not_match">Password does not match with confirm password</string>
+    <string name="err_empty_first_name">Please enter first name</string>
+    <string name="err_empty_last_name">Please enter last name</string>
+    <string name="err_empty_address">Please enter address</string>
+    <string name="err_valid_first_name">First name length should be minimum 2 character long</string>
+    <string name="err_valid_last_name">Last name length should be minimum 2 character long</string>
+    <string name="err_valid_address">Address length should be minimum 2 character long</string>
+    <string name="err_valid_contact">Contact length should be minimum 10 character long</string>
+    <string name="err_Please_empty_contact">Please enter contact</string>
+    <string name="err_select_dob">Please select date of birth</string>
 
 </resources>
 

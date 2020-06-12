@@ -88,6 +88,17 @@ public class LoginResponse {
         @SerializedName("UserID")
         @Expose
         private int userID;
+        @SerializedName("Address")
+        @Expose
+        private String address;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
         public int getUserID() {
             return userID;

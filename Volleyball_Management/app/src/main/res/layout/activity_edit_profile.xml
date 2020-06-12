@@ -54,6 +54,7 @@
                     android:hint="@string/text_first_name">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="text"
                         android:id="@+id/edFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -71,7 +72,28 @@
                     android:hint="@string/text_last_name">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="text"
                         android:id="@+id/edLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_5sdp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/text_email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/edEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -88,6 +110,10 @@
                     android:hint="@string/text_dob">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:onClick="@{(View)->activity.onClock(View)}"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/edDob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -140,6 +166,7 @@
                     android:hint="@string/text_contact">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="phone"
                         android:id="@+id/edContact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -157,6 +184,9 @@
                     android:hint="@string/text_join_date">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/edJoinDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -174,6 +204,7 @@
                     android:hint="@string/text_address">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="text"
                         android:id="@+id/edAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +17,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.canada.volleyballmanagement.R;
 import com.canada.volleyballmanagement.baseclass.BaseActivity;
 import com.canada.volleyballmanagement.databinding.ActivityEditProfileBinding;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.EditProfileRequest;
 import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
 import com.canada.volleyballmanagement.utils.Constants;
+import com.canada.volleyballmanagement.utils.DateUtils;
 import com.canada.volleyballmanagement.utils.ImageCompress;
 import com.canada.volleyballmanagement.utils.ImageFilePath;
 import com.google.gson.Gson;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.Calendar;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -41,7 +47,7 @@ import static com.canada.volleyballmanagement.utils.MarshMallowPermission.CAMERA
 import static com.canada.volleyballmanagement.utils.MarshMallowPermission.READ_EXTERNAL_STORAGE_CODE;
 import static com.canada.volleyballmanagement.utils.MarshMallowPermission.WRITE_EXTERNAL_STORAGE_CODE;
 
-public class EditProfileActivity extends BaseActivity {
+public class EditProfileActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
     ActivityEditProfileBinding binding;
     boolean isCamera = false;
@@ -51,6 +57,41 @@ public class EditProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         binding.setActivity(this);
+        showToolBar(true, getResources().getString(R.string.text_your_profile));
+        init();
+    }
+
+
+    public void init() {
+
+        if (!getLoginResponse().getData().getProfilePic().isEmpty()) {
+            RequestOptions options = new RequestOptions();
+            options.placeholder(getActivity().getResources().getDrawable(R.drawable.ic_person));
+            options.error(getActivity().getResources().getDrawable(R.drawable.ic_person));
+            Glide.with(getActivity()).setDefaultRequestOptions(options)
+                    .load(getLoginResponse().getData().getProfilePic()).into(binding.imgProfile);
+        } else {
+            binding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
+        }
+
+        binding.edFirstName.setText(bindView(getLoginResponse().getData().getFirstName()));
+        binding.edLastName.setText(bindView(getLoginResponse().getData().getLastName()));
+        binding.edDob.setText(getLoginResponse().getData().getDOB());
+        binding.edContact.setText(bindView(getLoginResponse().getData().getContact()));
+        binding.edJoinDate.setText(getLoginResponse().getData().getJoinDate());
+        binding.edAddress.setText(bindView(getLoginResponse().getData().getAddress()));
+        binding.edEmail.setText(bindView(getLoginResponse().getData().getEmailID()));
+
+        if (getLoginResponse().getData().getGender().equals("male")) {
+            binding.rbMale.setChecked(true);
+        } else if (getLoginResponse().getData().getGender().equals("female")) {
+            binding.rbFemale.setChecked(true);
+        }
+
+        binding.edJoinDate.setKeyListener(null);
+        binding.edDob.setKeyListener(null);
+        binding.edEmail.setKeyListener(null);
+
     }
 
     public void onClock(View view) {
@@ -59,9 +100,137 @@ public class EditProfileActivity extends BaseActivity {
                 Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.edDob:
+                calender("Dob");
+                break;
+            case R.id.btnDone:
+                if (checkConnection()) {
+                    if (validate()) {
+                        hideKeyboard();
+                        callApi();
+                    }
+                } else {
+                    showNoInternetDialog();
+                }
+                break;
         }
     }
 
+
+    private boolean validate() {
+
+        boolean isValidation = true;
+
+        String strFirstName = returnText(binding.edFirstName);
+        String strLastName = returnText(binding.edLastName);
+        String strDate = returnText(binding.edDob);
+        String strContact = returnText(binding.edContact);
+        String strAddress = returnText(binding.edAddress);
+
+
+        if (strFirstName.isEmpty()) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_empty_first_name), Toast.LENGTH_SHORT).show();
+        } else if (strFirstName.toString().length() < 2) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_valid_first_name), Toast.LENGTH_SHORT).show();
+        } else if (strLastName.isEmpty()) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_empty_last_name), Toast.LENGTH_SHORT).show();
+        } else if (strLastName.toString().length() < 2) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_valid_last_name), Toast.LENGTH_SHORT).show();
+        } else if (strDate.isEmpty()) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_select_dob), Toast.LENGTH_SHORT).show();
+        } else if (strContact.isEmpty()) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_Please_empty_contact), Toast.LENGTH_SHORT).show();
+        } else if (strContact.toString().length() < 10) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_valid_contact), Toast.LENGTH_SHORT).show();
+        } else if (strAddress.isEmpty()) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_empty_address), Toast.LENGTH_SHORT).show();
+        } else if (strAddress.toString().length() < 2) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_valid_address), Toast.LENGTH_SHORT).show();
+        }
+
+        return isValidation;
+    }
+
+    public void callApi() {
+        showDialog();
+        EditProfileRequest request = new EditProfileRequest();
+        request.setAPIKey(Constants.APIKEY);
+        request.setUserID(getUserID());
+        request.setFirstName(returnText(binding.edFirstName));
+        request.setLastName(returnText(binding.edLastName));
+        request.setDOB(returnText(binding.edDob));
+        request.setContact(returnText(binding.edContact));
+        request.setAddress(returnText(binding.edAddress));
+
+        if (binding.rbMale.isChecked()) {
+            request.setGender(getResources().getString(R.string.text_male).toLowerCase());
+        } else if (binding.rbFemale.isChecked()) {
+            request.setGender(getResources().getString(R.string.text_female).toLowerCase());
+        }
+
+
+        Log.e("callApi: ", "" + new Gson().toJson(request));
+
+        requestAPI.UpdateProfile(request).enqueue(UpdateProfileCallback);
+
+    }
+
+    Callback<LoginResponse> UpdateProfileCallback = new Callback<LoginResponse>() {
+        @Override
+        public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
+            dismissDialog();
+
+            LoginResponse editProfileResponse = response.body();
+
+            if (editProfileResponse.getReturnCode().equals("1")) {
+                pref.putString(Constants.LOGIN_REPONSE, new Gson().toJson(response.body()));
+                EventBus.getDefault().post(new EventBusType(1));
+                finish();
+            } else {
+                Toast.makeText(getActivity(), "" + editProfileResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<LoginResponse> call, Throwable t) {
+            dismissDialog();
+            Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
+    public void calender(String tag) {
+
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.YEAR, -18);
+
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                (DatePickerDialog.OnDateSetListener) getActivity(),
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        dpd.show(getFragmentManager(), tag);
+
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String strDOB = "" + (monthOfYear + 1) + "-" + dayOfMonth + "-" + year;
+        binding.edDob.setText("" + strDOB);
+    }
 
     public void selectedUserDialog() {
 

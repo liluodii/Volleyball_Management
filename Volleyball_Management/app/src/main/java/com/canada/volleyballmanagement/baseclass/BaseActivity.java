@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -164,32 +166,32 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-//    public void showToolBar(boolean isBack, String title) {
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//
-//        try {
-//            txtTitle = toolbar.findViewById(R.id.txtTitle);
-//            txtTitle.setText(title);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setTitle(null);
-//
-//        if (isBack) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//            final Drawable upArrow = getResources().getDrawable((R.drawable.ic_arrow_back));
-////            upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
-//            toolbar.setNavigationIcon(upArrow);
-//        } else {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            getSupportActionBar().setDisplayShowHomeEnabled(false);
-//        }
-//
-//    }
+    public void showToolBar(boolean isBack, String title) {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        try {
+            txtTitle = toolbar.findViewById(R.id.txtTitle);
+            txtTitle.setText(title);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(null);
+
+        if (isBack) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            final Drawable upArrow = getResources().getDrawable((R.drawable.ic_arrow_back));
+            upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+            toolbar.setNavigationIcon(upArrow);
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+        }
+
+    }
 
     public boolean isMyServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
