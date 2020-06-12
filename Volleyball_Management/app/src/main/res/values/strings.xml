@@ -23,6 +23,7 @@
     <string name="text_contact">Contact</string>
     <string name="text_join_date">Join Date</string>
     <string name="text_address">Address</string>
+    <string name="text_experience">Experience</string>
     <string name="text_male">Male</string>
     <string name="text_female">Female</string>
     <string name="text_email">Email</string>
@@ -43,6 +44,7 @@
     <string name="text_players">Players</string>
     <string name="text_schedules">Schedules</string>
     <string name="text_your_profile">Your profile</string>
+    <string name="text_add_player">Add player</string>
     <string name="text_sign_out">Sign out</string>
     <string name="text_matches">Matches</string>
     <string name="text_events">Events</string>

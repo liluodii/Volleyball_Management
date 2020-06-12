@@ -105,34 +105,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         Intent intent;
         switch (menuItem.getItemId()) {
-
             case R.id.navTeams:
 
                 break;
-
             case R.id.navPlayers:
-
+                intent = new Intent(getActivity(), PlayersActivity.class);
+                startActivity(intent);
                 break;
-
             case R.id.navSchedules:
                 break;
-
             case R.id.navMatches:
 
                 break;
-
             case R.id.navEvents:
                 break;
-
             case R.id.navProfile:
                 intent = new Intent(getActivity(), EditProfileActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.navSignOut:
                 logoutDialog();
                 break;
-
         }
 
         binding.lvDrawer.closeDrawer(GravityCompat.START);

@@ -61,7 +61,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
         init();
     }
 
-
     public void init() {
 
         if (!getLoginResponse().getData().getProfilePic().isEmpty()) {
