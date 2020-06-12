@@ -19,7 +19,10 @@ namespace Volleyball.EF.CustomClasses
         {
             public string APIKey { get; set; }
             public int UserID { get; set; }
-            public string Password { get; set; }
+            public string OldPass { get; set; }
+            public string NewPass { get; set; }
+
+
 
         }
 
@@ -31,6 +34,12 @@ namespace Volleyball.EF.CustomClasses
 
         }
 
+        public class CReqDeleteTeam
+        {
+            public string APIKey { get; set; }
+            public int UserID { get; set; }
+            public int TeamID { get; set; }
+        }
         public class CReqUpdateProfile
         {
             public string APIKey { get; set; }
@@ -44,9 +53,9 @@ namespace Volleyball.EF.CustomClasses
 
             public string Gender { get; set; }
             public string Contact { get; set; }
-            public string DOB { get; set; }
+            public DateTime? DOB { get; set; }
 
-            public string JoinDate { get; set; }
+            public DateTime? JoinDate { get; set; }
             public decimal? Experience { get; set; }
            
             public string Address { get; set; }

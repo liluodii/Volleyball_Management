@@ -195,10 +195,14 @@ namespace VolleyballService.Services
                         {
                             reqData.Address = Data.Address;
                             reqData.Contact = Data.Contact;
-                            reqData.DOB = Convert.ToDateTime(Data.DOB);
+                            if (Data.DOB != null)
+
+                                reqData.DOB = Data.DOB;
                             reqData.FirstName = Data.FirstName;
                             reqData.LastName = Data.LastName;
-                            reqData.JoinDate = Convert.ToDateTime(Data.JoinDate);
+
+                            if (Data.JoinDate != null)
+                                reqData.JoinDate = Data.JoinDate;
                             reqData.Gender = Data.Gender;
                             DC.SaveChanges();
 
@@ -243,10 +247,12 @@ namespace VolleyballService.Services
                         {
                             reqData.Address = Data.Address;
                             reqData.Contact = Data.Contact;
-                            reqData.DOB = Convert.ToDateTime(Data.DOB);
+                            if (Data.DOB != null)
+                                reqData.DOB = Data.DOB;
                             reqData.FirstName = Data.FirstName;
                             reqData.LastName = Data.LastName;
-                            reqData.JoinDate = Convert.ToDateTime(Data.JoinDate);
+                            if (Data.JoinDate != null)
+                                reqData.JoinDate = Data.JoinDate;
                             reqData.Gender = Data.Gender;
                             DC.SaveChanges();
 
@@ -259,10 +265,10 @@ namespace VolleyballService.Services
                             resData.Contact = user.TeamManagers.FirstOrDefault()?.Contact;
                             resData.UserID = user.ID;
                             if (user.TeamManagers.FirstOrDefault()?.JoinDate.HasValue == true)
-                                resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.ToString();
+                                resData.JoinDate = user.TeamManagers.FirstOrDefault()?.JoinDate.Value.ToString("MM-dd-yyyy");
 
                             if (user.TeamManagers.FirstOrDefault()?.DOB.HasValue == true)
-                                resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.ToString();
+                                resData.DOB = user.TeamManagers.FirstOrDefault()?.DOB.Value.ToString("MM-dd-yyyy");
                             resData.Address = user.TeamManagers.FirstOrDefault()?.Address;
                             string profilePic = user.TeamManagers.FirstOrDefault()?.ProfilePic;
                             resData.ProfilePic = string.IsNullOrEmpty(profilePic) ? "" : BaseService.GetURL() + profilePic;
@@ -469,7 +475,7 @@ namespace VolleyballService.Services
                         if (!Directory.Exists("/Images/" + UserID.ToString()))
                             Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/" + UserID.ToString()));
 
-                        file = "Images/"+Guid.NewGuid().ToString() + ".png";
+                        file = "Images/" + Guid.NewGuid().ToString() + ".png";
                         string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
                         File1.SaveAs(fileLocation);
 
@@ -482,8 +488,8 @@ namespace VolleyballService.Services
                             team.TeamPic = file;
                             team.CreatedUserID = UserID;
                             DC.Teams.Add(team);
-                           DC.SaveChanges();
-                          obj.ReturnMsg = "Team created successfully.";
+                            DC.SaveChanges();
+                            obj.ReturnMsg = "Team created successfully.";
 
                         }
                         else
