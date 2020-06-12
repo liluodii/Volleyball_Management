@@ -20,6 +20,7 @@ namespace Volleyball.EF
             this.LeagueManagers = new HashSet<LeagueManager>();
             this.PlayerMasters = new HashSet<PlayerMaster>();
             this.TeamManagers = new HashSet<TeamManager>();
+            this.Teams = new HashSet<Team>();
         }
     
         public int ID { get; set; }
@@ -36,5 +37,7 @@ namespace Volleyball.EF
         public virtual RoleMaster RoleMaster { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeamManager> TeamManagers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }

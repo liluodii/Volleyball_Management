@@ -52,3 +52,21 @@ C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\VolleyballSer
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.csproj.CopyComplete
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.dll
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\VolleyballService.dll.config
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\VolleyballService.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\VolleyballService.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\EntityFramework.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\EntityFramework.SqlServer.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Newtonsoft.Json.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Volleyball.Common.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Volleyball.EF.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Volleyball.Common.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Volleyball.EF.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\Volleyball.EF.dll.config
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\EntityFramework.xml
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\bin\Debug\EntityFramework.SqlServer.xml
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.csprojAssemblyReference.cache
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.csproj.CoreCompileInputs.cache
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.csproj.CopyComplete
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\VolleyballService\obj\Debug\VolleyballService.pdb

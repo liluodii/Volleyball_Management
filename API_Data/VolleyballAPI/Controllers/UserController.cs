@@ -217,6 +217,43 @@ namespace VolleyballAPI.Controllers
 
         }
 
+        [HttpPost]
+        [Route("AddManageTeam")]
+        public GenericClass AddManageTeam()
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                string APIKey = HttpContext.Current.Request.Form["APIKey"].ToString();
+                int UserID = Convert.ToInt32(HttpContext.Current.Request.Form["UserID"].ToString());
+                int TeamID = Convert.ToInt32(HttpContext.Current.Request.Form["TeamID"].ToString());
+                int TeamManagerID = Convert.ToInt32(HttpContext.Current.Request.Form["TeamManagerID"].ToString());
+
+                string Name = HttpContext.Current.Request.Form["Name"].ToString();
+
+                bool _IsValidToken = _BaseService.ValidateAPIToken(APIKey);
+                if (_IsValidToken == true)
+                {
+                    HttpPostedFile ImageData = HttpContext.Current.Request.Files["ImageData"];
+                    obj = _Service.AddManageTeam(UserID, ImageData, Name, TeamManagerID, TeamID);
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
+                    obj.ReturnMsg = ResponseMessages.AuthenticationFailedMsg;
+                    obj.ReturnValue = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                obj.ReturnCode = ResponseMessages.ErrorCode;
+                obj.ReturnMsg = ResponseMessages.ErrorMsg;
+                obj.ReturnValue = string.Empty;
+            }
+            return obj;
+
+        }
 
     }
 }

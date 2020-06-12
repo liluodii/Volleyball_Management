@@ -44,3 +44,15 @@ C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.Co
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.csproj.CopyComplete
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.dll
 C:\Users\dell\AndroidStudioProjects\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\Volleyball.Common.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\Volleyball.Common.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\Volleyball.EF.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\EntityFramework.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\Volleyball.EF.pdb
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\Volleyball.EF.dll.config
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\bin\Debug\EntityFramework.xml
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.csprojAssemblyReference.cache
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.csproj.CoreCompileInputs.cache
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.csproj.CopyComplete
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.dll
+H:\Bluesoft\Chirag Dangar\Volleyball app\Volleyball_Management\API_Data\Volleyball.Common\obj\Debug\Volleyball.Common.pdb

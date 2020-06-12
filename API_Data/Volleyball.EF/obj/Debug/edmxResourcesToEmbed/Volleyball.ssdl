@@ -52,6 +52,7 @@
     <Property Name="TeamManagerID" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreatedUserID" Type="int" />
   </EntityType>
   <EntityType Name="TeamManager">
     <Key>
@@ -151,6 +152,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Team_UserMaster">
+    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserMaster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="CreatedUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TeamMamber_PlayerMaster">
     <End Role="PlayerMaster" Type="Self.PlayerMaster" Multiplicity="0..1" />
     <End Role="TeamMember" Type="Self.TeamMember" Multiplicity="*" />
@@ -225,6 +238,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Team_TeamManager" Association="Self.FK_Team_TeamManager">
       <End Role="TeamManager" EntitySet="TeamManager" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserMaster" Association="Self.FK_Team_UserMaster">
+      <End Role="UserMaster" EntitySet="UserMaster" />
       <End Role="Team" EntitySet="Team" />
     </AssociationSet>
     <AssociationSet Name="FK_TeamMamber_PlayerMaster" Association="Self.FK_TeamMamber_PlayerMaster">

@@ -4,23 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="585b1696ace2452f9370289336d1669e" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.LeagueManager" Width="1.5" PointX="5.25" PointY="5.875" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.PlayerMaster" Width="1.5" PointX="5.25" PointY="10.125" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.RoleMaster" Width="1.5" PointX="0.75" PointY="7" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Team" Width="1.5" PointX="7.5" PointY="2" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamManager" Width="1.5" PointX="5.25" PointY="1.5" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamMember" Width="1.5" PointX="9.75" PointY="6.875" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Tournament" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TournamentTeam" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.UserMaster" Width="1.5" PointX="3" PointY="6.25" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_UserMaster_RoleMaster" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_Team_TeamManager" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamMamber_Team" />
-        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster" />
+      <Diagram DiagramId="59d23111c683484698173903c4041abb" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.LeagueManager" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.PlayerMaster" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.RoleMaster" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Team" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamManager" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TeamMember" Width="1.5" PointX="9.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.Tournament" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.TournamentTeam" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.UserMaster" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_UserMaster_RoleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_Team_TeamManager" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamMamber_Team" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_Team_UserMaster" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

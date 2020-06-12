@@ -1,44 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DB_A43E53_volleyballModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="DB_A43E53_volleyballEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="LeagueManagers" EntityType="DB_A43E53_volleyballModel.LeagueManager" />
-    <EntitySet Name="PlayerMasters" EntityType="DB_A43E53_volleyballModel.PlayerMaster" />
-    <EntitySet Name="RoleMasters" EntityType="DB_A43E53_volleyballModel.RoleMaster" />
-    <EntitySet Name="Teams" EntityType="DB_A43E53_volleyballModel.Team" />
-    <EntitySet Name="TeamManagers" EntityType="DB_A43E53_volleyballModel.TeamManager" />
-    <EntitySet Name="TeamMembers" EntityType="DB_A43E53_volleyballModel.TeamMember" />
-    <EntitySet Name="Tournaments" EntityType="DB_A43E53_volleyballModel.Tournament" />
-    <EntitySet Name="TournamentTeams" EntityType="DB_A43E53_volleyballModel.TournamentTeam" />
-    <EntitySet Name="UserMasters" EntityType="DB_A43E53_volleyballModel.UserMaster" />
-    <AssociationSet Name="FK_LeagueManager_LeagueManager" Association="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager">
-      <End Role="UserMaster" EntitySet="UserMasters" />
-      <End Role="LeagueManager" EntitySet="LeagueManagers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PlayerMaster_UserMaster" Association="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster">
-      <End Role="UserMaster" EntitySet="UserMasters" />
-      <End Role="PlayerMaster" EntitySet="PlayerMasters" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TeamMamber_PlayerMaster" Association="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster">
-      <End Role="PlayerMaster" EntitySet="PlayerMasters" />
-      <End Role="TeamMember" EntitySet="TeamMembers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserMaster_RoleMaster" Association="DB_A43E53_volleyballModel.FK_UserMaster_RoleMaster">
-      <End Role="RoleMaster" EntitySet="RoleMasters" />
-      <End Role="UserMaster" EntitySet="UserMasters" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Team_TeamManager" Association="DB_A43E53_volleyballModel.FK_Team_TeamManager">
-      <End Role="TeamManager" EntitySet="TeamManagers" />
-      <End Role="Team" EntitySet="Teams" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TeamMamber_Team" Association="DB_A43E53_volleyballModel.FK_TeamMamber_Team">
-      <End Role="Team" EntitySet="Teams" />
-      <End Role="TeamMember" EntitySet="TeamMembers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TeamManager_UserMaster" Association="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster">
-      <End Role="UserMaster" EntitySet="UserMasters" />
-      <End Role="TeamManager" EntitySet="TeamManagers" />
-    </AssociationSet>
-  </EntityContainer>
   <EntityType Name="LeagueManager">
     <Key>
       <PropertyRef Name="ID" />
@@ -55,7 +16,7 @@
     <Property Name="DOB" Type="DateTime" Precision="3" />
     <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager" FromRole="LeagueManager" ToRole="UserMaster" />
+    <NavigationProperty Name="UserMaster" Relationship="Self.FK_LeagueManager_LeagueManager" FromRole="LeagueManager" ToRole="UserMaster" />
   </EntityType>
   <EntityType Name="PlayerMaster">
     <Key>
@@ -74,16 +35,16 @@
     <Property Name="Experience" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster" FromRole="PlayerMaster" ToRole="UserMaster" />
-    <NavigationProperty Name="TeamMembers" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster" FromRole="PlayerMaster" ToRole="TeamMember" />
+    <NavigationProperty Name="UserMaster" Relationship="Self.FK_PlayerMaster_UserMaster" FromRole="PlayerMaster" ToRole="UserMaster" />
+    <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMamber_PlayerMaster" FromRole="PlayerMaster" ToRole="TeamMember" />
   </EntityType>
   <EntityType Name="RoleMaster">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="UserMasters" Relationship="DB_A43E53_volleyballModel.FK_UserMaster_RoleMaster" FromRole="RoleMaster" ToRole="UserMaster" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UserMasters" Relationship="Self.FK_UserMaster_RoleMaster" FromRole="RoleMaster" ToRole="UserMaster" />
   </EntityType>
   <EntityType Name="Team">
     <Key>
@@ -95,8 +56,10 @@
     <Property Name="TeamManagerID" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="TeamManager" Relationship="DB_A43E53_volleyballModel.FK_Team_TeamManager" FromRole="Team" ToRole="TeamManager" />
-    <NavigationProperty Name="TeamMembers" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_Team" FromRole="Team" ToRole="TeamMember" />
+    <NavigationProperty Name="TeamManager" Relationship="Self.FK_Team_TeamManager" FromRole="Team" ToRole="TeamManager" />
+    <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMamber_Team" FromRole="Team" ToRole="TeamMember" />
+    <Property Name="CreatedUserID" Type="Int32" />
+    <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_Team_UserMaster" FromRole="Team" ToRole="UserMaster" />
   </EntityType>
   <EntityType Name="TeamManager">
     <Key>
@@ -114,8 +77,8 @@
     <Property Name="DOB" Type="DateTime" Precision="3" />
     <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Teams" Relationship="DB_A43E53_volleyballModel.FK_Team_TeamManager" FromRole="TeamManager" ToRole="Team" />
-    <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster" FromRole="TeamManager" ToRole="UserMaster" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Team_TeamManager" FromRole="TeamManager" ToRole="Team" />
+    <NavigationProperty Name="UserMaster" Relationship="Self.FK_TeamManager_UserMaster" FromRole="TeamManager" ToRole="UserMaster" />
   </EntityType>
   <EntityType Name="TeamMember">
     <Key>
@@ -126,8 +89,8 @@
     <Property Name="PlayerID" Type="Int32" />
     <Property Name="RoleID" Type="Int32" />
     <Property Name="OrderID" Type="Int32" />
-    <NavigationProperty Name="PlayerMaster" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_PlayerMaster" FromRole="TeamMember" ToRole="PlayerMaster" />
-    <NavigationProperty Name="Team" Relationship="DB_A43E53_volleyballModel.FK_TeamMamber_Team" FromRole="TeamMember" ToRole="Team" />
+    <NavigationProperty Name="PlayerMaster" Relationship="Self.FK_TeamMamber_PlayerMaster" FromRole="TeamMember" ToRole="PlayerMaster" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_TeamMamber_Team" FromRole="TeamMember" ToRole="Team" />
   </EntityType>
   <EntityType Name="Tournament">
     <Key>
@@ -152,21 +115,22 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="RoleID" Type="Int32" />
-    <NavigationProperty Name="LeagueManagers" Relationship="DB_A43E53_volleyballModel.FK_LeagueManager_LeagueManager" FromRole="UserMaster" ToRole="LeagueManager" />
-    <NavigationProperty Name="PlayerMasters" Relationship="DB_A43E53_volleyballModel.FK_PlayerMaster_UserMaster" FromRole="UserMaster" ToRole="PlayerMaster" />
-    <NavigationProperty Name="RoleMaster" Relationship="DB_A43E53_volleyballModel.FK_UserMaster_RoleMaster" FromRole="UserMaster" ToRole="RoleMaster" />
-    <NavigationProperty Name="TeamManagers" Relationship="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster" FromRole="UserMaster" ToRole="TeamManager" />
+    <NavigationProperty Name="LeagueManagers" Relationship="Self.FK_LeagueManager_LeagueManager" FromRole="UserMaster" ToRole="LeagueManager" />
+    <NavigationProperty Name="PlayerMasters" Relationship="Self.FK_PlayerMaster_UserMaster" FromRole="UserMaster" ToRole="PlayerMaster" />
+    <NavigationProperty Name="RoleMaster" Relationship="Self.FK_UserMaster_RoleMaster" FromRole="UserMaster" ToRole="RoleMaster" />
+    <NavigationProperty Name="TeamManagers" Relationship="Self.FK_TeamManager_UserMaster" FromRole="UserMaster" ToRole="TeamManager" />
+    <NavigationProperty Name="Teams" Relationship="DB_A43E53_volleyballModel.FK_Team_UserMaster" FromRole="UserMaster" ToRole="Team" />
   </EntityType>
   <Association Name="FK_LeagueManager_LeagueManager">
-    <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1">
+    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.LeagueManager" Role="LeagueManager" Multiplicity="*" />
+    <End Role="LeagueManager" Type="Self.LeagueManager" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserMaster">
         <PropertyRef Name="ID" />
@@ -177,10 +141,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PlayerMaster_UserMaster">
-    <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1">
+    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.PlayerMaster" Role="PlayerMaster" Multiplicity="*" />
+    <End Role="PlayerMaster" Type="Self.PlayerMaster" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserMaster">
         <PropertyRef Name="ID" />
@@ -191,8 +155,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TeamMamber_PlayerMaster">
-    <End Type="DB_A43E53_volleyballModel.PlayerMaster" Role="PlayerMaster" Multiplicity="0..1" />
-    <End Type="DB_A43E53_volleyballModel.TeamMember" Role="TeamMember" Multiplicity="*" />
+    <End Role="PlayerMaster" Type="Self.PlayerMaster" Multiplicity="0..1" />
+    <End Role="TeamMember" Type="Self.TeamMember" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PlayerMaster">
         <PropertyRef Name="ID" />
@@ -203,10 +167,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserMaster_RoleMaster">
-    <End Type="DB_A43E53_volleyballModel.RoleMaster" Role="RoleMaster" Multiplicity="0..1">
+    <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RoleMaster">
         <PropertyRef Name="ID" />
@@ -217,10 +181,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Team_TeamManager">
-    <End Type="DB_A43E53_volleyballModel.TeamManager" Role="TeamManager" Multiplicity="0..1">
+    <End Role="TeamManager" Type="Self.TeamManager" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="*" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TeamManager">
         <PropertyRef Name="ID" />
@@ -231,10 +195,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TeamMamber_Team">
-    <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="0..1">
+    <End Role="Team" Type="Self.Team" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.TeamMember" Role="TeamMember" Multiplicity="*" />
+    <End Role="TeamMember" Type="Self.TeamMember" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Team">
         <PropertyRef Name="ID" />
@@ -245,16 +209,71 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TeamManager_UserMaster">
-    <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1">
+    <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="DB_A43E53_volleyballModel.TeamManager" Role="TeamManager" Multiplicity="*" />
+    <End Role="TeamManager" Type="Self.TeamManager" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserMaster">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="TeamManager">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_A43E53_volleyballEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LeagueManagers" EntityType="Self.LeagueManager" />
+    <EntitySet Name="PlayerMasters" EntityType="Self.PlayerMaster" />
+    <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <EntitySet Name="TeamManagers" EntityType="Self.TeamManager" />
+    <EntitySet Name="TeamMembers" EntityType="Self.TeamMember" />
+    <EntitySet Name="Tournaments" EntityType="Self.Tournament" />
+    <EntitySet Name="TournamentTeams" EntityType="Self.TournamentTeam" />
+    <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
+    <AssociationSet Name="FK_LeagueManager_LeagueManager" Association="Self.FK_LeagueManager_LeagueManager">
+      <End Role="UserMaster" EntitySet="UserMasters" />
+      <End Role="LeagueManager" EntitySet="LeagueManagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlayerMaster_UserMaster" Association="Self.FK_PlayerMaster_UserMaster">
+      <End Role="UserMaster" EntitySet="UserMasters" />
+      <End Role="PlayerMaster" EntitySet="PlayerMasters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamMamber_PlayerMaster" Association="Self.FK_TeamMamber_PlayerMaster">
+      <End Role="PlayerMaster" EntitySet="PlayerMasters" />
+      <End Role="TeamMember" EntitySet="TeamMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMaster_RoleMaster" Association="Self.FK_UserMaster_RoleMaster">
+      <End Role="RoleMaster" EntitySet="RoleMasters" />
+      <End Role="UserMaster" EntitySet="UserMasters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_TeamManager" Association="Self.FK_Team_TeamManager">
+      <End Role="TeamManager" EntitySet="TeamManagers" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamMamber_Team" Association="Self.FK_TeamMamber_Team">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="TeamMember" EntitySet="TeamMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamManager_UserMaster" Association="Self.FK_TeamManager_UserMaster">
+      <End Role="UserMaster" EntitySet="UserMasters" />
+      <End Role="TeamManager" EntitySet="TeamManagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserMaster" Association="DB_A43E53_volleyballModel.FK_Team_UserMaster">
+      <End Role="UserMaster" EntitySet="UserMasters" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Team_UserMaster">
+    <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+    <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserMaster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="CreatedUserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
