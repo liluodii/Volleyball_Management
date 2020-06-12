@@ -529,6 +529,99 @@ namespace VolleyballService.Services
         }
 
 
+        public GenericClass DeleteTeam(CReqDeleteTeam Data)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+
+
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == Data.UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+                    Team PM = user.Teams.FirstOrDefault();
+                    if (PM != null)
+                    {
+                        DC.Teams.Remove(PM);
+                        DC.SaveChanges();
+                    }
+                    else
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "Team does not exist";
+                        return obj;
+                    }
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = "Team deleted successfully";
+
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+
+            return obj;
+        }
+
+
+        public GenericClass GetTeamList(int UserID)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+
+
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+                    var ret = (from t in DC.Teams.AsEnumerable()
+                               where user.RoleID == 2 ? true : t.TeamManagerID == user.TeamManagers.FirstOrDefault().ID
+                               select new
+                               {
+                                   TeamID = t.ID,
+                                   Name = t.TeamName,
+                                   Count = t.TeamMembers.Count(),
+                                   Photo = string.IsNullOrEmpty(t.TeamPic) ? "" : BaseService.GetURL() + t.TeamPic
+
+                               });
+                    obj.Data = ret;
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    obj.Data = new List<int>();
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+
+            return obj;
+        }
 
 
     }
