@@ -618,9 +618,10 @@ namespace VolleyballService.Services
                                {
                                    TeamID = t.ID,
                                    Name = t.TeamName,
+                                   TeamManagerID = t.TeamManagerID,
+                                   TeamManagerName = t.TeamManager.FirstName + " " + t.TeamManager.LastName,
                                    Count = t.TeamMembers.Count(),
                                    Photo = string.IsNullOrEmpty(t.TeamPic) ? "" : BaseService.GetURL() + t.TeamPic
-
                                });
                     obj.Data = ret;
 
@@ -645,6 +646,50 @@ namespace VolleyballService.Services
         }
 
 
+        public GenericClass AddPlayerInTeam(CReqAddTeamMemberInTeam Data)
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+
+                UserMaster user = (from u in DC.UserMasters
+                                   where u.ID == Data.UserID
+                                   select u).FirstOrDefault();
+                if (user != null)
+                {
+
+                    List<int> ids = Data.PlayerIDs.Split(',').ToList().Select(x=>Convert.ToInt32(x)).ToList();
+                    List<TeamMember> list = new List<TeamMember>();
+                    int n = 1;
+                    foreach (int id in ids)
+                    {
+                        TeamMember tm = new TeamMember();
+                        tm.OrderID = 1;
+                        tm.PlayerID = id;
+                        tm.TeamID = Data.TeamID;
+                        list.Add(tm);
+                    }
+                    DC.TeamMembers.AddRange(list);
+                    DC.SaveChanges();
+                    
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not exist";
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+        }
 
 
     }
