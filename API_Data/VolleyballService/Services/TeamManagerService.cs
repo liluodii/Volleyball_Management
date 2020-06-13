@@ -105,7 +105,7 @@ namespace VolleyballService.Services
                     DC.PlayerMasters.Add(PM);
                     DC.SaveChanges();
 
-                    SendRegistrationEmail(Data.EmailID, password, Data.FirstName + " " + Data.LastName);
+                    //SendRegistrationEmail(Data.EmailID, password, Data.FirstName + " " + Data.LastName);
 
                     obj.ReturnMsg = "Successfully add profile.";
                     obj.ReturnValue = PM.UserID.ToString();
@@ -365,9 +365,6 @@ namespace VolleyballService.Services
 
             try
             {
-
-
-
                 UserMaster user = (from u in DC.UserMasters
                                    where u.ID == UserID
                                    select u).FirstOrDefault();
@@ -384,9 +381,21 @@ namespace VolleyballService.Services
                                        Photo = string.IsNullOrEmpty(t.ProfilePic) ? "" : BaseService.GetURL() + t.ProfilePic
 
                                    });
-                        obj.Data = ret;
+                        if (ret.Count() > 0)
+                        {
+                            obj.Data = ret;
+                            obj.ReturnCode = ResponseMessages.SuccessCode;
+                            obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                        }
+                        else
+                        {
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                            obj.Data = new List<int>();
+                            return obj;
+                        }
                     }
-                    else if (user.RoleID == 2)
+                    else if (user.RoleID == 3)
                     {
                         var ret = (from t in DC.TeamMembers.AsEnumerable()
                                    where (t.Team.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Name) ? true : t.PlayerMaster.FirstName.Contains(Name) || t.PlayerMaster.LastName.Contains(Name)) && (IsCheckInTeam == 0 ? true : t.PlayerMaster.TeamMembers.Count() == 0)
@@ -397,7 +406,21 @@ namespace VolleyballService.Services
                                        Photo = string.IsNullOrEmpty(t.PlayerMaster.ProfilePic) ? "" : BaseService.GetURL() + t.PlayerMaster.ProfilePic
 
                                    });
-                        obj.Data = ret;
+
+
+                        if (ret.Count() > 0)
+                        {
+                            obj.Data = ret;
+                            obj.ReturnCode = ResponseMessages.SuccessCode;
+                            obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                        }
+                        else
+                        {
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                            obj.Data = new List<int>();
+                            return obj;
+                        }
 
                     }
 
@@ -409,8 +432,6 @@ namespace VolleyballService.Services
                     obj.Data = new List<int>();
                     return obj;
                 }
-                obj.ReturnCode = ResponseMessages.SuccessCode;
-                obj.ReturnMsg = ResponseMessages.SuccessMsg;
 
             }
             catch (Exception EX)
@@ -523,7 +544,19 @@ namespace VolleyballService.Services
                                    Photo = string.IsNullOrEmpty(t.ProfilePic) ? "" : BaseService.GetURL() + t.ProfilePic
 
                                });
-                    obj.Data = ret;
+                    if (ret.Count() > 0)
+                    {
+                        obj.Data = ret;
+                        obj.ReturnCode = ResponseMessages.SuccessCode;
+                        obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                    }
+                    else
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                        obj.Data = new List<int>();
+                        return obj;
+                    }
 
                 }
                 else

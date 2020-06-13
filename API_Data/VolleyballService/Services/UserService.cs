@@ -604,16 +604,14 @@ namespace VolleyballService.Services
 
             try
             {
-
-
-
                 UserMaster user = (from u in DC.UserMasters
                                    where u.ID == UserID
                                    select u).FirstOrDefault();
                 if (user != null)
                 {
                     var ret = (from t in DC.Teams.AsEnumerable()
-                               where (user.RoleID == 2 ? true : t.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Search) ? true : t.TeamName.Contains(Search))
+                               where
+                               (user.RoleID == 2 ? true : t.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Search) ? true : t.TeamName.Contains(Search))
                                select new
                                {
                                    TeamID = t.ID,
@@ -623,7 +621,19 @@ namespace VolleyballService.Services
                                    Count = t.TeamMembers.Count(),
                                    Photo = string.IsNullOrEmpty(t.TeamPic) ? "" : BaseService.GetURL() + t.TeamPic
                                });
-                    obj.Data = ret;
+                    if (ret.Count() > 0)
+                    {
+                        obj.Data = ret;
+                        obj.ReturnCode = ResponseMessages.SuccessCode;
+                        obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                    }
+                    else
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                        obj.Data = new List<int>();
+                        return obj;
+                    }
 
                 }
                 else
