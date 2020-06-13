@@ -668,6 +668,7 @@ namespace VolleyballService.Services
                         tm.PlayerID = id;
                         tm.TeamID = Data.TeamID;
                         list.Add(tm);
+                        n++;
                     }
                     DC.TeamMembers.AddRange(list);
                     DC.SaveChanges();
@@ -726,6 +727,44 @@ namespace VolleyballService.Services
                 obj.ReturnMsg = ResponseMessages.SuccessMsg;
 
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+
+        }
+
+
+        public GenericClass GetTeamMember(CReqDeleteTeam Data)
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                var ret = (from u in DC.TeamMembers.AsEnumerable()
+                           where u.TeamID == Data.TeamID
+                           select new
+                           {
+                               Photo = string.IsNullOrEmpty(u.PlayerMaster.ProfilePic) ? "" : BaseService.GetURL() + u.PlayerMaster.ProfilePic,
+                               Name = u.PlayerMaster.FirstName + " " + u.PlayerMaster.LastName,
+                               TeamMemberJoinID = u.ID
+                           }).ToList();
+
+                if (ret.Count() > 0)
+                {
+                    obj.Data = ret;
+                    obj.ReturnCode = ResponseMessages.SuccessCode;
+                    obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "User does not found";
+                    obj.Data = new List<int>();
+                    return obj;
+                }
             }
             catch (Exception)
             {

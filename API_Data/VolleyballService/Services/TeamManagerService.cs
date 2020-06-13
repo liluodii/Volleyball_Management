@@ -359,7 +359,7 @@ namespace VolleyballService.Services
             return obj;
         }
 
-        public GenericClass GetPlayerList(int UserID, string Name)
+        public GenericClass GetPlayerList(int UserID, string Name, int IsCheckInTeam)
         {
             GenericClass obj = new GenericClass();
 
@@ -376,7 +376,7 @@ namespace VolleyballService.Services
                     if (user.RoleID == 2)
                     {
                         var ret = (from t in DC.PlayerMasters.AsEnumerable()
-                                   where string.IsNullOrEmpty(Name) ? true : (t.FirstName.Contains(Name) || t.LastName.Contains(Name))
+                                   where (string.IsNullOrEmpty(Name) ? true : (t.FirstName.Contains(Name) || t.LastName.Contains(Name))) && (IsCheckInTeam == 0 ? true : t.TeamMembers.Count() == 0)
                                    select new
                                    {
                                        PlayerID = t.ID,
@@ -389,7 +389,7 @@ namespace VolleyballService.Services
                     else if (user.RoleID == 2)
                     {
                         var ret = (from t in DC.TeamMembers.AsEnumerable()
-                                   where (t.Team.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Name) ? true : t.PlayerMaster.FirstName.Contains(Name) || t.PlayerMaster.LastName.Contains(Name))
+                                   where (t.Team.TeamManagerID == user.TeamManagers.FirstOrDefault().ID) && (string.IsNullOrEmpty(Name) ? true : t.PlayerMaster.FirstName.Contains(Name) || t.PlayerMaster.LastName.Contains(Name)) && (IsCheckInTeam == 0 ? true : t.PlayerMaster.TeamMembers.Count() == 0)
                                    select new
                                    {
                                        PlayerID = t.PlayerID,

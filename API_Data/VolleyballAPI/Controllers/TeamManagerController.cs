@@ -188,7 +188,7 @@ namespace VolleyballAPI.Controllers
 
         [Route("GetPlayerList")]
         [HttpGet]
-        public GenericClass GetPlayerList(int UserID = 0, string Search = "")
+        public GenericClass GetPlayerList(int UserID = 0, string Search = "", int IsCheckInTeam = 0)
         {
             GenericClass Obj = new GenericClass();
             try
@@ -202,7 +202,7 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                Obj = _Service.GetPlayerList(UserID, Search);
+                Obj = _Service.GetPlayerList(UserID, Search, IsCheckInTeam);
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
