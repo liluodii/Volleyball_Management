@@ -263,10 +263,7 @@ public class BaseActivity extends AppCompatActivity {
         return this;
     }
 
-    public void noDataFound(DTextView dTextView, ListView view) {
-        dTextView.setVisibility(View.VISIBLE);
-        view.setVisibility(View.GONE);
-    }
+
 
     public void takePicture() {
         initState();

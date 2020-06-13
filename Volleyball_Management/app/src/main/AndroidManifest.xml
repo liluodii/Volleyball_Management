@@ -65,6 +65,12 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name="com.canada.volleyballmanagement.activity.AddTeamActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="com.canada.volleyballmanagement.activity.TeamManagerActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

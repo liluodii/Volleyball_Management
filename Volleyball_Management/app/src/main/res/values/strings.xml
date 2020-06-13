@@ -46,6 +46,7 @@
     <string name="text_your_profile">Your profile</string>
     <string name="text_add_player">Add player</string>
     <string name="text_add_team_manager">Add team manager</string>
+    <string name="text_add_team">Add team</string>
     <string name="text_sign_out">Sign out</string>
     <string name="text_matches">Matches</string>
     <string name="text_team_manager">Team manager</string>
@@ -72,6 +73,7 @@
     <string name="err_select_join_date">Please select join date</string>
     <string name="err_valid_experience">Please enter valid experience</string>
     <string name="err_empty_experience">Please enter experience</string>
+    <string name="err_select_image">Please select image</string>
 
 
     <string name="title_delete">Confirm Delete!</string>

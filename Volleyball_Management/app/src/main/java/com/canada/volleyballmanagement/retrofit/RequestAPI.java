@@ -5,12 +5,14 @@ import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
 import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
 import com.canada.volleyballmanagement.pojo.CommonRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.DeleteTeamRequest;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
 import com.canada.volleyballmanagement.pojo.EditProfileRequest;
 import com.canada.volleyballmanagement.pojo.EditTeamManagerResponse;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordRequest;
 import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
 import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
+import com.canada.volleyballmanagement.pojo.GetTeamListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
@@ -40,6 +42,14 @@ public interface RequestAPI {
     @POST("/AddUserProfilePic")
     Call<CommonResponse> UpdateProfilePic(@Part("APIKey") RequestBody APIKey, @Part("UserID") RequestBody UserDetailID, @Part("ImageData\"; filename=\"ImageData.png\" ") RequestBody ProfilePic);
 
+    @Multipart
+    @POST("/AddManageTeam")
+    Call<CommonResponse> AddManageTeam(@Part("APIKey") RequestBody APIKey, @Part("UserID") RequestBody UserDetailID, @Part("TeamID") RequestBody TeamID, @Part("TeamManagerID") RequestBody TeamManagerID, @Part("Name") RequestBody Name, @Part("ImageData\"; filename=\"ImageData.png\" ") RequestBody ProfilePic);
+
+    @Multipart
+    @POST("/AddManageTeam")
+    Call<CommonResponse> AddManageTeam(@Part("APIKey") RequestBody APIKey, @Part("UserID") RequestBody UserDetailID, @Part("TeamID") RequestBody TeamID, @Part("TeamManagerID") RequestBody TeamManagerID, @Part("Name") RequestBody Name);
+
     @POST("/ChangePassword")
     Call<CommonResponse> ChangePasswordRequest(@Body ChangePasswordRequest request);
 
@@ -58,6 +68,9 @@ public interface RequestAPI {
     @GET("/GetTeamManagerList")
     Call<GetTeamManagerListResponse> GetTeamManagerList(@Query("UserID") int id, @Query("Search") String search);
 
+    @GET("/GetTeamList")
+    Call<GetTeamListResponse> GetTeamList(@Query("UserID") int id, @Query("Search") String search);
+
     @GET("/GetPlayerDetails")
     Call<EditPlayerResponse> GetPlayerDetails(@Query("PlayerID") int id);
 
@@ -69,6 +82,9 @@ public interface RequestAPI {
 
     @HTTP(method = "DELETE", path = "DeleteTeamManager/", hasBody = true)
     Call<CommonResponse> DeleteTeamManager(@Body CommonRequest request);
+
+    @HTTP(method = "DELETE", path = "DeleteTeam/", hasBody = true)
+    Call<CommonResponse> DeleteTeam(@Body DeleteTeamRequest request);
 
 
 //    @Multipart

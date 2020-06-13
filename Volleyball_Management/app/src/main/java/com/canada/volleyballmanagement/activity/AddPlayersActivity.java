@@ -59,6 +59,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
     boolean isCamera = false;
     boolean isJoinDate = false;
     String strProfilePic = "";
+    int UserId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,6 +122,8 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
                 } else if (playerResponse.getData().getGender().equals("female")) {
                     binding.rbFemale.setChecked(true);
                 }
+
+                UserId = playerResponse.getData().getUserID();
 
             } else {
 
@@ -231,7 +234,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         showDialog();
         AddPlayerRequest request = new AddPlayerRequest();
         request.setAPIKey(Constants.APIKEY);
-        request.setUserID(0);
+        request.setUserID(UserId);
         request.setFirstName(returnText(binding.edFirstName));
         request.setLastName(returnText(binding.edLastName));
         request.setEmailID(returnText(binding.edEmail));

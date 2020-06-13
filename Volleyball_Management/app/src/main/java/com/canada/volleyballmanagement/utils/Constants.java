@@ -10,4 +10,8 @@ public class Constants {
     public static final String APIKEY = "123";
     public static final String isEditPlayer = "iseditplayer";
     public static final String playerId = "playerid";
+    public static final String Image = "image";
+    public static final String TeamId = "teamid";
+    public static final String TeamManagerId = "teammanagerid";
+    public static final String Name = "name";
 }

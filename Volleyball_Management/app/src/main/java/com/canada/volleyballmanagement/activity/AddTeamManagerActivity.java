@@ -55,7 +55,7 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
     boolean isCamera = false;
     boolean isJoinDate = false;
     String strProfilePic = "";
-
+    int UserId = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,40 +88,42 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
 
             dismissDialog();
 
-            EditTeamManagerResponse playerResponse = response.body();
+            EditTeamManagerResponse teamManagerResponse = response.body();
 
-            if (playerResponse.getReturnCode().equals("1")) {
+            if (teamManagerResponse.getReturnCode().equals("1")) {
 
-                if (!playerResponse.getData().getProfilePic().isEmpty()) {
+                if (!teamManagerResponse.getData().getProfilePic().isEmpty()) {
 
                     RequestOptions options = new RequestOptions();
                     options.placeholder(getActivity().getResources().getDrawable(R.drawable.ic_person));
                     options.error(getActivity().getResources().getDrawable(R.drawable.ic_person));
 
                     Glide.with(getActivity()).setDefaultRequestOptions(options)
-                            .load(playerResponse.getData().getProfilePic()).into(binding.imgProfile);
+                            .load(teamManagerResponse.getData().getProfilePic()).into(binding.imgProfile);
 
                 } else {
                     binding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
                 }
 
-                binding.edFirstName.setText(bindView(playerResponse.getData().getFirstName()));
-                binding.edLastName.setText(bindView(playerResponse.getData().getLastName()));
-                binding.edEmail.setText(playerResponse.getData().getEmailID());
-                binding.edDob.setText(playerResponse.getData().getDOB());
-                binding.edContact.setText(bindView(playerResponse.getData().getContact()));
-                binding.edJoinDate.setText(playerResponse.getData().getJoinDate());
-                binding.edAddress.setText(bindView(playerResponse.getData().getAddress()));
+                binding.edFirstName.setText(bindView(teamManagerResponse.getData().getFirstName()));
+                binding.edLastName.setText(bindView(teamManagerResponse.getData().getLastName()));
+                binding.edEmail.setText(teamManagerResponse.getData().getEmailID());
+                binding.edDob.setText(teamManagerResponse.getData().getDOB());
+                binding.edContact.setText(bindView(teamManagerResponse.getData().getContact()));
+                binding.edJoinDate.setText(teamManagerResponse.getData().getJoinDate());
+                binding.edAddress.setText(bindView(teamManagerResponse.getData().getAddress()));
 
-                if (playerResponse.getData().getGender().equals("male")) {
+                if (teamManagerResponse.getData().getGender().equals("male")) {
                     binding.rbMale.setChecked(true);
-                } else if (playerResponse.getData().getGender().equals("female")) {
+                } else if (teamManagerResponse.getData().getGender().equals("female")) {
                     binding.rbFemale.setChecked(true);
                 }
 
+                UserId = teamManagerResponse.getData().getUserID();
+
             } else {
 
-                Toast.makeText(getActivity(), "" + playerResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "" + teamManagerResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -219,7 +221,7 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
         showDialog();
         AddTeamManagerRequest request = new AddTeamManagerRequest();
         request.setAPIKey(Constants.APIKEY);
-        request.setUserID(0);
+        request.setUserID(UserId);
         request.setFirstName(returnText(binding.edFirstName));
         request.setLastName(returnText(binding.edLastName));
         request.setEmailID(returnText(binding.edEmail));
