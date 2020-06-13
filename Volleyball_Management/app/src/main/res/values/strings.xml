@@ -50,6 +50,7 @@
     <string name="text_sign_out">Sign out</string>
     <string name="text_matches">Matches</string>
     <string name="text_team_manager">Team manager</string>
+    <string name="text_select_team">Select team</string>
 
     <string name="text_search_player">Search Player</string>
     <string name="text_search_team">Search Team</string>

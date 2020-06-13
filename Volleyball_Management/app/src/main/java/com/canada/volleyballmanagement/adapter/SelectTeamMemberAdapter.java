@@ -11,31 +11,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.canada.volleyballmanagement.R;
-import com.canada.volleyballmanagement.databinding.ItemTeamBinding;
-import com.canada.volleyballmanagement.databinding.ItemTeamBinding;
-import com.canada.volleyballmanagement.pojo.GetTeamListResponse;
+import com.canada.volleyballmanagement.databinding.ItemSelectTeamMemberBinding;
+import com.canada.volleyballmanagement.pojo.SelectTeamMemberResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Holder> {
+public class SelectTeamMemberAdapter extends RecyclerView.Adapter<SelectTeamMemberAdapter.Holder> {
 
     public EventListener mEventListener;
     Context context;
-    private List<GetTeamListResponse.Datum> data = new ArrayList<>();
+    private List<SelectTeamMemberResponse.Datum> data = new ArrayList<>();
 
-    public TeamListAdapter(Context context) {
+    public SelectTeamMemberAdapter(Context context) {
         this.context = context;
     }
 
-    public void addAll(List<GetTeamListResponse.Datum> mData) {
+    public void addAll(List<SelectTeamMemberResponse.Datum> mData) {
         data.clear();
         data.addAll(mData);
         notifyDataSetChanged();
     }
 
-    public void add(GetTeamListResponse.Datum mData) {
+    public void add(SelectTeamMemberResponse.Datum mData) {
         data.add(mData);
         notifyDataSetChanged();
     }
@@ -57,16 +56,16 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Holder
         notifyDataSetChanged();
     }
 
-    public GetTeamListResponse.Datum getItem(int position) {
+    public SelectTeamMemberResponse.Datum getItem(int position) {
         return data.get(position);
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ItemTeamBinding binding = DataBindingUtil.inflate(
+        ItemSelectTeamMemberBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.item_team, parent, false);
+                R.layout.item_select_team_member, parent, false);
         binding.setActivity(this);
 
         return new Holder(binding);
@@ -75,19 +74,9 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Holder
     public void onClick(View view, int position) {
 
         switch (view.getId()) {
-            case R.id.imgEdit:
-                if (mEventListener != null) {
-                    mEventListener.onEdit(data.get(position), position);
-                }
-                break;
             case R.id.imgDelete:
                 if (mEventListener != null) {
                     mEventListener.onDelete(data.get(position), position);
-                }
-                break;
-            case R.id.lvPerson:
-                if (mEventListener != null) {
-                    mEventListener.onPerson(data.get(position), position);
                 }
                 break;
         }
@@ -98,7 +87,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Holder
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
 
-        GetTeamListResponse.Datum dataModel = data.get(position);
+        SelectTeamMemberResponse.Datum dataModel = data.get(position);
 
         holder.bind(dataModel, position);
 
@@ -130,22 +119,18 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Holder
 
 
     public interface EventListener {
-        void onDelete(GetTeamListResponse.Datum data, int position);
-
-        void onEdit(GetTeamListResponse.Datum data, int position);
-
-        void onPerson(GetTeamListResponse.Datum data, int position);
+        void onDelete(SelectTeamMemberResponse.Datum data, int position);
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        public ItemTeamBinding binding;
+        public ItemSelectTeamMemberBinding binding;
 
-        public Holder(ItemTeamBinding binding) {
+        public Holder(ItemSelectTeamMemberBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(GetTeamListResponse.Datum obj, int position) {
+        public void bind(SelectTeamMemberResponse.Datum obj, int position) {
             binding.setData(obj);
             binding.setPosition(position);
 

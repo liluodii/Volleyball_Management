@@ -76,6 +76,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name="com.canada.volleyballmanagement.activity.SelectTeamActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="com.canada.volleyballmanagement.activity.SplashActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

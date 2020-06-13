@@ -140,6 +140,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         binding.rvTeam.setAdapter(adapter);
 
         adapter.setEventListener(new TeamListAdapter.EventListener() {
+
+            @Override
+            public void onPerson(GetTeamListResponse.Datum data, int position) {
+                Intent intent = new Intent(getActivity(), SelectTeamActivity.class);
+                intent.putExtra(Constants.TeamId, data.getTeamID());
+                startActivity(intent);
+            }
+
             @Override
             public void onDelete(GetTeamListResponse.Datum data, int position) {
                 deleteDialog(data, position);

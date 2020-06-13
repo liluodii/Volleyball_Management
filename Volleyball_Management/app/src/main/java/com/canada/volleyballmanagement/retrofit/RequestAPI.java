@@ -5,6 +5,7 @@ import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
 import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
 import com.canada.volleyballmanagement.pojo.CommonRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.DeleteSelectTeamMember;
 import com.canada.volleyballmanagement.pojo.DeleteTeamRequest;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
 import com.canada.volleyballmanagement.pojo.EditProfileRequest;
@@ -14,8 +15,10 @@ import com.canada.volleyballmanagement.pojo.ForgotPasswordResponse;
 import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
+import com.canada.volleyballmanagement.pojo.GetTeamMemberRequest;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
+import com.canada.volleyballmanagement.pojo.SelectTeamMemberResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -37,6 +40,9 @@ public interface RequestAPI {
 
     @POST("/ForgetPassword")
     Call<ForgotPasswordResponse> ForgetPassword(@Body ForgotPasswordRequest request);
+
+    @POST("/GetTeamMember")
+    Call<SelectTeamMemberResponse> GetTeamMember(@Body GetTeamMemberRequest request);
 
     @Multipart
     @POST("/AddUserProfilePic")
@@ -63,7 +69,7 @@ public interface RequestAPI {
     Call<CommonResponse> AddEditTeamManager(@Body AddTeamManagerRequest request);
 
     @GET("/GetPlayerList")
-    Call<GetPlayerListResponse> GetPlayerList(@Query("UserID") int id, @Query("Search") String search);
+    Call<GetPlayerListResponse> GetPlayerList(@Query("UserID") int id, @Query("Search") String search, @Query("IsCheckInTeam ") int IsCheckInTeam);
 
     @GET("/GetTeamManagerList")
     Call<GetTeamManagerListResponse> GetTeamManagerList(@Query("UserID") int id, @Query("Search") String search);
@@ -82,6 +88,9 @@ public interface RequestAPI {
 
     @HTTP(method = "DELETE", path = "DeleteTeamManager/", hasBody = true)
     Call<CommonResponse> DeleteTeamManager(@Body CommonRequest request);
+
+    @HTTP(method = "DELETE", path = "DeletePlayerFromTeam/", hasBody = true)
+    Call<CommonResponse> DeletePlayerFromTeam(@Body DeleteSelectTeamMember request);
 
     @HTTP(method = "DELETE", path = "DeleteTeam/", hasBody = true)
     Call<CommonResponse> DeleteTeam(@Body DeleteTeamRequest request);
