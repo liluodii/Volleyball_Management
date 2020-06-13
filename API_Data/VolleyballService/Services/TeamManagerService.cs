@@ -28,15 +28,14 @@ namespace VolleyballService.Services
 
                 if (Data.UserID != 0)
                 {
-                    UserMaster user = (from u in DC.UserMasters
+                    PlayerMaster PM = (from u in DC.PlayerMasters
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
 
 
-                    if (user != null)
+                    if (PM != null)
                     {
-                        PlayerMaster PM = user.PlayerMasters?.FirstOrDefault();
                         PM.Address = Data.Address;
                         PM.Contact = Data.Contact;
                         PM.DOB = Convert.ToDateTime(Data.DOB);
@@ -182,15 +181,15 @@ namespace VolleyballService.Services
 
                 if (Data.UserID != 0)
                 {
-                    UserMaster user = (from u in DC.UserMasters
+                    TeamManager TM = (from u in DC.TeamManagers
                                        where u.ID == Data.UserID
                                        select u).FirstOrDefault();
 
 
 
-                    if (user != null)
+                    if (TM != null)
                     {
-                        TeamManager TM = user.TeamManagers?.FirstOrDefault();
+                        
                         TM.Address = Data.Address;
                         TM.Contact = Data.Contact;
                         TM.DOB = Convert.ToDateTime(Data.DOB);
@@ -202,6 +201,8 @@ namespace VolleyballService.Services
                         TM.ModifiedDate = System.DateTime.UtcNow;
                         DC.SaveChanges();
                         obj.ReturnMsg = "Successfully update profile.";
+                        obj.ReturnValue = TM.UserID.ToString();
+
 
                     }
                     else
@@ -258,6 +259,8 @@ namespace VolleyballService.Services
                     SendRegistrationEmail(Data.EmailID, password, Data.FirstName + " " + Data.LastName);
 
                     obj.ReturnMsg = "Successfully add profile.";
+                    obj.ReturnValue = UM.ID.ToString();
+
 
 
                 }
@@ -286,6 +289,7 @@ namespace VolleyballService.Services
                     ret.Address = user.Address;
                     ret.Contact = user.Contact;
                     ret.FirstName = user.FirstName;
+                    ret.EmailID = user.UserMaster.EmailID;
                     if (user.DOB != null)
                         ret.DOB = user.DOB.Value.ToString("MM-dd-yyyy");
                     if (user.JoinDate != null)
@@ -454,6 +458,8 @@ namespace VolleyballService.Services
                     ret.UserID = user.ID;
                     ret.Address = user.Address;
                     ret.Contact = user.Contact;
+                    ret.FirstName = user.FirstName;
+                    ret.EmailID = user.UserMaster.EmailID;
                     if (user.DOB != null)
                         ret.DOB = user.DOB.Value.ToString("MM-dd-yyyy");
                     if (user.JoinDate != null)

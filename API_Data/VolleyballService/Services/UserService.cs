@@ -422,10 +422,19 @@ namespace VolleyballService.Services
                         }
                         else
                         {
-                            obj.ReturnCode = ResponseMessages.NoDataCode;
-                            obj.ReturnMsg = "User doesnot found.";
+                            if (!Directory.Exists("/Images/Provider"))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/"));
 
+                            if (!Directory.Exists("/Images/Provider/" + UserID.ToString()))
+                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/Provider/" + UserID.ToString()));
+
+                            file = "Images/Provider/" + UserID.ToString() + "/" + Guid.NewGuid().ToString() + ".png";
+                            string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
+                            File1.SaveAs(fileLocation);
+
+                            UD.PlayerMasters.FirstOrDefault().ProfilePic = file;
                         }
+                       
 
                         DC.SaveChanges();
                         obj.ReturnCode = ResponseMessages.SuccessCode;
