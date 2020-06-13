@@ -60,6 +60,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
     boolean isJoinDate = false;
     String strProfilePic = "";
     int UserId = 0;
+    boolean isEdit = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +77,9 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         binding.rbMale.setChecked(true);
         binding.edJoinDate.setKeyListener(null);
         binding.edDob.setKeyListener(null);
+        isEdit = getIntent().getBooleanExtra(Constants.isEditPlayer, false);
 
-        if (getIntent().getBooleanExtra(Constants.isEditPlayer, false)) {
+        if (isEdit) {
             callApiForEditPlayer(getIntent().getIntExtra(Constants.playerId, 0));
         }
 
@@ -99,11 +101,13 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
             if (playerResponse.getReturnCode().equals("1")) {
 
                 if (!playerResponse.getData().getProfilePic().isEmpty()) {
+
                     RequestOptions options = new RequestOptions();
                     options.placeholder(getActivity().getResources().getDrawable(R.drawable.ic_person));
                     options.error(getActivity().getResources().getDrawable(R.drawable.ic_person));
                     Glide.with(getActivity()).setDefaultRequestOptions(options)
                             .load(playerResponse.getData().getProfilePic()).into(binding.imgProfile);
+
                 } else {
                     binding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
                 }
@@ -183,7 +187,10 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         String strExperience = returnText(binding.edExperience);
         String strAddress = returnText(binding.edAddress);
 
-        if (strFirstName.isEmpty()) {
+        if (strProfilePic.isEmpty() && !isEdit) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_select_image), Toast.LENGTH_SHORT).show();
+        } else if (strFirstName.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_empty_first_name), Toast.LENGTH_SHORT).show();
         } else if (strFirstName.toString().length() < 2) {
@@ -265,6 +272,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
             if (commonresponse.getReturnCode().equals("1")) {
 
                 if (strProfilePic.isEmpty()) {
+                    EventBus.getDefault().post(new EventBusType(2));
                     dismissDialog();
                     finish();
                 } else {
@@ -272,7 +280,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
                 }
 
             } else {
-
+                dismissDialog();
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
@@ -452,11 +460,11 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
             dismissDialog();
             CommonResponse commonresponse = response.body();
             if (commonresponse.getReturnCode().equals("1")) {
+                EventBus.getDefault().post(new EventBusType(2));
                 finish();
             } else {
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
             }
-
 
         }
 

@@ -20,9 +20,14 @@ import com.canada.volleyballmanagement.databinding.ActivityPlayerBinding;
 import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
 import com.canada.volleyballmanagement.pojo.CommonRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
 import com.canada.volleyballmanagement.utils.Constants;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,12 +38,35 @@ public class PlayersActivity extends BaseActivity {
     ActivityPlayerBinding binding;
     PlayerListAdapter adapter;
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBusType event) {
+
+        switch (event.getType()) {
+            case 2:
+                if (checkConnection()) {
+                    callApi("");
+                } else {
+                    showNoInternetDialog();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_player);
         binding.setActivity(this);
+        EventBus.getDefault().register(this);
         showToolBar(true, getString(R.string.text_players));
+
         if (checkConnection()) {
             callApi("");
         } else {

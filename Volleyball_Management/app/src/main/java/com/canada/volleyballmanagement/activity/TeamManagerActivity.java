@@ -19,9 +19,14 @@ import com.canada.volleyballmanagement.databinding.ActivityPlayerBinding;
 import com.canada.volleyballmanagement.databinding.ActivityTeamManagerBinding;
 import com.canada.volleyballmanagement.pojo.CommonRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
+import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.utils.Constants;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,12 +37,32 @@ public class TeamManagerActivity extends BaseActivity {
     ActivityTeamManagerBinding binding;
     TeamManagerListAdapter adapter;
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBusType event) {
+        switch (event.getType()) {
+            case 3:
+                if (checkConnection()) {
+                    callApi("");
+                } else {
+                    showNoInternetDialog();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_team_manager);
         binding.setActivity(this);
         showToolBar(true, getString(R.string.text_team_manager));
+        EventBus.getDefault().register(this);
 
         if (checkConnection()) {
             callApi("");

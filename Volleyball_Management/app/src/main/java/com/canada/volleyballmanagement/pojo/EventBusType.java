@@ -5,7 +5,9 @@ package com.canada.volleyballmanagement.pojo;
  */
 
 public class EventBusType {
-    //profile=1
+    //Team Update=1
+    //Player Update=2
+    //Team Manager Update=3
 
     int Type = 0;
 

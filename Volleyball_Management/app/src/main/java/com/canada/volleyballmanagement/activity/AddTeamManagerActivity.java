@@ -28,11 +28,14 @@ import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
 import com.canada.volleyballmanagement.pojo.EditTeamManagerResponse;
+import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.utils.Constants;
 import com.canada.volleyballmanagement.utils.ImageCompress;
 import com.canada.volleyballmanagement.utils.ImageFilePath;
 import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Calendar;
@@ -56,6 +59,8 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
     boolean isJoinDate = false;
     String strProfilePic = "";
     int UserId = 0;
+    boolean isEdit = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +75,9 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
         binding.rbMale.setChecked(true);
         binding.edJoinDate.setKeyListener(null);
         binding.edDob.setKeyListener(null);
+        isEdit = getIntent().getBooleanExtra(Constants.isEditPlayer, false);
 
-        if (getIntent().getBooleanExtra(Constants.isEditPlayer, false)) {
+        if (isEdit) {
             callApiForEditTeam(getIntent().getIntExtra(Constants.playerId, 0));
         }
 
@@ -176,7 +182,10 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
         String strJoinDate = returnText(binding.edJoinDate);
         String strAddress = returnText(binding.edAddress);
 
-        if (strFirstName.isEmpty()) {
+        if (strProfilePic.isEmpty() && !isEdit) {
+            isValidation = false;
+            Toast.makeText(getActivity(), "" + getString(R.string.err_select_image), Toast.LENGTH_SHORT).show();
+        } else if (strFirstName.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_empty_first_name), Toast.LENGTH_SHORT).show();
         } else if (strFirstName.toString().length() < 2) {
@@ -206,7 +215,7 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
         } else if (strJoinDate.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_select_join_date), Toast.LENGTH_SHORT).show();
-        }  else if (strAddress.isEmpty()) {
+        } else if (strAddress.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_empty_address), Toast.LENGTH_SHORT).show();
         } else if (strAddress.toString().length() < 2) {
@@ -251,6 +260,7 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
             if (commonresponse.getReturnCode().equals("1")) {
 
                 if (strProfilePic.isEmpty()) {
+                    EventBus.getDefault().post(new EventBusType(3));
                     dismissDialog();
                     finish();
                 } else {
@@ -258,7 +268,7 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
                 }
 
             } else {
-
+                dismissDialog();
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
@@ -438,11 +448,11 @@ public class AddTeamManagerActivity extends BaseActivity implements DatePickerDi
             dismissDialog();
             CommonResponse commonresponse = response.body();
             if (commonresponse.getReturnCode().equals("1")) {
+                EventBus.getDefault().post(new EventBusType(3));
                 finish();
             } else {
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
             }
-
 
 
         }

@@ -193,7 +193,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
 
             if (editProfileResponse.getReturnCode().equals("1")) {
                 pref.putString(Constants.LOGIN_REPONSE, new Gson().toJson(response.body()));
-                EventBus.getDefault().post(new EventBusType(1));
+                EventBus.getDefault().post(new EventBusType(4));
                 finish();
             } else {
                 Toast.makeText(getActivity(), "" + editProfileResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
@@ -382,7 +382,7 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
                 contributorResponse.getData().setProfilePic(commonResponse.getReturnValue());
                 pref.putString(Constants.LOGIN_REPONSE, new Gson().toJson(contributorResponse));
 
-                EventBus.getDefault().post(new EventBusType(1));
+                EventBus.getDefault().post(new EventBusType(4));
 
             }
 

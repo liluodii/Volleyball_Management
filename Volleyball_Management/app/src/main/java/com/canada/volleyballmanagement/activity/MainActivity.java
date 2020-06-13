@@ -29,7 +29,6 @@ import com.canada.volleyballmanagement.pojo.GetTeamListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,25 +45,43 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     TeamListAdapter adapter;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onImageUploading(EventBusType event) {
-        if (event.getType() == 1) {
+    public void onEvent(EventBusType event) {
 
-            headerMainBinding.txtTeamName.setText(getLoginResponse().getData().getFirstName() + " " + getLoginResponse().getData().getLastName());
-
-            if (!getLoginResponse().getData().getProfilePic().isEmpty()) {
-
+        switch (event.getType()) {
+            case 1:
+                if (checkConnection()) {
+                    callApi("");
+                } else {
+                    showNoInternetDialog();
+                }
+                break;
+            case 4:
+                headerMainBinding.txtTeamName.setText(getLoginResponse().getData().getFirstName() + " " + getLoginResponse().getData().getLastName());
                 if (!getLoginResponse().getData().getProfilePic().isEmpty()) {
 
-                    Picasso.get().load(getLoginResponse().getData().getProfilePic()).placeholder(R.drawable.ic_person).into(headerMainBinding.imgProfile);
+                    if (!getLoginResponse().getData().getProfilePic().isEmpty()) {
+
+                        RequestOptions options = new RequestOptions();
+                        options.placeholder(getActivity().getResources().getDrawable(R.drawable.ic_person));
+                        options.error(getActivity().getResources().getDrawable(R.drawable.ic_person));
+                        Glide.with(getActivity()).setDefaultRequestOptions(options)
+                                .load(getLoginResponse().getData().getProfilePic()).into(headerMainBinding.imgProfile);
+
+                    } else {
+                        headerMainBinding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
+                    }
+
                 } else {
                     headerMainBinding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
                 }
-
-            } else {
-                headerMainBinding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
-            }
-
+                break;
         }
+
+//        if (event.getType() == 1) {
+//
+
+//
+//        }
     }
 
     @Override
@@ -238,7 +255,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void setHeader() {
-        NavHeaderMainBinding headerMainBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header_main, binding
+
+        headerMainBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header_main, binding
                 .lvNavigation, false);
         binding.lvNavigation.addHeaderView(headerMainBinding.getRoot());
         headerMainBinding.txtTeamName.setText(getLoginResponse().getData().getFirstName() + " " + getLoginResponse().getData().getLastName());

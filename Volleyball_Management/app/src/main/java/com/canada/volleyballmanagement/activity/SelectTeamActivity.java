@@ -28,12 +28,15 @@ import com.canada.volleyballmanagement.pojo.AddPlayerInTeamRequest;
 import com.canada.volleyballmanagement.pojo.CommonRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.DeleteSelectTeamMember;
+import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamMemberRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
 import com.canada.volleyballmanagement.pojo.SelectTeamMemberResponse;
 import com.canada.volleyballmanagement.utils.Constants;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,6 +181,7 @@ public class SelectTeamActivity extends BaseActivity {
             CommonResponse playerListResponse = response.body();
 
             if (playerListResponse.getReturnCode().equals("1")) {
+                EventBus.getDefault().post(new EventBusType(1));
                 callApi();
             } else {
                 Toast.makeText(getActivity(), "" + playerListResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
@@ -219,10 +223,6 @@ public class SelectTeamActivity extends BaseActivity {
             if (playerListResponse.getReturnCode().equals("1")) {
 
                 adapter.addAll(playerListResponse.getData());
-
-            } else {
-
-                Toast.makeText(getActivity(), "" + playerListResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -291,6 +291,7 @@ public class SelectTeamActivity extends BaseActivity {
                 dismissDialog();
                 CommonResponse commonresponse = response.body();
                 if (commonresponse.getReturnCode().equals("1")) {
+                    EventBus.getDefault().post(new EventBusType(1));
                     adapter.removeAt(position);
                     noDataFound();
                 } else {

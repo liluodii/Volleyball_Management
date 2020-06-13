@@ -29,12 +29,15 @@ import com.canada.volleyballmanagement.databinding.ActivityAddTeamBinding;
 import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
+import com.canada.volleyballmanagement.pojo.EventBusType;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.utils.Constants;
 import com.canada.volleyballmanagement.utils.ImageCompress;
 import com.canada.volleyballmanagement.utils.ImageFilePath;
 import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -385,6 +388,7 @@ public class AddTeamActivity extends BaseActivity {
             dismissDialog();
             CommonResponse commonresponse = response.body();
             if (commonresponse.getReturnCode().equals("1")) {
+                EventBus.getDefault().post(new EventBusType(1));
                 finish();
             } else {
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
