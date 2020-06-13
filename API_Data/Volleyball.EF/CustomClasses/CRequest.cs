@@ -48,6 +48,12 @@ namespace Volleyball.EF.CustomClasses
             public string PlayerIDs { get; set; }
             public int TeamID { get; set; }
         }
+        public class CReqDeletePlayerFromTeam
+        {
+            public string APIKey { get; set; }
+            public int UserID { get; set; }
+            public int TeamMemberJoinID { get; set; }
+        }
         public class CReqUpdateProfile
         {
             public string APIKey { get; set; }
