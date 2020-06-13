@@ -22,21 +22,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.canada.volleyballmanagement.R;
 import com.canada.volleyballmanagement.baseclass.BaseActivity;
 import com.canada.volleyballmanagement.databinding.ActivityAddPlayersBinding;
-import com.canada.volleyballmanagement.databinding.ActivityEditProfileBinding;
+import com.canada.volleyballmanagement.databinding.ActivityAddTeamManagerBinding;
 import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
+import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
-import com.canada.volleyballmanagement.pojo.EditProfileRequest;
-import com.canada.volleyballmanagement.pojo.EventBusType;
-import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
-import com.canada.volleyballmanagement.pojo.LoginResponse;
+import com.canada.volleyballmanagement.pojo.EditTeamManagerResponse;
 import com.canada.volleyballmanagement.utils.Constants;
 import com.canada.volleyballmanagement.utils.ImageCompress;
 import com.canada.volleyballmanagement.utils.ImageFilePath;
 import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Calendar;
@@ -53,9 +49,9 @@ import static com.canada.volleyballmanagement.utils.MarshMallowPermission.CAMERA
 import static com.canada.volleyballmanagement.utils.MarshMallowPermission.READ_EXTERNAL_STORAGE_CODE;
 import static com.canada.volleyballmanagement.utils.MarshMallowPermission.WRITE_EXTERNAL_STORAGE_CODE;
 
-public class AddPlayersActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
+public class AddTeamManagerActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-    ActivityAddPlayersBinding binding;
+    ActivityAddTeamManagerBinding binding;
     boolean isCamera = false;
     boolean isJoinDate = false;
     String strProfilePic = "";
@@ -63,12 +59,11 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_players);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_team_manager);
         binding.setActivity(this);
-        showToolBar(true, getResources().getString(R.string.text_add_player));
+        showToolBar(true, getResources().getString(R.string.text_add_team_manager));
         init();
     }
-
 
     public void init() {
 
@@ -77,32 +72,35 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         binding.edDob.setKeyListener(null);
 
         if (getIntent().getBooleanExtra(Constants.isEditPlayer, false)) {
-            callApiForEditPlayer(getIntent().getIntExtra(Constants.playerId, 0));
+            callApiForEditTeam(getIntent().getIntExtra(Constants.playerId, 0));
         }
 
     }
 
-    public void callApiForEditPlayer(int id) {
+    public void callApiForEditTeam(int id) {
         showDialog();
-        requestAPI.GetPlayerDetails(id).enqueue(GetPlayerCallback);
+        requestAPI.GetTeamManagerDetails(id).enqueue(GetTeamCallback);
     }
 
-    Callback<EditPlayerResponse> GetPlayerCallback = new Callback<EditPlayerResponse>() {
+    Callback<EditTeamManagerResponse> GetTeamCallback = new Callback<EditTeamManagerResponse>() {
         @Override
-        public void onResponse(Call<EditPlayerResponse> call, Response<EditPlayerResponse> response) {
+        public void onResponse(Call<EditTeamManagerResponse> call, Response<EditTeamManagerResponse> response) {
 
             dismissDialog();
 
-            EditPlayerResponse playerResponse = response.body();
+            EditTeamManagerResponse playerResponse = response.body();
 
             if (playerResponse.getReturnCode().equals("1")) {
 
                 if (!playerResponse.getData().getProfilePic().isEmpty()) {
+
                     RequestOptions options = new RequestOptions();
                     options.placeholder(getActivity().getResources().getDrawable(R.drawable.ic_person));
                     options.error(getActivity().getResources().getDrawable(R.drawable.ic_person));
+
                     Glide.with(getActivity()).setDefaultRequestOptions(options)
                             .load(playerResponse.getData().getProfilePic()).into(binding.imgProfile);
+
                 } else {
                     binding.imgProfile.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_person));
                 }
@@ -113,7 +111,6 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
                 binding.edDob.setText(playerResponse.getData().getDOB());
                 binding.edContact.setText(bindView(playerResponse.getData().getContact()));
                 binding.edJoinDate.setText(playerResponse.getData().getJoinDate());
-                binding.edExperience.setText(bindView(String.valueOf(playerResponse.getData().getExperience())));
                 binding.edAddress.setText(bindView(playerResponse.getData().getAddress()));
 
                 if (playerResponse.getData().getGender().equals("male")) {
@@ -131,7 +128,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         }
 
         @Override
-        public void onFailure(Call<EditPlayerResponse> call, Throwable t) {
+        public void onFailure(Call<EditTeamManagerResponse> call, Throwable t) {
             dismissDialog();
             Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -175,9 +172,6 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         String strDate = returnText(binding.edDob);
         String strContact = returnText(binding.edContact);
         String strJoinDate = returnText(binding.edJoinDate);
-        Pattern r = Pattern.compile("^\\d{0,2}(\\.\\d{1,2})?$");
-        Matcher matcherExperience = r.matcher(returnText(binding.edExperience));
-        String strExperience = returnText(binding.edExperience);
         String strAddress = returnText(binding.edAddress);
 
         if (strFirstName.isEmpty()) {
@@ -210,13 +204,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         } else if (strJoinDate.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_select_join_date), Toast.LENGTH_SHORT).show();
-        } else if (strExperience.isEmpty()) {
-            isValidation = false;
-            Toast.makeText(getActivity(), "" + getString(R.string.err_empty_experience), Toast.LENGTH_SHORT).show();
-        } else if (!matcherExperience.matches()) {
-            isValidation = false;
-            Toast.makeText(getActivity(), "" + getString(R.string.err_valid_experience), Toast.LENGTH_SHORT).show();
-        } else if (strAddress.isEmpty()) {
+        }  else if (strAddress.isEmpty()) {
             isValidation = false;
             Toast.makeText(getActivity(), "" + getString(R.string.err_empty_address), Toast.LENGTH_SHORT).show();
         } else if (strAddress.toString().length() < 2) {
@@ -229,7 +217,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
 
     public void callApi() {
         showDialog();
-        AddPlayerRequest request = new AddPlayerRequest();
+        AddTeamManagerRequest request = new AddTeamManagerRequest();
         request.setAPIKey(Constants.APIKEY);
         request.setUserID(0);
         request.setFirstName(returnText(binding.edFirstName));
@@ -238,7 +226,6 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
         request.setDOB(returnText(binding.edDob));
         request.setContact(returnText(binding.edContact));
         request.setJoinDate(returnText(binding.edJoinDate));
-        request.setExperience(Double.parseDouble(returnText(binding.edExperience)));
         request.setAddress(returnText(binding.edAddress));
 
         if (binding.rbMale.isChecked()) {
@@ -249,11 +236,11 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
 
         Log.e("callApi: ", "" + new Gson().toJson(request));
 
-        requestAPI.AddEditPlayer(request).enqueue(AddEditPlayerCallback);
+        requestAPI.AddEditTeamManager(request).enqueue(AddEditTeamCallback);
 
     }
 
-    Callback<CommonResponse> AddEditPlayerCallback = new Callback<CommonResponse>() {
+    Callback<CommonResponse> AddEditTeamCallback = new Callback<CommonResponse>() {
         @Override
         public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
 
@@ -453,6 +440,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
             } else {
                 Toast.makeText(getActivity(), "" + commonresponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
             }
+
 
 
         }

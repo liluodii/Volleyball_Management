@@ -8,4 +8,6 @@ public class Constants {
     public static String Live = "http://parasbhesaniya-001-site15.btempurl.com/";
     public static final String PROVIDER = "com.canada.volleyballmanagement.fileprovider";
     public static final String APIKEY = "123";
+    public static final String isEditPlayer = "iseditplayer";
+    public static final String playerId = "playerid";
 }

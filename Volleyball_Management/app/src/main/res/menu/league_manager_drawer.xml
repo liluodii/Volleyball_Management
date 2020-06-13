@@ -15,8 +15,8 @@
             android:title="@string/text_matches" />
 
         <item
-            android:id="@+id/navEvents"
-            android:title="@string/text_events" />
+            android:id="@+id/navTeamManager"
+            android:title="@string/text_team_manager" />
 
         <item
             android:id="@+id/navProfile"

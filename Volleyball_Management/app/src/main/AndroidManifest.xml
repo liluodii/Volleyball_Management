@@ -55,8 +55,19 @@
         <activity
             android:name="com.canada.volleyballmanagement.activity.AddPlayersActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.canada.volleyballmanagement.activity.AddTeamManagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.canada.volleyballmanagement.activity.TeamManagerActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.canada.volleyballmanagement.activity.SplashActivity"

@@ -14,5 +14,7 @@
     <color name="bg">#232436</color>
     <color name="blue">#0000FF</color>
     <color name="gray">#C9C9CA</color>
+    <color name="red">#f27575</color>
+    <color name="trans">#00000000</color>
 
 </resources>

@@ -45,10 +45,14 @@
     <string name="text_schedules">Schedules</string>
     <string name="text_your_profile">Your profile</string>
     <string name="text_add_player">Add player</string>
+    <string name="text_add_team_manager">Add team manager</string>
     <string name="text_sign_out">Sign out</string>
     <string name="text_matches">Matches</string>
-    <string name="text_events">Events</string>
+    <string name="text_team_manager">Team manager</string>
 
+    <string name="text_search_player">Search Player</string>
+    <string name="text_search_team">Search Team</string>
+    <string name="no_data_found">No data found</string>
 
     <string name="err_empty_email">Please enter email</string>
     <string name="err_valid_email">Please enter valid email</string>
@@ -69,6 +73,11 @@
     <string name="err_valid_experience">Please enter valid experience</string>
     <string name="err_empty_experience">Please enter experience</string>
 
+
+    <string name="title_delete">Confirm Delete!</string>
+    <string name="msg_delete">Are you sure you want to delete?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
 </resources>
 

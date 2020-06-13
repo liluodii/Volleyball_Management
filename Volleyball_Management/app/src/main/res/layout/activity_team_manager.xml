@@ -6,7 +6,7 @@
 
         <variable
             name="activity"
-            type="com.canada.volleyballmanagement.activity.PlayersActivity" />
+            type="com.canada.volleyballmanagement.activity.TeamManagerActivity" />
 
     </data>
 
@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/txt_rounded_boader_search"
                 android:gravity="center_vertical"
-                android:hint="@string/text_search_player"
+                android:hint="@string/text_search_team"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:textColor="@color/black"
@@ -60,7 +60,7 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPlayer"
+                android:id="@+id/rvTeam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_5sdp"

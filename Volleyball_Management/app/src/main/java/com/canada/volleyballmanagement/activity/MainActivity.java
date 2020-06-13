@@ -117,7 +117,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.navMatches:
 
                 break;
-            case R.id.navEvents:
+            case R.id.navTeamManager:
+                intent = new Intent(getActivity(), TeamManagerActivity.class);
+                startActivity(intent);
                 break;
             case R.id.navProfile:
                 intent = new Intent(getActivity(), EditProfileActivity.class);
