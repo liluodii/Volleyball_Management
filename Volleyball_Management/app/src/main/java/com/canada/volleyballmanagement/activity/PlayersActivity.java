@@ -45,6 +45,10 @@ public class PlayersActivity extends BaseActivity {
             showNoInternetDialog();
         }
 
+        if (isTeamManager()) {
+            binding.fab.setVisibility(View.GONE);
+        }
+
         init();
 
     }

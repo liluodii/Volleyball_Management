@@ -12,12 +12,23 @@ public class GetPlayerListResponse {
         @SerializedName("PlayerID")
         @Expose
         private Integer playerID;
+
+        private boolean isSelect;
+
         @SerializedName("Name")
         @Expose
         private String name;
         @SerializedName("Photo")
         @Expose
         private String photo;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
 
         public Integer getPlayerID() {
             return playerID;

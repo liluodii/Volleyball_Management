@@ -75,6 +75,7 @@
     <string name="err_valid_experience">Please enter valid experience</string>
     <string name="err_empty_experience">Please enter experience</string>
     <string name="err_select_image">Please select image</string>
+    <string name="err_select_player">Please select player</string>
 
 
     <string name="title_delete">Confirm Delete!</string>

@@ -83,6 +83,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         binding.lvNavigation.setItemIconTintList(null);
         binding.lvNavigation.getMenu().clear();
 
+        if (isTeamManager()) {
+            binding.fab.setVisibility(View.GONE);
+        }
+
         if (checkConnection()) {
             callApi("");
         } else {
@@ -115,8 +119,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 adapter.addAll(playerListResponse.getData());
 
             } else {
-
-                Toast.makeText(getActivity(), "" + playerListResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -284,8 +286,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 intent = new Intent(getActivity(), PlayersActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.navSchedules:
-                break;
+
             case R.id.navMatches:
 
                 break;

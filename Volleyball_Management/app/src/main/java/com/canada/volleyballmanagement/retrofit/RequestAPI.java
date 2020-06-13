@@ -1,5 +1,6 @@
 package com.canada.volleyballmanagement.retrofit;
 
+import com.canada.volleyballmanagement.pojo.AddPlayerInTeamRequest;
 import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
 import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
 import com.canada.volleyballmanagement.pojo.ChangePasswordRequest;
@@ -65,11 +66,14 @@ public interface RequestAPI {
     @PUT("/AddEditPlayer")
     Call<CommonResponse> AddEditPlayer(@Body AddPlayerRequest request);
 
+    @PUT("/AddPlayerInTeam")
+    Call<CommonResponse> AddPlayerInTeam(@Body AddPlayerInTeamRequest request);
+
     @PUT("/AddEditTeamManager")
     Call<CommonResponse> AddEditTeamManager(@Body AddTeamManagerRequest request);
 
     @GET("/GetPlayerList")
-    Call<GetPlayerListResponse> GetPlayerList(@Query("UserID") int id, @Query("Search") String search, @Query("IsCheckInTeam ") int IsCheckInTeam);
+    Call<GetPlayerListResponse> GetPlayerList(@Query("UserID") int id, @Query("Search") String search, @Query("IsCheckInTeam") int IsCheckInTeam);
 
     @GET("/GetTeamManagerList")
     Call<GetTeamManagerListResponse> GetTeamManagerList(@Query("UserID") int id, @Query("Search") String search);
