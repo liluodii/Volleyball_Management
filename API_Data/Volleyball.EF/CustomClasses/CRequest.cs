@@ -93,6 +93,19 @@ namespace Volleyball.EF.CustomClasses
 
 
         }
+        public class CReqAddEditTournamentTeam
+        {
+            public string APIKey { get; set; }
+            public int TournamentTeamID { get; set; } = 0;
+
+            public int TournamentID { get; set; } = 0;
+            public int UserID { get; set; } = 0;
+            public DateTime? StartDate { get; set; }
+            public int Team1 { get; set; }
+            public int Team2 { get; set; }
+
+
+        }
 
 
         public class CReqAddEditTeamManager

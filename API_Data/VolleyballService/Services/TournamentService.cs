@@ -114,5 +114,72 @@ namespace VolleyballService.Services
             return obj;
         }
 
+
+        public GenericClass AddEditTournamentTeam(CReqAddEditTournamentTeam Data)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+
+                if (Data.TournamentTeamID != 0)
+                {
+                    TournamentTeam TM = (from u in DC.TournamentTeams
+                                         where u.ID == Data.TournamentID
+                                         select u).FirstOrDefault();
+
+
+
+                    if (TM != null)
+                    {
+                        TM.MatchDate = Data.StartDate;
+                        TM.Team1 = Data.Team1;
+                        TM.Team2 = Data.Team2;
+                        TM.TournamentID = Data.TournamentID;
+                        TM.CreatedDate = System.DateTime.UtcNow;
+
+                        DC.SaveChanges();
+                        obj.ReturnMsg = "Successfully update tournament team.";
+
+                    }
+                    else
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = "Team does not exist";
+
+                        return obj;
+                    }
+
+                }
+
+                else
+                {
+
+
+                    TournamentTeam TM = new TournamentTeam();
+
+                    TM.MatchDate = Data.StartDate;
+                    TM.Team1 = Data.Team1;
+                    TM.Team2 = Data.Team2;
+                    TM.TournamentID = Data.TournamentID;
+                    TM.CreatedDate = System.DateTime.UtcNow;
+
+                    DC.TournamentTeams.Add(TM);
+                    DC.SaveChanges();
+                    obj.ReturnMsg = "Successfully add tournament team.";
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+
+            return obj;
+        }
+
     }
 }
