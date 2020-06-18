@@ -181,5 +181,28 @@ namespace VolleyballAPI.Controllers
             return Obj;
         }
 
+
+        [Route("GetMatchList")]
+        [HttpGet]
+        public GenericClass GetMatchList(int UserID)
+        {
+            GenericClass Obj = new GenericClass();
+            try
+            {
+
+                Obj = _Service.GetMatchList();
+
+            }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
+            catch
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            {
+                Obj.ReturnCode = ResponseMessages.ErrorCode;
+                Obj.ReturnMsg = ResponseMessages.ErrorMsg;
+                Obj.ReturnValue = string.Empty;
+            }
+            return Obj;
+        }
+
     }
 }

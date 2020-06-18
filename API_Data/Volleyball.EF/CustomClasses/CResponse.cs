@@ -32,6 +32,27 @@ namespace Volleyball.EF.CustomClasses
             public string Address { get; set; } = "";
         }
 
+
+        public class CResMatch
+        {
+            public int TournamentTeamID { get; set; } = 0;
+            public int? Team1 { get; set; }
+            public int? Team2 { get; set; }
+            public int? Team1Score { get; set; }
+            public int? Team2Score { get; set; }
+            public string Team1Name { get; set; }
+            public string Team2Name { get; set; }
+            public string MatchDate { get; set; }
+        }
+
+        public class CResGetMatch
+        {
+            public List<CResMatch> Upcomming { get; set; } = new List<CResMatch>();
+            public List<CResMatch> Running { get; set; } = new List<CResMatch>();
+            public List<CResMatch> Commpleted { get; set; } = new List<CResMatch>();
+
+        }
+
     }
 }
 

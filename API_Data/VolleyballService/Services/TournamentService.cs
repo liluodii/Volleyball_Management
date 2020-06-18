@@ -138,7 +138,8 @@ namespace VolleyballService.Services
                         TM.Team2 = Data.Team2;
                         TM.TournamentID = Data.TournamentID;
                         TM.CreatedDate = System.DateTime.UtcNow;
-
+                        TM.Team1Score = 0;
+                        TM.Team2Score = 0;
                         DC.SaveChanges();
                         obj.ReturnMsg = "Successfully update tournament team.";
 
@@ -214,6 +215,74 @@ namespace VolleyballService.Services
                 obj.ReturnCode = ResponseMessages.SuccessCode;
             }
             catch (Exception EX)
+            {
+
+                throw;
+            }
+
+            return obj;
+        }
+
+        public GenericClass GetMatchList()
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                CResGetMatch list = new CResGetMatch();
+                var MatchList = DC.TournamentTeams.ToList();
+
+                DateTime CurrentDate = System.DateTime.UtcNow.Date;
+
+                list.Running = (from u in MatchList.AsEnumerable()
+                                where u.MatchDate.Value.Date == CurrentDate.Date
+                                select new CResMatch
+                                {
+                                    MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
+                                    Team1 = u.Team1,
+                                    Team2 = u.Team2,
+                                    Team1Score = u.Team1Score,
+                                    Team2Score = u.Team2Score,
+                                    Team1Name = u.Team.TeamName,
+                                    Team2Name = u.Team3.TeamName,
+                                    TournamentTeamID = u.ID,
+                                }).ToList();
+
+                list.Upcomming = (from u in MatchList.AsEnumerable()
+                                  where CurrentDate.Date > u.MatchDate.Value.Date
+                                  select new CResMatch
+                                  {
+                                      MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
+                                      Team1 = u.Team1,
+                                      Team2 = u.Team2,
+                                      Team1Score = u.Team1Score,
+                                      Team2Score = u.Team2Score,
+                                      Team1Name = u.Team.TeamName,
+                                      Team2Name = u.Team3.TeamName,
+                                      TournamentTeamID = u.ID,
+                                  }).ToList();
+
+                list.Upcomming = (from u in MatchList.AsEnumerable()
+                                  where CurrentDate.Date < u.MatchDate.Value.Date
+                                  select new CResMatch
+                                  {
+                                      MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
+                                      Team1 = u.Team1,
+                                      Team2 = u.Team2,
+                                      Team1Score = u.Team1Score,
+                                      Team2Score = u.Team2Score,
+                                      Team1Name = u.Team.TeamName,
+                                      Team2Name = u.Team3.TeamName,
+                                      TournamentTeamID = u.ID,
+                                  }).ToList();
+
+                obj.Data = list;
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+
+
+            }
+            catch (Exception)
             {
 
                 throw;
