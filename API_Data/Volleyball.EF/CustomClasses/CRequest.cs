@@ -106,6 +106,15 @@ namespace Volleyball.EF.CustomClasses
 
 
         }
+        public class CReqUpdateScore
+        {
+            public string APIKey { get; set; }
+            public int TournamentTeamID { get; set; } = 0;
+            public int Team1Score { get; set; }
+            public int Team2Score { get; set; }
+
+
+        }
 
 
         public class CReqAddEditTeamManager

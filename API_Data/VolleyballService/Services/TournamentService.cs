@@ -181,5 +181,45 @@ namespace VolleyballService.Services
             return obj;
         }
 
+        public GenericClass UpdateScore(CReqUpdateScore Data)
+        {
+
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+
+                TournamentTeam TM = (from u in DC.TournamentTeams
+                                     where u.ID == Data.TournamentTeamID
+                                     select u).FirstOrDefault();
+
+
+
+                if (TM != null)
+                {
+                    TM.Team1Score = Data.Team1Score;
+                    TM.Team2Score = Data.Team2Score;
+
+                    DC.SaveChanges();
+                    obj.ReturnMsg = "Score updated successfully.";
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Team does not exist";
+
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+
+            return obj;
+        }
     }
 }

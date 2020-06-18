@@ -107,6 +107,8 @@
           <Property Name="Team2" Type="int" />
           <Property Name="MatchDate" Type="datetime" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Team1Score" Type="int" />
+          <Property Name="Team2Score" Type="int" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -441,6 +443,8 @@
           <NavigationProperty Name="Team" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" FromRole="TournamentTeam" ToRole="Team" />
           <NavigationProperty Name="Team3" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" FromRole="TournamentTeam" ToRole="Team" />
           <NavigationProperty Name="Tournament" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" FromRole="TournamentTeam" ToRole="Tournament" />
+          <Property Name="Team1Score" Type="Int32" />
+          <Property Name="Team2Score" Type="Int32" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -765,6 +769,8 @@
           <EntitySetMapping Name="TournamentTeams">
             <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.TournamentTeam">
               <MappingFragment StoreEntitySet="TournamentTeam">
+                <ScalarProperty Name="Team2Score" ColumnName="Team2Score" />
+                <ScalarProperty Name="Team1Score" ColumnName="Team1Score" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
                 <ScalarProperty Name="Team2" ColumnName="Team2" />

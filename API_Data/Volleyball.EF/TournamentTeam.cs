@@ -20,6 +20,8 @@ namespace Volleyball.EF
         public Nullable<int> Team2 { get; set; }
         public Nullable<System.DateTime> MatchDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> Team1Score { get; set; }
+        public Nullable<int> Team2Score { get; set; }
     
         public virtual Team Team { get; set; }
         public virtual Team Team3 { get; set; }
