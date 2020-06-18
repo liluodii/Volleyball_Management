@@ -42,6 +42,8 @@ namespace Volleyball.EF.CustomClasses
             public int? Team2Score { get; set; }
             public string Team1Name { get; set; }
             public string Team2Name { get; set; }
+            public string Team1Pic { get; set; }
+            public string Team2Pic { get; set; }
             public string MatchDate { get; set; }
         }
 
