@@ -8,6 +8,7 @@ public class EventBusType {
     //Team Update=1
     //Player Update=2
     //Team Manager Update=3
+    //Tournament=4
 
     int Type = 0;
 

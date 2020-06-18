@@ -17,6 +17,7 @@
     <string name="text_screen_forgot_password">Forgot Password</string>
 
     <string name="text_first_name">First Name</string>
+    <string name="text_name">Name</string>
     <string name="text_last_name">Last Name</string>
     <string name="text_dob">DOB</string>
     <string name="text_gender">Gender</string>
@@ -42,14 +43,17 @@
 
     <string name="text_teams">Teams</string>
     <string name="text_players">Players</string>
+    <string name="text_tournament">Tournament</string>
     <string name="text_schedules">Schedules</string>
     <string name="text_your_profile">Your profile</string>
     <string name="text_add_player">Add player</string>
+    <string name="text_add_tournament">Add Tournament</string>
     <string name="text_add_team_manager">Add team manager</string>
     <string name="text_add_team">Add team</string>
     <string name="text_sign_out">Sign out</string>
     <string name="text_matches">Matches</string>
     <string name="text_team_manager">Team manager</string>
+    <string name="text_season">Season</string>
     <string name="text_select_team">Select team</string>
 
     <string name="text_search_player">Search Player</string>
@@ -63,9 +67,11 @@
     <string name="err_empty_confirm_pass">Please enter confirm password</string>
     <string name="err_pass_not_match">Password does not match with confirm password</string>
     <string name="err_empty_first_name">Please enter first name</string>
+    <string name="err_empty_name">Please enter name</string>
     <string name="err_empty_last_name">Please enter last name</string>
     <string name="err_empty_address">Please enter address</string>
     <string name="err_valid_first_name">First name length should be minimum 2 character long</string>
+    <string name="err_valid_name">name length should be minimum 2 character long</string>
     <string name="err_valid_last_name">Last name length should be minimum 2 character long</string>
     <string name="err_valid_address">Address length should be minimum 2 character long</string>
     <string name="err_valid_contact">Contact length should be minimum 10 character long</string>

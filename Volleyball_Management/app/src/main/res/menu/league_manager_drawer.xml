@@ -6,6 +6,7 @@
         <item
             android:id="@+id/navTeams"
             android:title="@string/text_teams" />
+
         <item
             android:id="@+id/navPlayers"
             android:title="@string/text_players" />
@@ -17,6 +18,10 @@
         <item
             android:id="@+id/navTeamManager"
             android:title="@string/text_team_manager" />
+
+        <item
+            android:id="@+id/navSeason"
+            android:title="@string/text_season" />
 
         <item
             android:id="@+id/navProfile"

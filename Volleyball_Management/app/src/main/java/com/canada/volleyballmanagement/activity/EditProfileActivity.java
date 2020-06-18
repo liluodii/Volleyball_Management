@@ -176,7 +176,6 @@ public class EditProfileActivity extends BaseActivity implements DatePickerDialo
             request.setGender(getResources().getString(R.string.text_female).toLowerCase());
         }
 
-
         Log.e("callApi: ", "" + new Gson().toJson(request));
 
         requestAPI.UpdateProfile(request).enqueue(UpdateProfileCallback);

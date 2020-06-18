@@ -1,5 +1,6 @@
 package com.canada.volleyballmanagement.activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         EventBus.getDefault().unregister(this);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -298,18 +300,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent;
         switch (menuItem.getItemId()) {
             case R.id.navTeams:
-
                 break;
             case R.id.navPlayers:
                 intent = new Intent(getActivity(), PlayersActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.navMatches:
-
                 break;
             case R.id.navTeamManager:
                 intent = new Intent(getActivity(), TeamManagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.navSeason:
+                intent = new Intent(getActivity(), TournamentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navProfile:

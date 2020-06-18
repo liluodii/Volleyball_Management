@@ -380,7 +380,6 @@ public class AddTeamActivity extends BaseActivity {
 
     }
 
-
     Callback<CommonResponse> addTeamCallback = new Callback<CommonResponse>() {
 
         @Override
@@ -402,5 +401,6 @@ public class AddTeamActivity extends BaseActivity {
         }
 
     };
+
 
 }
