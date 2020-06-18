@@ -14,11 +14,20 @@ namespace Volleyball.EF
     
     public partial class Tournament
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tournament()
+        {
+            this.TournamentTeams = new HashSet<TournamentTeam>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TournamentTeam> TournamentTeams { get; set; }
     }
 }

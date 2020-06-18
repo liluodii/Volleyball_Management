@@ -103,6 +103,10 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TournamentID" Type="int" />
+          <Property Name="Team1" Type="int" />
+          <Property Name="Team2" Type="int" />
+          <Property Name="MatchDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -209,6 +213,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TournamentTeam_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Team1">
+          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Tournament">
+          <End Role="Tournament" Type="Self.Tournament" Multiplicity="0..1" />
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournament">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="TournamentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserMaster_RoleMaster">
           <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -260,6 +300,18 @@
           <AssociationSet Name="FK_TeamManager_UserMaster" Association="Self.FK_TeamManager_UserMaster">
             <End Role="UserMaster" EntitySet="UserMaster" />
             <End Role="TeamManager" EntitySet="TeamManager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team" Association="Self.FK_TournamentTeam_Team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team1" Association="Self.FK_TournamentTeam_Team1">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Tournament" Association="Self.FK_TournamentTeam_Tournament">
+            <End Role="Tournament" EntitySet="Tournament" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeam" />
           </AssociationSet>
           <AssociationSet Name="FK_UserMaster_RoleMaster" Association="Self.FK_UserMaster_RoleMaster">
             <End Role="RoleMaster" EntitySet="RoleMaster" />
@@ -330,6 +382,8 @@
           <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMamber_Team" FromRole="Team" ToRole="TeamMember" />
           <Property Name="CreatedUserID" Type="Int32" />
           <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_Team_UserMaster" FromRole="Team" ToRole="UserMaster" />
+          <NavigationProperty Name="TournamentTeams" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" FromRole="Team" ToRole="TournamentTeam" />
+          <NavigationProperty Name="TournamentTeams1" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" FromRole="Team" ToRole="TournamentTeam" />
         </EntityType>
         <EntityType Name="TeamManager">
           <Key>
@@ -372,6 +426,7 @@
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TournamentTeams" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" FromRole="Tournament" ToRole="TournamentTeam" />
         </EntityType>
         <EntityType Name="TournamentTeam">
           <Key>
@@ -379,6 +434,13 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TournamentID" Type="Int32" />
+          <Property Name="Team1" Type="Int32" />
+          <Property Name="Team2" Type="Int32" />
+          <Property Name="MatchDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Team" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" FromRole="TournamentTeam" ToRole="Team" />
+          <NavigationProperty Name="Team3" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" FromRole="TournamentTeam" ToRole="Team" />
+          <NavigationProperty Name="Tournament" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" FromRole="TournamentTeam" ToRole="Tournament" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -534,6 +596,18 @@
             <End Role="UserMaster" EntitySet="UserMasters" />
             <End Role="Team" EntitySet="Teams" />
           </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team1" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Tournament" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament">
+            <End Role="Tournament" EntitySet="Tournaments" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Team_UserMaster">
           <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
@@ -544,6 +618,42 @@
             </Principal>
             <Dependent Role="Team">
               <PropertyRef Name="CreatedUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Team">
+          <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="0..1" />
+          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Team1">
+          <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="0..1" />
+          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Tournament">
+          <End Type="DB_A43E53_volleyballModel.Tournament" Role="Tournament" Multiplicity="0..1" />
+          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournament">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="TournamentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -655,6 +765,10 @@
           <EntitySetMapping Name="TournamentTeams">
             <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.TournamentTeam">
               <MappingFragment StoreEntitySet="TournamentTeam">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
+                <ScalarProperty Name="Team2" ColumnName="Team2" />
+                <ScalarProperty Name="Team1" ColumnName="Team1" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TournamentID" ColumnName="TournamentID" />
               </MappingFragment>

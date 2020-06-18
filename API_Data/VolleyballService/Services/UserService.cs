@@ -434,7 +434,7 @@ namespace VolleyballService.Services
 
                             UD.PlayerMasters.FirstOrDefault().ProfilePic = file;
                         }
-                       
+
 
                         DC.SaveChanges();
                         obj.ReturnCode = ResponseMessages.SuccessCode;
@@ -469,15 +469,15 @@ namespace VolleyballService.Services
             try
             {
                 string file = "";
-                if (File1 != null)
+
+                UserMaster UD = (from u in DC.UserMasters
+                                 where u.ID == UserID
+                                 select u).FirstOrDefault();
+
+                if (UD != null)
                 {
-                    UserMaster UD = (from u in DC.UserMasters
-                                     where u.ID == UserID
-                                     select u).FirstOrDefault();
-
-                    if (UD != null)
+                    if (File1 != null)
                     {
-
                         if (!Directory.Exists("/Images"))
                             Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Images/"));
 
@@ -487,68 +487,66 @@ namespace VolleyballService.Services
                         file = "Images/" + Guid.NewGuid().ToString() + ".png";
                         string fileLocation = HttpContext.Current.Server.MapPath("~/" + file);
                         File1.SaveAs(fileLocation);
-
-                        if (TeamID == 0)
+                    }
+                    if (TeamID == 0)
+                    {
+                        var t = DC.Teams.Where(x => x.TeamManagerID == TeamManagerID).FirstOrDefault();
+                        if (t != null)
                         {
-                            var t = DC.Teams.Where(x => x.TeamManagerID == TeamManagerID).FirstOrDefault();
-                            if (t != null)
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = "Team manager already asign other team.";
+                            return obj;
+                        }
+                        else
+                        {
+                            Team team = new Team();
+                            team.CreatedDate = System.DateTime.UtcNow;
+                            team.TeamManagerID = TeamManagerID;
+                            team.TeamName = Name;
+                            team.TeamPic = file;
+                            team.CreatedUserID = UserID;
+                            DC.Teams.Add(team);
+                            DC.SaveChanges();
+                            obj.ReturnMsg = "Team created successfully.";
+                        }
+                    }
+                    else
+                    {
+
+                        Team team = DC.Teams.Where(x => x.ID == TeamID).FirstOrDefault();
+                        if (team != null)
+                        {
+                            if (string.IsNullOrEmpty(file))
                             {
-                                obj.ReturnCode = ResponseMessages.NoDataCode;
-                                obj.ReturnMsg = "Team manager already asign other team.";
-                                return obj;
+                                file = team.TeamPic;
                             }
-                            else
-                            {
-                                Team team = new Team();
-                                team.CreatedDate = System.DateTime.UtcNow;
-                                team.TeamManagerID = TeamManagerID;
-                                team.TeamName = Name;
-                                team.TeamPic = file;
-                                team.CreatedUserID = UserID;
-                                DC.Teams.Add(team);
-                                DC.SaveChanges();
-                                obj.ReturnMsg = "Team created successfully.";
-                            }
+                            team.CreatedDate = System.DateTime.UtcNow;
+                            team.TeamManagerID = TeamManagerID;
+                            team.TeamName = Name;
+                            team.TeamPic = file;
+                            team.CreatedUserID = UserID;
+                            DC.SaveChanges();
+                            obj.ReturnMsg = "Team updated successfully.";
+
                         }
                         else
                         {
 
-                            Team team = DC.Teams.Where(x => x.ID == TeamID).FirstOrDefault();
-                            if (team != null)
-                            {
-                                team.CreatedDate = System.DateTime.UtcNow;
-                                team.TeamManagerID = TeamManagerID;
-                                team.TeamName = Name;
-                                team.TeamPic = file;
-                                team.CreatedUserID = UserID;
-                                DC.Teams.Add(team);
-                                DC.SaveChanges();
-                                obj.ReturnMsg = "Team updated successfully.";
-
-                            }
-                            else
-                            {
-
-                                obj.ReturnCode = ResponseMessages.NoDataCode;
-                                obj.ReturnMsg = "Team not found";
-                                return obj;
-                            }
+                            obj.ReturnCode = ResponseMessages.NoDataCode;
+                            obj.ReturnMsg = "Team not found";
+                            return obj;
                         }
+                    }
 
 
-                        obj.ReturnCode = ResponseMessages.SuccessCode;
-                    }
-                    else
-                    {
-                        obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = "User doesnot found.";
-                    }
+                    obj.ReturnCode = ResponseMessages.SuccessCode;
                 }
                 else
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
-                    obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                    obj.ReturnMsg = "User doesnot found.";
                 }
+
             }
             catch (Exception)
             {
@@ -793,6 +791,9 @@ namespace VolleyballService.Services
             return obj;
 
         }
+
+
+
     }
 
 

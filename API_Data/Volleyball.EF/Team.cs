@@ -18,6 +18,8 @@ namespace Volleyball.EF
         public Team()
         {
             this.TeamMembers = new HashSet<TeamMember>();
+            this.TournamentTeams = new HashSet<TournamentTeam>();
+            this.TournamentTeams1 = new HashSet<TournamentTeam>();
         }
     
         public int ID { get; set; }
@@ -32,5 +34,9 @@ namespace Volleyball.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeamMember> TeamMembers { get; set; }
         public virtual UserMaster UserMaster { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TournamentTeam> TournamentTeams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TournamentTeam> TournamentTeams1 { get; set; }
     }
 }

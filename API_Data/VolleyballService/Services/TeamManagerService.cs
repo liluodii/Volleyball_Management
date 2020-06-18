@@ -133,23 +133,15 @@ namespace VolleyballService.Services
 
 
 
-                UserMaster user = (from u in DC.UserMasters
-                                   where u.ID == Data.UserID
-                                   select u).FirstOrDefault();
+                PlayerMaster user = (from u in DC.PlayerMasters
+                                     where u.ID == Data.UserID
+                                     select u).FirstOrDefault();
                 if (user != null)
                 {
-                    PlayerMaster PM = user.PlayerMasters.FirstOrDefault();
-                    if (PM != null)
-                    {
-                        DC.UserMasters.Remove(user);
-                        DC.SaveChanges();
-                    }
-                    else
-                    {
-                        obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = "User does not exist";
-                        return obj;
-                    }
+
+                    DC.UserMasters.Remove(user.UserMaster);
+                    DC.SaveChanges();
+
 
                 }
                 else
@@ -182,14 +174,14 @@ namespace VolleyballService.Services
                 if (Data.UserID != 0)
                 {
                     TeamManager TM = (from u in DC.TeamManagers
-                                       where u.ID == Data.UserID
-                                       select u).FirstOrDefault();
+                                      where u.ID == Data.UserID
+                                      select u).FirstOrDefault();
 
 
 
                     if (TM != null)
                     {
-                        
+
                         TM.Address = Data.Address;
                         TM.Contact = Data.Contact;
                         TM.DOB = Convert.ToDateTime(Data.DOB);
@@ -542,7 +534,7 @@ namespace VolleyballService.Services
                 if (user != null)
                 {
                     var ret = (from t in DC.TeamManagers.AsEnumerable()
-                               where (string.IsNullOrEmpty(Search) ? true : t.FirstName.Contains(Search) || t.LastName.Contains(Search)) && t.Teams.Count() == 0
+                               where (string.IsNullOrEmpty(Search) ? true : t.FirstName.Contains(Search) || t.LastName.Contains(Search))
                                select new
                                {
                                    TeamManagerID = t.ID,

@@ -16,5 +16,13 @@ namespace Volleyball.EF
     {
         public int ID { get; set; }
         public Nullable<int> TournamentID { get; set; }
+        public Nullable<int> Team1 { get; set; }
+        public Nullable<int> Team2 { get; set; }
+        public Nullable<System.DateTime> MatchDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+    
+        public virtual Team Team { get; set; }
+        public virtual Team Team3 { get; set; }
+        public virtual Tournament Tournament { get; set; }
     }
 }

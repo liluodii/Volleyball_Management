@@ -22,6 +22,9 @@
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamMamber_Team" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TeamManager_UserMaster" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_Team_UserMaster" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" />
+        <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
