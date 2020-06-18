@@ -297,6 +297,43 @@ namespace VolleyballService.Services
             return obj;
         }
 
+        public GenericClass GetTournamentList()
+        {
+            GenericClass obj = new GenericClass();
+            try
+            {
+                var List = (from u in DC.Tournaments.AsEnumerable()
+                            orderby u.CreatedDate
+                            select new
+                            {
+                                TournamentID = u.ID,
+                                Name = u.Name
+                            }).ToList();
+
+                if (List.Count() > 0)
+                {
+                    obj.Data = List;
+                    obj.ReturnCode = ResponseMessages.SuccessCode;
+                    obj.ReturnMsg = ResponseMessages.SuccessMsg;
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                    obj.Data = new List<int>();
+                    return obj;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return obj;
+
+
+        }
 
         public GenericClass GetTournamentTeam(CReqGetTournament Data)
         {
@@ -342,5 +379,40 @@ namespace VolleyballService.Services
             return obj;
 
         }
+
+        public GenericClass DeleteTournamentTeam(CReqDeleteTournamentTeam Data)
+        {
+            GenericClass obj = new GenericClass();
+
+            try
+            {
+                TournamentTeam tournament = (from u in DC.TournamentTeams
+                                             where u.ID == Data.TournamentTeamID
+                                             select u).FirstOrDefault();
+                if (tournament != null)
+                {
+
+                    DC.TournamentTeams.Remove(tournament);
+                    DC.SaveChanges();
+
+                }
+                else
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Tournament does not exist";
+                    return obj;
+                }
+                obj.ReturnCode = ResponseMessages.SuccessCode;
+                obj.ReturnMsg = "Tournament deleted successfully";
+
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+            return obj;
+        }
+
     }
 }

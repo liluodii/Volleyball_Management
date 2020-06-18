@@ -40,6 +40,13 @@ namespace Volleyball.EF.CustomClasses
 
 
         }
+        public class CReqDeleteTournamentTeam
+        {
+            public string APIKey { get; set; }
+            public int TournamentTeamID { get; set; }
+
+
+        }
 
         public class CReqDeleteTeam
         {
