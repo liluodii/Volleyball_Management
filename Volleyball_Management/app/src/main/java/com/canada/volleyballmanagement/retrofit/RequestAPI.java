@@ -1,6 +1,7 @@
 package com.canada.volleyballmanagement.retrofit;
 
 import com.canada.volleyballmanagement.pojo.AddEditTournamentRequest;
+import com.canada.volleyballmanagement.pojo.AddEditTournamentTeamRequest;
 import com.canada.volleyballmanagement.pojo.AddPlayerInTeamRequest;
 import com.canada.volleyballmanagement.pojo.AddPlayerRequest;
 import com.canada.volleyballmanagement.pojo.AddTeamManagerRequest;
@@ -10,6 +11,7 @@ import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.DeleteSelectTeamMember;
 import com.canada.volleyballmanagement.pojo.DeleteTeamRequest;
 import com.canada.volleyballmanagement.pojo.DeleteTournamentRequest;
+import com.canada.volleyballmanagement.pojo.DeleteTournamentTeamRequest;
 import com.canada.volleyballmanagement.pojo.EditPlayerResponse;
 import com.canada.volleyballmanagement.pojo.EditProfileRequest;
 import com.canada.volleyballmanagement.pojo.EditTeamManagerResponse;
@@ -20,9 +22,11 @@ import com.canada.volleyballmanagement.pojo.GetTeamListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamManagerListResponse;
 import com.canada.volleyballmanagement.pojo.GetTeamMemberRequest;
 import com.canada.volleyballmanagement.pojo.GetTournamentResponse;
+import com.canada.volleyballmanagement.pojo.GetTournamentTeamRequest;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
 import com.canada.volleyballmanagement.pojo.SelectTeamMemberResponse;
+import com.canada.volleyballmanagement.pojo.TournamentTeamResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -69,6 +73,9 @@ public interface RequestAPI {
     @PUT("/AddEditPlayer")
     Call<CommonResponse> AddEditPlayer(@Body AddPlayerRequest request);
 
+    @PUT("/AddEditTournamentTeam")
+    Call<CommonResponse> AddEditTournamentTeam(@Body AddEditTournamentTeamRequest request);
+
     @PUT("/AddEditTournamet")
     Call<CommonResponse> AddEditTournamet(@Body AddEditTournamentRequest request);
 
@@ -83,6 +90,9 @@ public interface RequestAPI {
 
     @GET("/GetTournamentList")
     Call<GetTournamentResponse> GetTournamentList(@Query("UserID") int id);
+
+    @POST("/GetTournamentTeam")
+    Call<TournamentTeamResponse> GetTournamentTeam(@Body GetTournamentTeamRequest request);
 
     @GET("/GetTeamManagerList")
     Call<GetTeamManagerListResponse> GetTeamManagerList(@Query("UserID") int id, @Query("Search") String search);
@@ -101,6 +111,9 @@ public interface RequestAPI {
 
     @HTTP(method = "DELETE", path = "DeleteTournament/", hasBody = true)
     Call<CommonResponse> DeleteTournament(@Body DeleteTournamentRequest request);
+
+    @HTTP(method = "DELETE", path = "DeleteTournamentTeam/", hasBody = true)
+    Call<CommonResponse> DeleteTournamentTeam(@Body DeleteTournamentTeamRequest request);
 
     @HTTP(method = "DELETE", path = "DeleteTeamManager/", hasBody = true)
     Call<CommonResponse> DeleteTeamManager(@Body CommonRequest request);

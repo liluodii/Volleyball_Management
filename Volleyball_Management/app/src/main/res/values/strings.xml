@@ -23,6 +23,7 @@
     <string name="text_gender">Gender</string>
     <string name="text_contact">Contact</string>
     <string name="text_join_date">Join Date</string>
+    <string name="text_date">Date</string>
     <string name="text_address">Address</string>
     <string name="text_experience">Experience</string>
     <string name="text_male">Male</string>
@@ -44,10 +45,11 @@
     <string name="text_teams">Teams</string>
     <string name="text_players">Players</string>
     <string name="text_tournament">Tournament</string>
+    <string name="text_tournament_team">Tournament team</string>
     <string name="text_schedules">Schedules</string>
     <string name="text_your_profile">Your profile</string>
     <string name="text_add_player">Add player</string>
-    <string name="text_add_tournament">Add Tournament</string>
+    <string name="text_add_tournament">Add tournament</string>
     <string name="text_add_team_manager">Add team manager</string>
     <string name="text_add_team">Add team</string>
     <string name="text_sign_out">Sign out</string>
@@ -55,6 +57,7 @@
     <string name="text_team_manager">Team manager</string>
     <string name="text_season">Season</string>
     <string name="text_select_team">Select team</string>
+    <string name="text_add_tournament_team">Add tournament team</string>
 
     <string name="text_search_player">Search Player</string>
     <string name="text_search_team">Search Team</string>
@@ -82,7 +85,8 @@
     <string name="err_empty_experience">Please enter experience</string>
     <string name="err_select_image">Please select image</string>
     <string name="err_select_player">Please select player</string>
-
+    <string name="err_select_date">Please select date</string>
+    <string name="err_select_different_team">Please select different team</string>
 
     <string name="title_delete">Confirm Delete!</string>
     <string name="msg_delete">Are you sure you want to delete?</string>

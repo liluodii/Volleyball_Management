@@ -13,16 +13,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.canada.volleyballmanagement.R;
-import com.canada.volleyballmanagement.adapter.PlayerListAdapter;
-import com.canada.volleyballmanagement.adapter.TournamentListAdapter;
+import com.canada.volleyballmanagement.adapter.TournamentTeamListAdapter;
+import com.canada.volleyballmanagement.adapter.TournamentTeamListAdapter;
 import com.canada.volleyballmanagement.baseclass.BaseActivity;
 import com.canada.volleyballmanagement.databinding.ActivityTournamentBinding;
-import com.canada.volleyballmanagement.pojo.CommonRequest;
+import com.canada.volleyballmanagement.databinding.ActivityTournamentTeamBinding;
 import com.canada.volleyballmanagement.pojo.CommonResponse;
 import com.canada.volleyballmanagement.pojo.DeleteTournamentRequest;
+import com.canada.volleyballmanagement.pojo.DeleteTournamentTeamRequest;
 import com.canada.volleyballmanagement.pojo.EventBusType;
-import com.canada.volleyballmanagement.pojo.GetPlayerListResponse;
-import com.canada.volleyballmanagement.pojo.GetTournamentResponse;
+import com.canada.volleyballmanagement.pojo.GetTournamentTeamRequest;
+import com.canada.volleyballmanagement.pojo.TournamentTeamResponse;
 import com.canada.volleyballmanagement.utils.Constants;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,16 +34,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TournamentActivity extends BaseActivity {
+public class TournamentTeamActivity extends BaseActivity {
 
-    ActivityTournamentBinding binding;
-    TournamentListAdapter adapter;
+    ActivityTournamentTeamBinding binding;
+    TournamentTeamListAdapter adapter;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(EventBusType event) {
-
         switch (event.getType()) {
-            case 4:
+            case 5:
                 if (checkConnection()) {
                     callApi();
                 } else {
@@ -50,7 +50,6 @@ public class TournamentActivity extends BaseActivity {
                 }
                 break;
         }
-
     }
 
     @Override
@@ -63,10 +62,10 @@ public class TournamentActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_tournament);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_tournament_team);
         binding.setActivity(this);
         EventBus.getDefault().register(this);
-        showToolBar(true, getString(R.string.text_tournament));
+        showToolBar(true, getString(R.string.text_tournament_team));
 
         if (checkConnection()) {
             callApi();
@@ -84,41 +83,26 @@ public class TournamentActivity extends BaseActivity {
 
     public void init() {
 
-        binding.rvPlayer.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new TournamentListAdapter(getActivity());
-        binding.rvPlayer.setAdapter(adapter);
+        binding.rvTeam.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new TournamentTeamListAdapter(getActivity());
+        binding.rvTeam.setAdapter(adapter);
 
-        adapter.setEventListener(new TournamentListAdapter.EventListener() {
+        adapter.setEventListener(new TournamentTeamListAdapter.EventListener() {
             @Override
-            public void onDelete(GetTournamentResponse.Datum data, int position) {
+            public void onDelete(TournamentTeamResponse.Datum data, int position) {
                 deleteDialog(data, position);
             }
-
-            @Override
-            public void onEdit(GetTournamentResponse.Datum data, int position) {
-                Intent intent = new Intent(getActivity(), AddTournamentActivity.class);
-                intent.putExtra(Constants.isEditPlayer, true);
-                intent.putExtra(Constants.TeamId, data.getTournamentID());
-                intent.putExtra(Constants.Name, data.getName());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onMatch(GetTournamentResponse.Datum data, int position) {
-                Intent intent = new Intent(getActivity(), TournamentTeamActivity.class);
-                intent.putExtra(Constants.TeamId, data.getTournamentID());
-                startActivity(intent);
-            }
-
         });
+
     }
 
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.fab:
-                intent = new Intent(getActivity(), AddTournamentActivity.class);
+                intent = new Intent(getActivity(), AddTournamentTeamActivity.class);
                 intent.putExtra(Constants.isEditPlayer, false);
+                intent.putExtra(Constants.TeamId, getIntent().getIntExtra(Constants.TeamId, 0));
                 startActivity(intent);
                 break;
         }
@@ -126,16 +110,19 @@ public class TournamentActivity extends BaseActivity {
 
     public void callApi() {
         showDialog();
-        requestAPI.GetTournamentList(getUserID()).enqueue(GetTournamentListCallback);
+        GetTournamentTeamRequest request = new GetTournamentTeamRequest();
+        request.setAPIKey(Constants.APIKEY);
+        request.setTournamentTeamID(getIntent().getIntExtra(Constants.TeamId, 0));
+        requestAPI.GetTournamentTeam(request).enqueue(GetTournamentListCallback);
     }
 
-    Callback<GetTournamentResponse> GetTournamentListCallback = new Callback<GetTournamentResponse>() {
+    Callback<TournamentTeamResponse> GetTournamentListCallback = new Callback<TournamentTeamResponse>() {
         @Override
-        public void onResponse(Call<GetTournamentResponse> call, Response<GetTournamentResponse> response) {
+        public void onResponse(Call<TournamentTeamResponse> call, Response<TournamentTeamResponse> response) {
 
             dismissDialog();
 
-            GetTournamentResponse playerListResponse = response.body();
+            TournamentTeamResponse playerListResponse = response.body();
 
             adapter.clear();
 
@@ -154,7 +141,7 @@ public class TournamentActivity extends BaseActivity {
         }
 
         @Override
-        public void onFailure(Call<GetTournamentResponse> call, Throwable t) {
+        public void onFailure(Call<TournamentTeamResponse> call, Throwable t) {
             dismissDialog();
             Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -163,16 +150,16 @@ public class TournamentActivity extends BaseActivity {
 
     private void noDataFound() {
         if (adapter.checkSize()) {
-            binding.rvPlayer.setVisibility(View.GONE);
+            binding.rvTeam.setVisibility(View.GONE);
             binding.lvNoDataFound.setVisibility(View.VISIBLE);
         } else {
-            binding.rvPlayer.setVisibility(View.VISIBLE);
+            binding.rvTeam.setVisibility(View.VISIBLE);
             binding.lvNoDataFound.setVisibility(View.GONE);
         }
     }
 
 
-    public void deleteDialog(final GetTournamentResponse.Datum data, final int position) {
+    public void deleteDialog(final TournamentTeamResponse.Datum data, final int position) {
 
         AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme)
                 .setTitle(getString(R.string.title_delete))
@@ -198,14 +185,14 @@ public class TournamentActivity extends BaseActivity {
 
     }
 
-    private void deleteApi(final GetTournamentResponse.Datum data, final int position) {
+    private void deleteApi(final TournamentTeamResponse.Datum data, final int position) {
 
-        DeleteTournamentRequest request = new DeleteTournamentRequest();
+        DeleteTournamentTeamRequest request = new DeleteTournamentTeamRequest();
         request.setAPIKey(Constants.APIKEY);
-        request.setTournamentID(data.getTournamentID());
+        request.setTournamentTeamID(data.getTournamentTeamID());
         showDialog();
 
-        requestAPI.DeleteTournament(request).enqueue(new Callback<CommonResponse>() {
+        requestAPI.DeleteTournamentTeam(request).enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 dismissDialog();

@@ -8,34 +8,32 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.canada.volleyballmanagement.R;
-import com.canada.volleyballmanagement.databinding.ItemTournamentListBinding;
-import com.canada.volleyballmanagement.databinding.ItemTournamentListBinding;
-import com.canada.volleyballmanagement.pojo.GetTournamentResponse;
+import com.canada.volleyballmanagement.databinding.ItemTournamentTeamBinding;
+import com.canada.volleyballmanagement.databinding.ItemTournamentTeamBinding;
+import com.canada.volleyballmanagement.pojo.TournamentTeamResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAdapter.Holder> {
+public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTeamListAdapter.Holder> {
 
     public EventListener mEventListener;
     Context context;
-    private List<GetTournamentResponse.Datum> data = new ArrayList<>();
+    private List<TournamentTeamResponse.Datum> data = new ArrayList<>();
 
-    public TournamentListAdapter(Context context) {
+    public TournamentTeamListAdapter(Context context) {
         this.context = context;
     }
 
-    public void addAll(List<GetTournamentResponse.Datum> mData) {
+    public void addAll(List<TournamentTeamResponse.Datum> mData) {
         data.clear();
         data.addAll(mData);
         notifyDataSetChanged();
     }
 
-    public void add(GetTournamentResponse.Datum mData) {
+    public void add(TournamentTeamResponse.Datum mData) {
         data.add(mData);
         notifyDataSetChanged();
     }
@@ -57,16 +55,16 @@ public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAd
         notifyDataSetChanged();
     }
 
-    public GetTournamentResponse.Datum getItem(int position) {
+    public TournamentTeamResponse.Datum getItem(int position) {
         return data.get(position);
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ItemTournamentListBinding binding = DataBindingUtil.inflate(
+        ItemTournamentTeamBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.item_tournament_list, parent, false);
+                R.layout.item_tournament_team, parent, false);
         binding.setActivity(this);
 
         return new Holder(binding);
@@ -75,19 +73,9 @@ public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAd
     public void onClick(View view, int position) {
 
         switch (view.getId()) {
-            case R.id.imgEdit:
-                if (mEventListener != null) {
-                    mEventListener.onEdit(data.get(position), position);
-                }
-                break;
             case R.id.imgDelete:
                 if (mEventListener != null) {
                     mEventListener.onDelete(data.get(position), position);
-                }
-                break;
-            case R.id.imgMatch:
-                if (mEventListener != null) {
-                    mEventListener.onMatch(data.get(position), position);
                 }
                 break;
         }
@@ -98,7 +86,7 @@ public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAd
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
 
-        GetTournamentResponse.Datum dataModel = data.get(position);
+        TournamentTeamResponse.Datum dataModel = data.get(position);
 
         holder.bind(dataModel, position);
 
@@ -125,21 +113,18 @@ public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAd
 
 
     public interface EventListener {
-        void onDelete(GetTournamentResponse.Datum data, int position);
-
-        void onEdit(GetTournamentResponse.Datum data, int position);
-        void onMatch(GetTournamentResponse.Datum data, int position);
+        void onDelete(TournamentTeamResponse.Datum data, int position);
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        public ItemTournamentListBinding binding;
+        public ItemTournamentTeamBinding binding;
 
-        public Holder(ItemTournamentListBinding binding) {
+        public Holder(ItemTournamentTeamBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(GetTournamentResponse.Datum obj, int position) {
+        public void bind(TournamentTeamResponse.Datum obj, int position) {
             binding.setData(obj);
             binding.setPosition(position);
 
