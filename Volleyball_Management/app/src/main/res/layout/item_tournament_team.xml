@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:orientation="vertical">
 
         <com.canada.volleyballmanagement.widget.DTextView
@@ -33,6 +34,7 @@
             android:layout_marginRight="@dimen/_5sdp"
             android:text="@{data.matchDate}"
             android:textColor="@color/black"
+
             android:textSize="@dimen/_12sdp" />
 
         <LinearLayout
@@ -41,7 +43,9 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp">
+            android:background="#FAFAD2"
+            android:paddingBottom="@dimen/_5sdp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"

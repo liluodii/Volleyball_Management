@@ -33,6 +33,7 @@
             android:layout_marginRight="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:gravity="center_vertical"
+            android:background="#FAFAD2"
             android:orientation="horizontal"
             android:paddingTop="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp">
