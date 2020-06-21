@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+
             android:orientation="horizontal"
             android:padding="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp">
@@ -47,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#FAFAD2"
                 android:orientation="vertical">
 
                 <LinearLayout

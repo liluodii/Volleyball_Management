@@ -5,22 +5,27 @@
 
         <item
             android:id="@+id/navTeams"
+            android:icon="@drawable/team"
             android:title="@string/text_teams" />
 
         <item
             android:id="@+id/navMatches"
+            android:icon="@drawable/match"
             android:title="@string/text_matches" />
 
         <item
             android:id="@+id/navPlayers"
+            android:icon="@drawable/player"
             android:title="@string/text_players" />
 
         <item
             android:id="@+id/navProfile"
+            android:icon="@drawable/profile"
             android:title="@string/text_your_profile" />
 
         <item
             android:id="@+id/navSignOut"
+            android:icon="@drawable/signout"
             android:title="@string/text_sign_out" />
 
     </group>

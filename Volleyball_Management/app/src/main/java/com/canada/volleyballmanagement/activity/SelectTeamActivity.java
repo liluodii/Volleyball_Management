@@ -53,7 +53,7 @@ public class SelectTeamActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_team);
         binding.setActivity(this);
-        showToolBar(true, getString(R.string.text_team_manager));
+        showToolBar(true, getString(R.string.text_playerlist));
 
         if (checkConnection()) {
             callApi();

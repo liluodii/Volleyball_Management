@@ -33,7 +33,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
                     android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_10sdp">
+                    android:paddingRight="@dimen/_10sdp"
+                    >
 
                     <ImageView
                         android:id="@+id/imgMenu"

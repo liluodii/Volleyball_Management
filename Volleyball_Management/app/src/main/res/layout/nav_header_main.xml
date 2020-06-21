@@ -6,15 +6,18 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/navbg"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
