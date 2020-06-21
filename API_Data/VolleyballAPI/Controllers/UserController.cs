@@ -116,7 +116,8 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
+                string JData = _BaseService.ConvertJsontoString(Data);
+                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName);
                 if (_IsValidToken == true)
                 {
                     Obj = _Service.UpdateProfile(Data);
