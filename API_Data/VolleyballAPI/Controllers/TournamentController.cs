@@ -270,7 +270,7 @@ namespace VolleyballAPI.Controllers
 
 
         [Route("GetTournamentTeam")]
-        [HttpGet]
+        [HttpPost]
         public GenericClass GetTournamentTeam(CReqGetTournament Data)
         {
             GenericClass Obj = new GenericClass();
