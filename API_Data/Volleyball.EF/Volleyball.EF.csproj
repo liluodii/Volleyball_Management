@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppException.cs">
+      <DependentUpon>Volleyball.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomClasses\CRequest.cs" />
     <Compile Include="CustomClasses\CResponse.cs" />
     <Compile Include="LeagueManager.cs">

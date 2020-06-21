@@ -25,6 +25,14 @@ namespace VolleyballService.Services
             try
             {
 
+                if (((System.DateTime.UtcNow.Date - Data.DOB.Value.Date).TotalDays) / 365 < 18)
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Select proper dob.";
+
+                    return obj;
+                }
+
 
                 if (Data.UserID != 0)
                 {
@@ -170,7 +178,13 @@ namespace VolleyballService.Services
             try
             {
 
+                if (((System.DateTime.UtcNow.Date - Data.DOB.Value.Date).TotalDays) / 365 < 18)
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Select proper dob.";
 
+                    return obj;
+                }
                 if (Data.UserID != 0)
                 {
                     TeamManager TM = (from u in DC.TeamManagers

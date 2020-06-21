@@ -25,6 +25,7 @@
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" />
         <AssociationConnector Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" />
+        <EntityTypeShape EntityType="DB_A43E53_volleyballModel.AppException" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_A43E53_volleyballModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppException">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="Method" Type="nvarchar" MaxLength="255" />
+          <Property Name="Page" Type="nvarchar" MaxLength="255" />
+          <Property Name="Line" Type="varchar(max)" />
+          <Property Name="Message" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ExceptionType" Type="int" />
+          <Property Name="IsSolved" Type="bit" />
+          <Property Name="SolutionRemark" Type="varchar" MaxLength="200" />
+          <Property Name="Object" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="LeagueManager">
           <Key>
             <PropertyRef Name="ID" />
@@ -266,6 +282,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DB_A43E53_volleyballModelStoreContainer">
+          <EntitySet Name="AppException" EntityType="Self.AppException" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeagueManager" EntityType="Self.LeagueManager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayerMaster" EntityType="Self.PlayerMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
@@ -612,6 +629,7 @@
             <End Role="Tournament" EntitySet="Tournaments" />
             <End Role="TournamentTeam" EntitySet="TournamentTeams" />
           </AssociationSet>
+          <EntitySet Name="AppExceptions" EntityType="DB_A43E53_volleyballModel.AppException" />
         </EntityContainer>
         <Association Name="FK_Team_UserMaster">
           <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
@@ -661,6 +679,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AppException">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="Method" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Page" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Line" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ExceptionType" Type="Int32" />
+          <Property Name="IsSolved" Type="Boolean" />
+          <Property Name="SolutionRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Object" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -789,6 +823,23 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppExceptions">
+            <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.AppException">
+              <MappingFragment StoreEntitySet="AppException">
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="SolutionRemark" ColumnName="SolutionRemark" />
+                <ScalarProperty Name="IsSolved" ColumnName="IsSolved" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

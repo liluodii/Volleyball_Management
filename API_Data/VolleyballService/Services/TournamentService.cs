@@ -121,7 +121,12 @@ namespace VolleyballService.Services
 
             try
             {
-
+                if (Data.StartDate.Value.Date <= System.DateTime.UtcNow.Date)
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Select another date.";
+                    return obj;
+                }
 
                 if (Data.TournamentTeamID != 0)
                 {
@@ -148,7 +153,6 @@ namespace VolleyballService.Services
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
                         obj.ReturnMsg = "Team does not exist";
-
                         return obj;
                     }
 
@@ -161,8 +165,10 @@ namespace VolleyballService.Services
                     TournamentTeam TM = new TournamentTeam();
 
                     TM.MatchDate = Data.StartDate;
-                    TM.Team1Score = Data.Team1;
-                    TM.Team2Score = Data.Team2;
+                    TM.Team1 = Data.Team1;
+                    TM.Team2 = Data.Team2;
+                    TM.Team1Score = 0;
+                    TM.Team2Score = 0;
                     TM.TournamentID = Data.TournamentID;
                     TM.CreatedDate = System.DateTime.UtcNow;
 
@@ -250,29 +256,12 @@ namespace VolleyballService.Services
                                 }).ToList();
 
                 list.Upcomming = (from u in MatchList.AsEnumerable()
-                                  where CurrentDate.Date > u.MatchDate.Value.Date
-                                  select new CResMatch
-                                  {
-                                      MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
-                                      Team1 = u.Team1,
-                                      Team2 = u.Team2,
-                                      Team1Score = u.Team1Score==null?0:u.Team1Score,
-                                      Team2Score = u.Team2Score==null?0:u.Team2Score,
-                                      Team1Name = u.Team.TeamName,
-                                      Team2Name = u.Team3.TeamName,
-                                      Team1Pic = string.IsNullOrEmpty(u.Team.TeamPic) ? "" : BaseService.GetURL() + u.Team.TeamPic,
-                                      Team2Pic = string.IsNullOrEmpty(u.Team3.TeamPic) ? "" : BaseService.GetURL() + u.Team3.TeamPic,
-                                      TournamentTeamID = u.ID,
-                                  }).ToList();
-
-                list.Commpleted = (from u in MatchList.AsEnumerable()
                                   where CurrentDate.Date < u.MatchDate.Value.Date
                                   select new CResMatch
                                   {
                                       MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
                                       Team1 = u.Team1,
                                       Team2 = u.Team2,
-                                      WinnerTeam= u.Team1Score >= u.Team2Score ? u.Team1 : u.Team2,
                                       Team1Score = u.Team1Score == null ? 0 : u.Team1Score,
                                       Team2Score = u.Team2Score == null ? 0 : u.Team2Score,
                                       Team1Name = u.Team.TeamName,
@@ -281,6 +270,23 @@ namespace VolleyballService.Services
                                       Team2Pic = string.IsNullOrEmpty(u.Team3.TeamPic) ? "" : BaseService.GetURL() + u.Team3.TeamPic,
                                       TournamentTeamID = u.ID,
                                   }).ToList();
+
+                list.Commpleted = (from u in MatchList.AsEnumerable()
+                                   where CurrentDate.Date > u.MatchDate.Value.Date
+                                   select new CResMatch
+                                   {
+                                       MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
+                                       Team1 = u.Team1,
+                                       Team2 = u.Team2,
+                                       WinnerTeam = u.Team1Score == u.Team2Score ? -1 : (u.Team1Score >= u.Team2Score ? u.Team1 : u.Team2),
+                                       Team1Score = u.Team1Score == null ? 0 : u.Team1Score,
+                                       Team2Score = u.Team2Score == null ? 0 : u.Team2Score,
+                                       Team1Name = u.Team.TeamName,
+                                       Team2Name = u.Team3.TeamName,
+                                       Team1Pic = string.IsNullOrEmpty(u.Team.TeamPic) ? "" : BaseService.GetURL() + u.Team.TeamPic,
+                                       Team2Pic = string.IsNullOrEmpty(u.Team3.TeamPic) ? "" : BaseService.GetURL() + u.Team3.TeamPic,
+                                       TournamentTeamID = u.ID,
+                                   }).ToList();
 
                 obj.Data = list;
                 obj.ReturnCode = ResponseMessages.SuccessCode;
@@ -342,7 +348,7 @@ namespace VolleyballService.Services
             try
             {
                 var List = (from u in DC.TournamentTeams.AsEnumerable()
-                            where u.TournamentID==Data.TournamentTeamID
+                            where u.TournamentID == Data.TournamentTeamID
                             orderby u.CreatedDate
                             select new CResMatch
                             {
@@ -363,6 +369,8 @@ namespace VolleyballService.Services
                     obj.Data = List;
                     obj.ReturnCode = ResponseMessages.SuccessCode;
                     obj.ReturnMsg = ResponseMessages.SuccessMsg;
+
+
                 }
                 else
                 {

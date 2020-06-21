@@ -175,6 +175,14 @@ namespace VolleyballService.Services
             CResUserLogin resData = new CResUserLogin();
             try
             {
+                if (((System.DateTime.UtcNow.Date - Data.DOB.Value.Date).TotalDays) / 365 < 18)
+                {
+                    obj.ReturnCode = ResponseMessages.NoDataCode;
+                    obj.ReturnMsg = "Select proper dob.";
+
+                    return obj;
+                }
+
                 UserMaster user = (from u in DC.UserMasters
                                    where u.ID == Data.UserID
                                    select u).FirstOrDefault();

@@ -34,5 +34,6 @@ namespace Volleyball.EF
         public virtual DbSet<Tournament> Tournaments { get; set; }
         public virtual DbSet<TournamentTeam> TournamentTeams { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<AppException> AppExceptions { get; set; }
     }
 }

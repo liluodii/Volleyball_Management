@@ -143,7 +143,7 @@ namespace Volleyball.EF.CustomClasses
 
             public string Gender { get; set; }
             public string Contact { get; set; }
-            public string DOB { get; set; }
+            public DateTime? DOB { get; set; }
 
             public string JoinDate { get; set; }
 
