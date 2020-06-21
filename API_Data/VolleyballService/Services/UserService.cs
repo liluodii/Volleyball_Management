@@ -574,31 +574,30 @@ namespace VolleyballService.Services
 
 
 
-                UserMaster user = (from u in DC.UserMasters
-                                   where u.ID == Data.UserID
-                                   select u).FirstOrDefault();
-                if (user != null)
-                {
-                    Team PM = user.Teams.FirstOrDefault();
-                    if (PM != null)
-                    {
-                        DC.Teams.Remove(PM);
-                        DC.SaveChanges();
-                    }
-                    else
-                    {
-                        obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = "Team does not exist";
-                        return obj;
-                    }
+                Team PM = (from u in DC.Teams
+                           where u.ID == Data.TeamID
+                           select u).FirstOrDefault();
 
+
+                if (PM != null)
+                {
+                    if (PM.TournamentTeams.Count() > 0)
+                        DC.TournamentTeams.Remove(PM.TournamentTeams.FirstOrDefault());
+                    if (PM.TournamentTeams1.Count() > 0)
+                        DC.TournamentTeams.Remove(PM.TournamentTeams1.FirstOrDefault());
+                    //DC.SaveChanges();
+
+                    DC.Teams.Remove(PM);
+                    DC.SaveChanges();
                 }
                 else
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
-                    obj.ReturnMsg = "User does not exist";
+                    obj.ReturnMsg = "Team does not exist";
                     return obj;
                 }
+
+
                 obj.ReturnCode = ResponseMessages.SuccessCode;
                 obj.ReturnMsg = "Team deleted successfully";
 

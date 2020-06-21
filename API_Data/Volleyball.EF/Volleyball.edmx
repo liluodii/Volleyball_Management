@@ -179,18 +179,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Team_UserMaster">
-          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
-          <End Role="Team" Type="Self.Team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserMaster">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Team">
-              <PropertyRef Name="CreatedUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TeamMamber_PlayerMaster">
           <End Role="PlayerMaster" Type="Self.PlayerMaster" Multiplicity="0..1" />
           <End Role="TeamMember" Type="Self.TeamMember" Multiplicity="*" />
@@ -256,7 +244,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TournamentTeam_Tournament">
-          <End Role="Tournament" Type="Self.Tournament" Multiplicity="0..1" />
+          <End Role="Tournament" Type="Self.Tournament" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tournament">
@@ -302,10 +292,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Team_TeamManager" Association="Self.FK_Team_TeamManager">
             <End Role="TeamManager" EntitySet="TeamManager" />
-            <End Role="Team" EntitySet="Team" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Team_UserMaster" Association="Self.FK_Team_UserMaster">
-            <End Role="UserMaster" EntitySet="UserMaster" />
             <End Role="Team" EntitySet="Team" />
           </AssociationSet>
           <AssociationSet Name="FK_TeamMamber_PlayerMaster" Association="Self.FK_TeamMamber_PlayerMaster">
