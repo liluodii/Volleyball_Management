@@ -37,6 +37,8 @@ namespace Volleyball.EF.CustomClasses
         {
             public int TournamentTeamID { get; set; } = 0;
             public int? Team1 { get; set; }
+            public int? WinnerTeam { get; set; } = 0;
+
             public int? Team2 { get; set; }
             public int? Team1Score { get; set; }
             public int? Team2Score { get; set; }

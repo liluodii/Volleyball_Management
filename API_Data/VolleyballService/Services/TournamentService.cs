@@ -272,6 +272,7 @@ namespace VolleyballService.Services
                                       MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
                                       Team1 = u.Team1,
                                       Team2 = u.Team2,
+                                      WinnerTeam= u.Team1Score >= u.Team2Score ? u.Team1 : u.Team2,
                                       Team1Score = u.Team1Score == null ? 0 : u.Team1Score,
                                       Team2Score = u.Team2Score == null ? 0 : u.Team2Score,
                                       Team1Name = u.Team.TeamName,
@@ -341,6 +342,7 @@ namespace VolleyballService.Services
             try
             {
                 var List = (from u in DC.TournamentTeams.AsEnumerable()
+                            where u.TournamentID==Data.TournamentTeamID
                             orderby u.CreatedDate
                             select new CResMatch
                             {
