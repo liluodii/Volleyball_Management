@@ -10,7 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/vollybg"
+        android:backgroundTint="#90FFFFFF"
+        android:backgroundTintMode="src_over">
 
         <RelativeLayout
             android:layout_width="match_parent"
