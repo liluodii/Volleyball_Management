@@ -25,8 +25,10 @@ import com.canada.volleyballmanagement.pojo.GetTournamentResponse;
 import com.canada.volleyballmanagement.pojo.GetTournamentTeamRequest;
 import com.canada.volleyballmanagement.pojo.LoginRequest;
 import com.canada.volleyballmanagement.pojo.LoginResponse;
+import com.canada.volleyballmanagement.pojo.MatchResponse;
 import com.canada.volleyballmanagement.pojo.SelectTeamMemberResponse;
 import com.canada.volleyballmanagement.pojo.TournamentTeamResponse;
+import com.canada.volleyballmanagement.pojo.UpdateScoreRequest;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -85,6 +87,9 @@ public interface RequestAPI {
     @PUT("/AddEditTeamManager")
     Call<CommonResponse> AddEditTeamManager(@Body AddTeamManagerRequest request);
 
+    @PUT("/UpdateScore")
+    Call<CommonResponse> UpdateScore(@Body UpdateScoreRequest request);
+
     @GET("/GetPlayerList")
     Call<GetPlayerListResponse> GetPlayerList(@Query("UserID") int id, @Query("Search") String search, @Query("IsCheckInTeam") int IsCheckInTeam);
 
@@ -96,6 +101,9 @@ public interface RequestAPI {
 
     @GET("/GetTeamManagerList")
     Call<GetTeamManagerListResponse> GetTeamManagerList(@Query("UserID") int id, @Query("Search") String search);
+
+    @GET("/GetMatchList")
+    Call<MatchResponse> GetMatchList(@Query("UserID") int id);
 
     @GET("/GetTeamList")
     Call<GetTeamListResponse> GetTeamList(@Query("UserID") int id, @Query("Search") String search);

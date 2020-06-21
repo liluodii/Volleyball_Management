@@ -64,7 +64,6 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/bg_button_rounded_fill_primary"
-            android:onClick="@{(View)->activity.onClick(View)}"
             android:text="@string/text_done"
             app:textFontFace="BOLD" />
 

@@ -87,6 +87,12 @@ public class LogInActivity extends BaseActivity {
                 }
 
                 break;
+            case R.id.txtSkip:
+
+                intent = new Intent(getActivity(), MatchActivity.class);
+                startActivity(intent);
+
+                break;
         }
 
     }

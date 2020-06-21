@@ -66,7 +66,7 @@ public class TournamentActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tournament);
         binding.setActivity(this);
         EventBus.getDefault().register(this);
-        showToolBar(true, getString(R.string.text_tournament));
+        showToolBar(true, getString(R.string.text_season));
 
         if (checkConnection()) {
             callApi();

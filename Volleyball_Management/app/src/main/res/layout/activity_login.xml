@@ -118,6 +118,8 @@
                 android:layout_height="@dimen/_10sdp" />
 
             <com.canada.volleyballmanagement.widget.DTextView
+                android:id="@+id/txtSkip"
+                android:onClick="@{(View)->activity.onViewClicked(View)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

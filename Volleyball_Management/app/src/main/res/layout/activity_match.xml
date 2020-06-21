@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.canada.volleyballmanagement.activity.MatchActivity" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal">
+
+            <com.canada.volleyballmanagement.widget.DTextView
+                android:id="@+id/txtUpcoming"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_gray"
+                android:gravity="center"
+                android:onClick="@{()->activity.changePager(0)}"
+                android:text="@string/upcoming"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:textFontFace="MEDIUM" />
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="wrap_content" />
+
+            <com.canada.volleyballmanagement.widget.DTextView
+                android:id="@+id/txtRunning"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_gray"
+                android:gravity="center"
+                android:onClick="@{()->activity.changePager(1)}"
+                android:text="@string/Running"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:textFontFace="MEDIUM" />
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="wrap_content" />
+
+            <com.canada.volleyballmanagement.widget.DTextView
+                android:id="@+id/txtCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_gray"
+                android:gravity="center"
+                android:onClick="@{()->activity.changePager(2)}"
+                android:text="@string/Completed"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:textFontFace="MEDIUM" />
+
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:id="@+id/lvAds"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            android:gravity="center|bottom" />
+
+    </LinearLayout>
+</layout>

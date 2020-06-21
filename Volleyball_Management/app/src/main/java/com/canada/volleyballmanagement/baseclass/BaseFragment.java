@@ -112,6 +112,11 @@ public class BaseFragment extends Fragment {
         return displayMetrics.heightPixels;
     }
 
+    public boolean isTeamManager() {
+        return new Gson().fromJson(pref.getString(Constants.LOGIN_REPONSE), LoginResponse.class).getData().getRoleID() == 3;
+    }
+
+
     public static void copyStream(InputStream input, OutputStream output) throws IOException {
 
         byte[] buffer = new byte[1024];

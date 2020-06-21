@@ -143,7 +143,7 @@ public class PlayersActivity extends BaseActivity {
 
             } else {
 
-                Toast.makeText(getActivity(), "" + playerListResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "" + playerListResponse.getReturnMsg(), Toast.LENGTH_SHORT).show();
 
             }
 

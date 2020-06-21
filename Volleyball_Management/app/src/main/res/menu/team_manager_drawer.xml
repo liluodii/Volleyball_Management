@@ -8,6 +8,10 @@
             android:title="@string/text_teams" />
 
         <item
+            android:id="@+id/navMatches"
+            android:title="@string/text_matches" />
+
+        <item
             android:id="@+id/navPlayers"
             android:title="@string/text_players" />
 

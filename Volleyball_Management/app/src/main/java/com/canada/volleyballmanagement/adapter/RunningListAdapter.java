@@ -11,31 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.canada.volleyballmanagement.R;
-import com.canada.volleyballmanagement.databinding.ItemTournamentTeamBinding;
-import com.canada.volleyballmanagement.databinding.ItemTournamentTeamBinding;
-import com.canada.volleyballmanagement.pojo.TournamentTeamResponse;
+import com.canada.volleyballmanagement.databinding.ItemRunningBinding;
+import com.canada.volleyballmanagement.databinding.ItemRunningBinding;
+import com.canada.volleyballmanagement.pojo.MatchResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTeamListAdapter.Holder> {
+public class RunningListAdapter extends RecyclerView.Adapter<RunningListAdapter.Holder> {
 
     public EventListener mEventListener;
     Context context;
-    private List<TournamentTeamResponse.Datum> data = new ArrayList<>();
+    private List<MatchResponse.Running> data = new ArrayList<>();
 
-    public TournamentTeamListAdapter(Context context) {
+    public RunningListAdapter(Context context) {
         this.context = context;
     }
 
-    public void addAll(List<TournamentTeamResponse.Datum> mData) {
+    public void addAll(List<MatchResponse.Running> mData) {
         data.clear();
         data.addAll(mData);
         notifyDataSetChanged();
     }
 
-    public void add(TournamentTeamResponse.Datum mData) {
+    public void add(MatchResponse.Running mData) {
         data.add(mData);
         notifyDataSetChanged();
     }
@@ -43,6 +43,18 @@ public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTe
     public void clear() {
         data.clear();
         notifyDataSetChanged();
+    }
+
+    public void onClick(View view, int position) {
+
+        switch (view.getId()) {
+            case R.id.lvMain:
+                if (mEventListener != null) {
+                    mEventListener.onRunning(data.get(position), position);
+                }
+                break;
+        }
+
     }
 
     public boolean checkSize() {
@@ -57,39 +69,25 @@ public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTe
         notifyDataSetChanged();
     }
 
-    public TournamentTeamResponse.Datum getItem(int position) {
+    public MatchResponse.Running getItem(int position) {
         return data.get(position);
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ItemTournamentTeamBinding binding = DataBindingUtil.inflate(
+        ItemRunningBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.item_tournament_team, parent, false);
+                R.layout.item_running, parent, false);
         binding.setActivity(this);
-
 
         return new Holder(binding);
     }
 
-    public void onClick(View view, int position) {
-
-        switch (view.getId()) {
-            case R.id.imgDelete:
-                if (mEventListener != null) {
-                    mEventListener.onDelete(data.get(position), position);
-                }
-                break;
-        }
-
-    }
-
-
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
 
-        TournamentTeamResponse.Datum dataModel = data.get(position);
+        MatchResponse.Running dataModel = data.get(position);
 
         holder.bind(dataModel, position);
 
@@ -101,8 +99,6 @@ public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTe
 
         Glide.with(context).setDefaultRequestOptions(options)
                 .load(dataModel.getTeam2Pic()).into(holder.binding.imgProfileSecond);
-
-
     }
 
     @Override
@@ -125,18 +121,18 @@ public class TournamentTeamListAdapter extends RecyclerView.Adapter<TournamentTe
 
 
     public interface EventListener {
-        void onDelete(TournamentTeamResponse.Datum data, int position);
+        void onRunning(MatchResponse.Running data, int position);
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        public ItemTournamentTeamBinding binding;
+        public ItemRunningBinding binding;
 
-        public Holder(ItemTournamentTeamBinding binding) {
+        public Holder(ItemRunningBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(TournamentTeamResponse.Datum obj, int position) {
+        public void bind(MatchResponse.Running obj, int position) {
             binding.setData(obj);
             binding.setPosition(position);
 

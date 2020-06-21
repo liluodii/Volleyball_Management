@@ -62,7 +62,7 @@ public class AddTournamentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_tournament);
         binding.setActivity(this);
-        showToolBar(true, getResources().getString(R.string.text_add_tournament));
+        showToolBar(true, getResources().getString(R.string.text_add_season));
         init();
     }
 

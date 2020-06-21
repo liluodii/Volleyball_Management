@@ -298,7 +298,7 @@ public class AddPlayersActivity extends BaseActivity implements DatePickerDialog
     public void calender(String tag) {
 
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.YEAR, -18);
+//        now.add(Calendar.YEAR, -18);
 
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 (DatePickerDialog.OnDateSetListener) getActivity(),

@@ -29,6 +29,7 @@
     <string name="text_male">Male</string>
     <string name="text_female">Female</string>
     <string name="text_email">Email</string>
+    <string name="text_score">Score</string>
 
     <string name="text_go">GO</string>
     <string name="text_guest">Guest? SKIP And GO</string>
@@ -49,6 +50,7 @@
     <string name="text_schedules">Schedules</string>
     <string name="text_your_profile">Your profile</string>
     <string name="text_add_player">Add player</string>
+    <string name="text_update_score">Update score</string>
     <string name="text_add_tournament">Add tournament</string>
     <string name="text_add_team_manager">Add team manager</string>
     <string name="text_add_team">Add team</string>
@@ -56,6 +58,7 @@
     <string name="text_matches">Matches</string>
     <string name="text_team_manager">Team manager</string>
     <string name="text_season">Season</string>
+    <string name="text_add_season">Add season</string>
     <string name="text_select_team">Select team</string>
     <string name="text_add_tournament_team">Add tournament team</string>
 
@@ -87,11 +90,19 @@
     <string name="err_select_player">Please select player</string>
     <string name="err_select_date">Please select date</string>
     <string name="err_select_different_team">Please select different team</string>
+    <string name="err_empty_team_one_score">Please enter team one score</string>
+    <string name="err_empty_team_two_score">Please enter team two score</string>
 
     <string name="title_delete">Confirm Delete!</string>
     <string name="msg_delete">Are you sure you want to delete?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="upcoming">UpComing</string>
+    <string name="Running">Running</string>
+    <string name="Completed">Completed</string>
+    <string name="match">Match</string>
+    <string name="winner">Winner</string>
+
 
 </resources>
 

@@ -84,7 +84,11 @@ public class AddTeamActivity extends BaseActivity {
 
         if (isEdit) {
             init();
+            if (isTeamManager()) {
+                binding.spTeam.setEnabled(false);
+            }
         }
+
     }
 
     public void init() {
