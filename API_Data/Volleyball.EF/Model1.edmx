@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DB_A43E53_volleyballModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DB_A43E53_volleyballModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppException">
           <Key>
             <PropertyRef Name="ID" />
@@ -323,10 +323,27 @@
             <End Role="UserMaster" EntitySet="UserMaster" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A43E53_volleyballModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppException">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="Method" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Page" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Line" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ExceptionType" Type="Int32" />
+          <Property Name="IsSolved" Type="Boolean" />
+          <Property Name="SolutionRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Object" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="LeagueManager">
           <Key>
             <PropertyRef Name="ID" />
@@ -383,12 +400,11 @@
           <Property Name="TeamManagerID" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedUserID" Type="Int32" />
           <NavigationProperty Name="TeamManager" Relationship="Self.FK_Team_TeamManager" FromRole="Team" ToRole="TeamManager" />
           <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMamber_Team" FromRole="Team" ToRole="TeamMember" />
-          <Property Name="CreatedUserID" Type="Int32" />
-          <NavigationProperty Name="UserMaster" Relationship="DB_A43E53_volleyballModel.FK_Team_UserMaster" FromRole="Team" ToRole="UserMaster" />
-          <NavigationProperty Name="TournamentTeams" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" FromRole="Team" ToRole="TournamentTeam" />
-          <NavigationProperty Name="TournamentTeams1" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" FromRole="Team" ToRole="TournamentTeam" />
+          <NavigationProperty Name="TournamentTeams" Relationship="Self.FK_TournamentTeam_Team" FromRole="Team" ToRole="TournamentTeam" />
+          <NavigationProperty Name="TournamentTeams1" Relationship="Self.FK_TournamentTeam_Team1" FromRole="Team" ToRole="TournamentTeam" />
         </EntityType>
         <EntityType Name="TeamManager">
           <Key>
@@ -431,7 +447,7 @@
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TournamentTeams" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" FromRole="Tournament" ToRole="TournamentTeam" />
+          <NavigationProperty Name="TournamentTeams" Relationship="Self.FK_TournamentTeam_Tournament" FromRole="Tournament" ToRole="TournamentTeam" />
         </EntityType>
         <EntityType Name="TournamentTeam">
           <Key>
@@ -443,11 +459,11 @@
           <Property Name="Team2" Type="Int32" />
           <Property Name="MatchDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Team" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team" FromRole="TournamentTeam" ToRole="Team" />
-          <NavigationProperty Name="Team3" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1" FromRole="TournamentTeam" ToRole="Team" />
-          <NavigationProperty Name="Tournament" Relationship="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament" FromRole="TournamentTeam" ToRole="Tournament" />
           <Property Name="Team1Score" Type="Int32" />
           <Property Name="Team2Score" Type="Int32" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_TournamentTeam_Team" FromRole="TournamentTeam" ToRole="Team" />
+          <NavigationProperty Name="Team3" Relationship="Self.FK_TournamentTeam_Team1" FromRole="TournamentTeam" ToRole="Team" />
+          <NavigationProperty Name="Tournament" Relationship="Self.FK_TournamentTeam_Tournament" FromRole="TournamentTeam" ToRole="Tournament" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -463,7 +479,6 @@
           <NavigationProperty Name="PlayerMasters" Relationship="Self.FK_PlayerMaster_UserMaster" FromRole="UserMaster" ToRole="PlayerMaster" />
           <NavigationProperty Name="RoleMaster" Relationship="Self.FK_UserMaster_RoleMaster" FromRole="UserMaster" ToRole="RoleMaster" />
           <NavigationProperty Name="TeamManagers" Relationship="Self.FK_TeamManager_UserMaster" FromRole="UserMaster" ToRole="TeamManager" />
-          <NavigationProperty Name="Teams" Relationship="DB_A43E53_volleyballModel.FK_Team_UserMaster" FromRole="UserMaster" ToRole="Team" />
         </EntityType>
         <Association Name="FK_LeagueManager_LeagueManager">
           <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1">
@@ -547,6 +562,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TournamentTeam_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TournamentTeam_Team1">
+          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="Team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TeamManager_UserMaster">
           <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -561,7 +600,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TournamentTeam_Tournament">
+          <End Role="Tournament" Type="Self.Tournament" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TournamentTeam" Type="Self.TournamentTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournament">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TournamentTeam">
+              <PropertyRef Name="TournamentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DB_A43E53_volleyballEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppExceptions" EntityType="Self.AppException" />
           <EntitySet Name="LeagueManagers" EntityType="Self.LeagueManager" />
           <EntitySet Name="PlayerMasters" EntityType="Self.PlayerMaster" />
           <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
@@ -595,98 +649,46 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team" Association="Self.FK_TournamentTeam_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TournamentTeam_Team1" Association="Self.FK_TournamentTeam_Team1">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
+          </AssociationSet>
           <AssociationSet Name="FK_TeamManager_UserMaster" Association="Self.FK_TeamManager_UserMaster">
             <End Role="UserMaster" EntitySet="UserMasters" />
             <End Role="TeamManager" EntitySet="TeamManagers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Team_UserMaster" Association="DB_A43E53_volleyballModel.FK_Team_UserMaster">
-            <End Role="UserMaster" EntitySet="UserMasters" />
-            <End Role="Team" EntitySet="Teams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TournamentTeam_Team" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TournamentTeam_Team1" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Team1">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="TournamentTeam" EntitySet="TournamentTeams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TournamentTeam_Tournament" Association="DB_A43E53_volleyballModel.FK_TournamentTeam_Tournament">
+          <AssociationSet Name="FK_TournamentTeam_Tournament" Association="Self.FK_TournamentTeam_Tournament">
             <End Role="Tournament" EntitySet="Tournaments" />
             <End Role="TournamentTeam" EntitySet="TournamentTeams" />
           </AssociationSet>
-          <EntitySet Name="AppExceptions" EntityType="DB_A43E53_volleyballModel.AppException" />
         </EntityContainer>
-        <Association Name="FK_Team_UserMaster">
-          <End Type="DB_A43E53_volleyballModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
-          <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserMaster">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Team">
-              <PropertyRef Name="CreatedUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TournamentTeam_Team">
-          <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="0..1" />
-          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Team">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TournamentTeam">
-              <PropertyRef Name="Team1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TournamentTeam_Team1">
-          <End Type="DB_A43E53_volleyballModel.Team" Role="Team" Multiplicity="0..1" />
-          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Team">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TournamentTeam">
-              <PropertyRef Name="Team2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TournamentTeam_Tournament">
-          <End Type="DB_A43E53_volleyballModel.Tournament" Role="Tournament" Multiplicity="0..1" />
-          <End Type="DB_A43E53_volleyballModel.TournamentTeam" Role="TournamentTeam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tournament">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TournamentTeam">
-              <PropertyRef Name="TournamentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="AppException">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int64" />
-          <Property Name="Method" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Page" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Line" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ExceptionType" Type="Int32" />
-          <Property Name="IsSolved" Type="Boolean" />
-          <Property Name="SolutionRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Object" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_A43E53_volleyballModelStoreContainer" CdmEntityContainer="DB_A43E53_volleyballEntities">
+          <EntitySetMapping Name="AppExceptions">
+            <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.AppException">
+              <MappingFragment StoreEntitySet="AppException">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="IsSolved" ColumnName="IsSolved" />
+                <ScalarProperty Name="SolutionRemark" ColumnName="SolutionRemark" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LeagueManagers">
             <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.LeagueManager">
               <MappingFragment StoreEntitySet="LeagueManager">
@@ -735,13 +737,13 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.Team">
               <MappingFragment StoreEntitySet="Team">
-                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
                 <ScalarProperty Name="TeamPic" ColumnName="TeamPic" />
                 <ScalarProperty Name="TeamManagerID" ColumnName="TeamManagerID" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -789,14 +791,14 @@
           <EntitySetMapping Name="TournamentTeams">
             <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.TournamentTeam">
               <MappingFragment StoreEntitySet="TournamentTeam">
-                <ScalarProperty Name="Team2Score" ColumnName="Team2Score" />
-                <ScalarProperty Name="Team1Score" ColumnName="Team1Score" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
-                <ScalarProperty Name="Team2" ColumnName="Team2" />
-                <ScalarProperty Name="Team1" ColumnName="Team1" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TournamentID" ColumnName="TournamentID" />
+                <ScalarProperty Name="Team1" ColumnName="Team1" />
+                <ScalarProperty Name="Team2" ColumnName="Team2" />
+                <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Team1Score" ColumnName="Team1Score" />
+                <ScalarProperty Name="Team2Score" ColumnName="Team2Score" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -809,23 +811,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AppExceptions">
-            <EntityTypeMapping TypeName="DB_A43E53_volleyballModel.AppException">
-              <MappingFragment StoreEntitySet="AppException">
-                <ScalarProperty Name="Object" ColumnName="Object" />
-                <ScalarProperty Name="SolutionRemark" ColumnName="SolutionRemark" />
-                <ScalarProperty Name="IsSolved" ColumnName="IsSolved" />
-                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Line" ColumnName="Line" />
-                <ScalarProperty Name="Page" ColumnName="Page" />
-                <ScalarProperty Name="Method" ColumnName="Method" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

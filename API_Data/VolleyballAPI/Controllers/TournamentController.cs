@@ -161,11 +161,15 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                string JData = _BaseService.ConvertJsontoString(Data);
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName);
-                if (_IsValidToken == true)
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.AddEditTournamentTeam(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -205,7 +209,17 @@ namespace VolleyballAPI.Controllers
                 bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
                 if (_IsValidToken == true)
                 {
+                    
+                }
+                if (Data.APIKey == BaseService.TOKEN)
+                {
                     Obj = _Service.UpdateScore(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -237,6 +251,12 @@ namespace VolleyballAPI.Controllers
 
                 Obj = _Service.GetMatchList();
 
+                
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
+
+               
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch
@@ -258,6 +278,10 @@ namespace VolleyballAPI.Controllers
             {
 
                 Obj = _Service.GetTournamentList();
+
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
@@ -289,12 +313,15 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                string JData = _BaseService.ConvertJsontoString(Data);
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName);
-
-                if (_IsValidToken == true)
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.GetTournamentTeam(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {

@@ -36,10 +36,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.AddEditPlayer(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -78,10 +84,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.DeletePlayer(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -92,7 +104,7 @@ namespace VolleyballAPI.Controllers
                 }
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
-            catch
+            catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 Obj.ReturnCode = ResponseMessages.ErrorCode;
@@ -118,10 +130,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.AddEditTeamManager(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -160,10 +178,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.DeleteTeamManager(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -174,7 +198,7 @@ namespace VolleyballAPI.Controllers
                 }
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
-            catch
+            catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 Obj.ReturnCode = ResponseMessages.ErrorCode;
@@ -201,8 +225,9 @@ namespace VolleyballAPI.Controllers
                     Obj.ReturnValue = string.Empty;
                     return Obj;
                 }
-
                 Obj = _Service.GetPlayerList(UserID, Search, IsCheckInTeam);
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
@@ -235,6 +260,10 @@ namespace VolleyballAPI.Controllers
                 }
 
                 Obj = _Service.GetTeamManagerDetails(TeamManagerID);
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
+
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
@@ -244,7 +273,8 @@ namespace VolleyballAPI.Controllers
                 Obj.ReturnCode = ResponseMessages.ErrorCode;
                 Obj.ReturnMsg = ResponseMessages.ErrorMsg;
                 Obj.ReturnValue = string.Empty;
-                Obj.Data = new List<int>();
+                Obj.
+                    Data = new List<int>();
 
             }
             return Obj;
@@ -269,6 +299,10 @@ namespace VolleyballAPI.Controllers
                 }
 
                 Obj = _Service.GetPlayerDetails(PlayerID);
+
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
@@ -301,6 +335,10 @@ namespace VolleyballAPI.Controllers
                 }
 
                 Obj = _Service.GetTeamManagerList(UserID, Search);
+
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
 
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used

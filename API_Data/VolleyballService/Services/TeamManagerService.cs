@@ -146,8 +146,15 @@ namespace VolleyballService.Services
                                      select u).FirstOrDefault();
                 if (user != null)
                 {
+                    UserMaster userdata = DC.UserMasters.Where(x => x.ID == user.UserID).FirstOrDefault();
+                    if (user.TeamMembers != null)
+                        DC.TeamMembers.RemoveRange(user.TeamMembers);
 
-                    DC.UserMasters.Remove(user.UserMaster);
+                    DC.SaveChanges();
+
+                    if (userdata != null)
+                        DC.UserMasters.Remove(userdata);
+
                     DC.SaveChanges();
 
 
@@ -333,23 +340,29 @@ namespace VolleyballService.Services
 
             try
             {
-                UserMaster user = (from u in DC.UserMasters
-                                   where u.ID == Data.UserID
-                                   select u).FirstOrDefault();
+                TeamManager user = (from u in DC.TeamManagers
+                                    where u.ID == Data.UserID
+                                    select u).FirstOrDefault();
                 if (user != null)
                 {
-                    TeamManager TM = user.TeamManagers.FirstOrDefault();
-                    if (TM != null)
+                    var team = DC.Teams.Where(x => x.TeamManagerID == user.ID).ToList();
+
+                    if (team != null)
                     {
-                        DC.UserMasters.Remove(user);
+                        var t1 = team.SelectMany(x => x.TournamentTeams).Select(x=>x).ToList();
+                        var t2 = team.SelectMany(x => x.TournamentTeams1).Select(x=>x).ToList();
+
+                        if (t1 != null)
+                            DC.TournamentTeams.RemoveRange(t1);
+                        if (t2 != null)
+                            DC.TournamentTeams.RemoveRange(t2);
+                        DC.SaveChanges();
+                        DC.Teams.RemoveRange(team);
                         DC.SaveChanges();
                     }
-                    else
-                    {
-                        obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = "User does not exist";
-                        return obj;
-                    }
+                    DC.TeamManagers.Remove(user);
+                    DC.SaveChanges();
+
                 }
                 else
                 {
@@ -400,7 +413,7 @@ namespace VolleyballService.Services
                         else
                         {
                             obj.ReturnCode = ResponseMessages.NoDataCode;
-                            obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                            obj.ReturnMsg = "Player lit not available.";
                             obj.Data = new List<int>();
                             return obj;
                         }
@@ -427,7 +440,7 @@ namespace VolleyballService.Services
                         else
                         {
                             obj.ReturnCode = ResponseMessages.NoDataCode;
-                            obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                            obj.ReturnMsg = "Player list not available.";
                             obj.Data = new List<int>();
                             return obj;
                         }
@@ -565,7 +578,7 @@ namespace VolleyballService.Services
                     else
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                        obj.ReturnMsg = "Teammanager list not available";
                         obj.Data = new List<int>();
                         return obj;
                     }

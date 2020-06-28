@@ -114,14 +114,13 @@ namespace VolleyballService.Services
             return obj;
         }
 
-
         public GenericClass AddEditTournamentTeam(CReqAddEditTournamentTeam Data)
         {
             GenericClass obj = new GenericClass();
 
             try
             {
-                if (Data.StartDate.Value.Date <= System.DateTime.UtcNow.Date)
+                if (Data.StartDate.Value.Date < System.DateTime.UtcNow.Date)
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
                     obj.ReturnMsg = "Select another date.";
@@ -160,7 +159,23 @@ namespace VolleyballService.Services
 
                 else
                 {
+                    var t1 = DC.TournamentTeams.AsEnumerable().Where(x => x.Team1 == Data.Team1 && x.MatchDate.Value.Date == Data.StartDate.Value.Date).FirstOrDefault();
 
+                    if (t1 != null)
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = t1.Team.TeamName + " already have match on this date.";
+                        return obj;
+                    }
+
+                    var t2 = DC.TournamentTeams.AsEnumerable().Where(x => x.Team2 == Data.Team2 && x.MatchDate.Value.Date == Data.StartDate.Value.Date).FirstOrDefault();
+
+                    if (t2 != null)
+                    {
+                        obj.ReturnCode = ResponseMessages.NoDataCode;
+                        obj.ReturnMsg = t2.Team.TeamName + " already have match on this date.";
+                        return obj;
+                    }
 
                     TournamentTeam TM = new TournamentTeam();
 
@@ -240,7 +255,7 @@ namespace VolleyballService.Services
                 DateTime CurrentDate = System.DateTime.UtcNow.Date;
 
                 list.Running = (from u in MatchList.AsEnumerable()
-                                where u.MatchDate.Value.Date == CurrentDate.Date
+                                where u.MatchDate.Value.Date == CurrentDate.Date && u.Team != null && u.Team3 != null
                                 select new CResMatch
                                 {
                                     MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
@@ -256,7 +271,7 @@ namespace VolleyballService.Services
                                 }).ToList();
 
                 list.Upcomming = (from u in MatchList.AsEnumerable()
-                                  where CurrentDate.Date < u.MatchDate.Value.Date
+                                  where CurrentDate.Date < u.MatchDate.Value.Date && u.Team != null && u.Team3 != null
                                   select new CResMatch
                                   {
                                       MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
@@ -272,7 +287,7 @@ namespace VolleyballService.Services
                                   }).ToList();
 
                 list.Commpleted = (from u in MatchList.AsEnumerable()
-                                   where CurrentDate.Date > u.MatchDate.Value.Date
+                                   where CurrentDate.Date > u.MatchDate.Value.Date && u.Team != null && u.Team3 != null
                                    select new CResMatch
                                    {
                                        MatchDate = u.MatchDate.Value.ToString("MM-dd-yyyy"),
@@ -326,7 +341,7 @@ namespace VolleyballService.Services
                 else
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
-                    obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                    obj.ReturnMsg = "Tournament list not avaialble.";
                     obj.Data = new List<int>();
                     return obj;
                 }
@@ -348,7 +363,7 @@ namespace VolleyballService.Services
             try
             {
                 var List = (from u in DC.TournamentTeams.AsEnumerable()
-                            where u.TournamentID == Data.TournamentTeamID
+                            where u.TournamentID == Data.TournamentTeamID && u.Team1 != null && u.Team2 != null
                             orderby u.CreatedDate
                             select new CResMatch
                             {
@@ -375,7 +390,7 @@ namespace VolleyballService.Services
                 else
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
-                    obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                    obj.ReturnMsg = "Tournament team not available";
                     obj.Data = new List<int>();
                     return obj;
                 }

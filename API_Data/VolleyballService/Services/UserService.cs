@@ -585,6 +585,7 @@ namespace VolleyballService.Services
                         DC.TournamentTeams.Remove(PM.TournamentTeams.FirstOrDefault());
                     if (PM.TournamentTeams1.Count() > 0)
                         DC.TournamentTeams.Remove(PM.TournamentTeams1.FirstOrDefault());
+
                     //DC.SaveChanges();
 
                     DC.Teams.Remove(PM);
@@ -644,7 +645,7 @@ namespace VolleyballService.Services
                     else
                     {
                         obj.ReturnCode = ResponseMessages.NoDataCode;
-                        obj.ReturnMsg = ResponseMessages.NoDataMsg;
+                        obj.ReturnMsg = "Team list not available.";
                         obj.Data = new List<int>();
                         return obj;
                     }
@@ -785,7 +786,7 @@ namespace VolleyballService.Services
                 else
                 {
                     obj.ReturnCode = ResponseMessages.NoDataCode;
-                    obj.ReturnMsg = "User does not found";
+                    obj.ReturnMsg = "Team member not available.";
                     obj.Data = new List<int>();
                     return obj;
                 }

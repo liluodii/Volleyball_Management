@@ -7,9 +7,9 @@ using System.Web.Http;
 using Volleyball.Common;
 
 using VolleyballService.Services;
+
 using static Volleyball.EF.CustomClasses.CRequest;
-
-
+using static Volleyball.EF.CustomClasses.CResponse;
 
 namespace VolleyballAPI.Controllers
 {
@@ -34,11 +34,19 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.Login(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
+
                 else
                 {
                     Obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
@@ -75,10 +83,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.ChangePassword(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -116,12 +130,18 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                string JData = _BaseService.ConvertJsontoString(Data);
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.UpdateProfile(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
+
                 else
                 {
                     Obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
@@ -158,11 +178,18 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.ForgetPassword(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
+
                 else
                 {
                     Obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
@@ -273,11 +300,19 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.DeleteTeam(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
+
+
                 else
                 {
                     Obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;
@@ -315,6 +350,13 @@ namespace VolleyballAPI.Controllers
 
                 Obj = _Service.GetTeamList(UserID, Search);
 
+                string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                _BaseService.ValidateAPIToken("123", "", ActionContext.ActionDescriptor.ActionName, JData1);
+
+
+
+
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch
@@ -345,10 +387,16 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.AddPlayerInTeam(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -385,10 +433,17 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.DeletePlayerFromTeam(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
                 else
                 {
@@ -426,11 +481,18 @@ namespace VolleyballAPI.Controllers
                     return Obj;
                 }
 
-                bool _IsValidToken = _BaseService.ValidateAPIToken(Data.APIKey);
-                if (_IsValidToken == true)
+
+                if (Data.APIKey == BaseService.TOKEN)
                 {
                     Obj = _Service.GetTeamMember(Data);
+
+                    string JData = _BaseService.ConvertJsontoString(Data);
+                    string JData1 = _BaseService.ConvertJsontoString(Obj);
+
+                    _BaseService.ValidateAPIToken(Data.APIKey, JData, ActionContext.ActionDescriptor.ActionName, JData1);
+
                 }
+
                 else
                 {
                     Obj.ReturnCode = ResponseMessages.AuthenticationFailedCode;

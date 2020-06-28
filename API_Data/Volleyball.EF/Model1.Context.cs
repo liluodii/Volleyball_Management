@@ -25,6 +25,7 @@ namespace Volleyball.EF
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AppException> AppExceptions { get; set; }
         public virtual DbSet<LeagueManager> LeagueManagers { get; set; }
         public virtual DbSet<PlayerMaster> PlayerMasters { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
@@ -34,6 +35,5 @@ namespace Volleyball.EF
         public virtual DbSet<Tournament> Tournaments { get; set; }
         public virtual DbSet<TournamentTeam> TournamentTeams { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
-        public virtual DbSet<AppException> AppExceptions { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace Volleyball.EF.CustomClasses
 {
     public class CResponse
     {
-        public class CResUserLogin
+        
+        public class CResUserLogin 
         {
             public int UserID { get; set; } = 0;
 
